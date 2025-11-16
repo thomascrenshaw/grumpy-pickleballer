@@ -2,37 +2,40 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { getCollection } from "astro:content";
 
-const posts = (await getCollection("posts")).filter(p => !p.data.draft);
-posts.sort((a, b) => (a.data.date < b.data.date ? 1 : -1));
+const posts = (await getCollection("posts")) as any[];
+// If you’re filtering drafts:
+const visiblePosts = posts.filter((p: any) => !p.data.draft);
 ---
 
 <BaseLayout title="Grumpy Pickleballer">
   <section class="hero">
     <h1>Grumpy Pickleballer</h1>
     <p>
-      Field notes from a late-blooming pickleball player who is not actually grumpy,
-      just honest about whiffs, weird bounces, and accidental winners.
+      Field notes from a late-blooming pickleball player who is not actually
+      grumpy, just honest about whiffs, weird bounces, and accidental winners.
     </p>
   </section>
 
   <section class="post-list">
-    {posts.map((post) => (
-      <article class="post-card">
-        <a href={`/posts/${post.slug}/`}>
-          <div class="post-card-header">
-            <h2 class="post-card-title">{post.data.title}</h2>
-            <time class="post-card-date">{post.data.date}</time>
-          </div>
-          {post.data.blurb && <p>{post.data.blurb}</p>}
-          {post.data.tags && post.data.tags.length > 0 && (
-            <div class="post-card-tags">
-              {post.data.tags.map((tag) => (
-                <span class="tag-pill">{tag}</span>
-              ))}
+    {
+      visiblePosts.map((post: any) => (
+        <article class="post-card">
+          <a href={`/posts/${post.slug}/`}>
+            <div class="post-card-header">
+              <h2 class="post-card-title">{post.data.title}</h2>
+              <time class="post-card-date">{post.data.date}</time>
             </div>
-          )}
-        </a>
-      </article>
-    ))}
+            {post.data.blurb && <p>{post.data.blurb}</p>}
+            {post.data.tags && post.data.tags.length > 0 && (
+              <div class="post-card-tags">
+                {post.data.tags.map((tag: any) => (
+                  <span class="tag-pill">{tag}</span>
+                ))}
+              </div>
+            )}
+          </a>
+        </article>
+      ))
+    }
   </section>
 </BaseLayout>

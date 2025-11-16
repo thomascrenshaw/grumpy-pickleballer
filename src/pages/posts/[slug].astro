@@ -3,18 +3,17 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import { getCollection } from "astro:content";
 
 export async function getStaticPaths() {
-  const posts = await getCollection("posts");
-  return posts.map((post) => ({
+  const posts = (await getCollection("posts")) as any[];
+  return posts.map((post: any) => ({
     params: { slug: post.slug },
     props: { post },
   }));
 }
 
-const { post } = Astro.props;
+const { post } = Astro.props as { post: any };
 const { title, date, tags, coverImage } = post.data;
-
 // 👇 THIS is the important bit: get Content from post.render()
-const { Content } = await post.render();
+const { Content } = await (post as any).render();
 
 const formatDate = (d: any) =>
   typeof d === "string" ? d : new Date(d).toISOString().slice(0, 10);
