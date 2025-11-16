@@ -12,6 +12,12 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 const { title, date, tags, coverImage } = post.data;
+
+// 👇 THIS is the important bit: get Content from post.render()
+const { Content } = await post.render();
+
+const formatDate = (d: any) =>
+  typeof d === "string" ? d : new Date(d).toISOString().slice(0, 10);
 ---
 
 <BaseLayout title={`${title} · Grumpy Pickleballer`}>
@@ -19,19 +25,29 @@ const { title, date, tags, coverImage } = post.data;
     <header class="hero">
       <h1>{title}</h1>
       <p>
-        <time>{date}</time>
-        {tags && tags.length > 0 && (
-          <>
-            {" · "}
-            {tags.join(", ")}
-          </>
-        )}
+        <time>{formatDate(date)}</time>
+        {
+          tags && tags.length > 0 && (
+            <>
+              {" · "}
+              {tags.join(", ")}
+            </>
+          )
+        }
       </p>
-      {coverImage && <img src={coverImage} alt={title} style="max-width: 100%; border-radius: 1rem; margin-top: 1rem;" />}
+      {
+        coverImage && (
+          <img
+            src={coverImage}
+            alt={title}
+            style="max-width: 100%; border-radius: 1rem; margin-top: 1rem;"
+          />
+        )
+      }
     </header>
 
     <section class="post-body">
-      <post.Content />
+      <Content />
     </section>
   </article>
 </BaseLayout>
