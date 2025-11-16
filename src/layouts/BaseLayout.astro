@@ -1,0 +1,46 @@
+---
+const {
+  title = "Grumpy Pickleballer",
+  description = "Late-blooming pickleball field notes",
+} = Astro.props;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="shell">
+        <a href="/" class="brand">
+          <span class="brand-main">Grumpy Pickleballer</span>
+          <span class="brand-sub">not actually grumpy, just honest</span>
+        </a>
+        <nav class="nav">
+          <a href="/">Home</a>
+          <a href="/about">About</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="site-main">
+      <div class="shell">
+        <slot />
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="shell">
+        <p>
+          © {new Date().getFullYear()} Grumpy Pickleballer · powered by dinks and
+          questionable footwork
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>sd
