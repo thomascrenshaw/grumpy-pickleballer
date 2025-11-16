@@ -1,0 +1,93 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+
+// CONFIG: update these if the repo or domain ever change
+const GITHUB_REPO = "thomascrenshaw/grumpy-pickleballer";
+const MAIN_BRANCH = "main";
+const SITE_ORIGIN = "https://grumpypickleballer.com";
+
+const posts = await getCollection("posts");
+
+const formatDate = (d: any) =>
+  typeof d === "string" ? d : new Date(d).toISOString().slice(0, 10);
+
+const sortPosts = (a: any, b: any) =>
+  new Date(b.data.date as any).getTime() -
+  new Date(a.data.date as any).getTime();
+---
+
+<BaseLayout title="Admin · Grumpy Pickleballer">
+  <section class="hero">
+    <h1>Admin</h1>
+    <p>
+      Quick links to edit posts and view them on the site. No fancy CMS, just
+      GitHub doing the heavy lifting.
+    </p>
+  </section>
+
+  <section class="admin-list">
+    <table class="admin-table">
+      <thead>
+        <tr>
+          <th align="left">Title</th>
+          <th align="left">Date</th>
+          <th align="left">Tags</th>
+          <th align="left">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {posts.sort(sortPosts).map((post) => {
+          const slug = post.slug;
+          const data = post.data;
+          const editUrl = `https://github.com/${GITHUB_REPO}/edit/${MAIN_BRANCH}/src/content/posts/${slug}.md`;
+          const viewUrl = `${SITE_ORIGIN}/posts/${slug}/`;
+          return (
+            <tr>
+              <td>{data.title}</td>
+              <td>{formatDate(data.date)}</td>
+              <td>
+                {(data.tags || []).join(", ")}
+              </td>
+              <td>
+                <a href={viewUrl} target="_blank" rel="noreferrer">
+                  View
+                </a>
+                {" · "}
+                <a href={editUrl} target="_blank" rel="noreferrer">
+                  Edit on GitHub
+                </a>
+              </td>
+            </tr>
+          );
+        })}
+      </tbody>
+    </table>
+  </section>
+
+  <style>
+    .admin-table {{
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1.5rem;
+    }}
+    .admin-table th,
+    .admin-table td {{
+      padding: 0.5rem 0.75rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      font-size: 0.95rem;
+    }}
+    .admin-table th {{
+      font-weight: 600;
+      opacity: 0.8;
+    }}
+    .admin-table tr:hover td {{
+      background: rgba(255, 255, 255, 0.03);
+    }}
+    .admin-table a {{
+      text-decoration: underline;
+      text-underline-offset: 2px;
+      font-size: 0.9rem;
+    }}
+  </style>
+</BaseLayout>
