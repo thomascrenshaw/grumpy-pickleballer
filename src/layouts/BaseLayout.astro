@@ -3,6 +3,12 @@ const {
   title = "Grumpy Pickleballer",
   description = "Late-blooming pickleball field notes",
 } = Astro.props;
+const quotes = [
+  "Placeholder quote 1",
+  "Placeholder quote 2",
+  "Placeholder quote 3",
+];
+const footerQuote = quotes[Math.floor(Math.random() * quotes.length)];
 ---
 
 <html lang="en">
@@ -41,6 +47,22 @@ const {
           questionable footwork
         </p>
       </div>
+      <div class="footer-quote">
+        <p>{footerQuote}</p>
+      </div>
+      <style>
+        .footer-quote {
+          margin-top: 1rem;
+          padding-top: 0.75rem;
+          border-top: 1px solid rgba(255, 255, 255, 0.08);
+          text-align: center;
+          font-size: 0.9rem;
+          opacity: 0.8;
+        }
+        .footer-quote p {
+          margin: 0;
+        }
+      </style>
     </footer>
   </body>
 </html>
