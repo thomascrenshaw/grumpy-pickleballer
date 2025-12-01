@@ -9,7 +9,6 @@ If you are going to start a pickleball blog called "Grumpy Pickleballer," you
 might as well collect some reviews.
 
 So far, my favorites are:
-
 - "I only have one problem with the way you play — you've got potential, kid."
   — Will  
 - "Have you played racquet sports before?"  
