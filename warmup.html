@@ -1,0 +1,268 @@
+<!-- v1.1 — reusable #pholes (bigger), side-view arm circle (left shoulder, CW, 1.7s), one-leg lunge up + both-knees down. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Knee-Friendly Pickleball Warm-Up | Grumpy Pickleballer</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <meta name="description" content="An animated 6 to 8 minute courtside pickleball warm-up. Move through range instead of holding stretches, and never static-stretch a cold knee.">
+  <link rel="canonical" href="https://grumpypickleballer.com/warmup">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Grumpy Pickleballer">
+  <meta property="og:title" content="Knee-Friendly Pickleball Warm-Up | Grumpy Pickleballer">
+  <meta property="og:description" content="An animated 6 to 8 minute courtside pickleball warm-up. Move through range instead of holding stretches, and never static-stretch a cold knee.">
+  <meta property="og:url" content="https://grumpypickleballer.com/warmup">
+  <meta property="og:image" content="https://grumpypickleballer.com/img/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+<style>
+  :root{
+    --ink:#1c2321;--paper:#f6f4ec;--line:#2e3835;--safe:#3f7d5c;--wait:#b5763a;--muted:#6b746f;--hair:#d8d4c6;--kitchen:#c9843f;
+    --pickle:#9bc24a;--pickle-line:#6d8a33;
+    --swing-speed:1.7s; --swing-range:55deg; --circle-speed:1.7s; --raise-speed:1.2s; --shuffle-speed:1.4s; --twist-speed:2s;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:#eceadf;color:var(--ink);font-family:"Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased;padding:0 0 48px;}
+  .sheet{max-width:820px;margin:0 auto;padding:0 16px;}
+  .topbar{position:sticky;top:0;z-index:10;background:#eceadfee;backdrop-filter:blur(6px);border-bottom:1px solid var(--hair);padding:10px 16px;margin-bottom:18px;display:flex;align-items:center;gap:10px;font-size:13px;}
+  .topbar a{color:var(--muted);text-decoration:none;font-weight:600;}.topbar .crumb{color:var(--kitchen);font-weight:700;}
+  header{border-bottom:3px solid var(--ink);padding-bottom:14px;margin-bottom:16px;}
+  h1{font-size:27px;margin:0 0 4px;letter-spacing:-0.5px;font-weight:800;}
+  .sub{color:var(--muted);font-size:13px;margin:0;line-height:1.5;}
+  .foyer{background:var(--paper);border:1px solid var(--hair);border-left:4px solid var(--safe);border-radius:10px;padding:14px 16px;margin-bottom:18px;}
+  .foyer p{margin:0 0 10px;font-size:13.5px;line-height:1.55;}
+  .toggle-row{display:flex;gap:8px;flex-wrap:wrap;}
+  .tbtn{flex:1 1 auto;min-width:130px;text-align:center;cursor:pointer;user-select:none;border:1px solid var(--hair);border-radius:8px;padding:11px 12px;font-size:13px;font-weight:700;background:#fff;color:var(--muted);transition:all .12s;}
+  .tbtn.active{color:#fff;border-color:transparent;}
+  .tbtn.knee.active{background:var(--safe);}.tbtn.full.active{background:var(--wait);}
+  .legend{display:flex;gap:16px;flex-wrap:wrap;font-size:12px;margin:0 0 16px;align-items:center;}
+  .legend span{display:inline-flex;align-items:center;gap:6px;}
+  .dot{width:11px;height:11px;border-radius:50%;display:inline-block;}
+  .dot.safe{background:var(--safe);}.dot.wait{background:var(--wait);}
+  .grid{display:grid;grid-template-columns:1fr;gap:12px;}
+  @media(min-width:560px){.grid{grid-template-columns:repeat(auto-fill,minmax(230px,1fr));}}
+  .card{background:var(--paper);border:1px solid var(--hair);border-radius:10px;padding:14px;display:flex;flex-direction:column;position:relative;}
+  .card .tag{position:absolute;top:12px;right:12px;width:10px;height:10px;border-radius:50%;}
+  .card .tag.safe{background:var(--safe);}.card .tag.wait{background:var(--wait);}
+  .figbox{background:#fff;border:1px solid var(--hair);border-radius:7px;height:150px;display:flex;align-items:center;justify-content:center;margin-bottom:10px;}
+  .figbox svg{width:100%;height:100%;}
+  .name{font-weight:700;font-size:15px;margin:0 0 2px;}
+  .dose{font-size:12.5px;color:var(--kitchen);font-weight:600;margin:0 0 6px;}
+  .target{font-size:12.5px;color:var(--muted);margin:0;line-height:1.45;}
+  .controls{margin:0 0 16px;}
+  .cbtn{cursor:pointer;user-select:none;border:1px solid var(--hair);border-radius:8px;padding:8px 14px;font-size:12.5px;font-weight:700;background:#fff;color:var(--muted);display:inline-block;}
+  .paused *{animation-play-state:paused !important;}
+  .s{stroke:var(--line);stroke-width:3.2;fill:none;stroke-linecap:round;stroke-linejoin:round;}
+  .j{fill:var(--line);}
+  .prop{stroke:var(--muted);stroke-width:2;fill:none;stroke-dasharray:4 4;}
+  .ground{stroke:var(--muted);stroke-width:2.4;fill:none;stroke-linecap:round;}
+  .pbody{fill:var(--pickle);stroke:var(--pickle-line);stroke-width:2.5;}
+  .phole{fill:var(--pickle-line);opacity:.55;}
+  .phole-open{fill:none;stroke:var(--pickle-line);stroke-width:1.2;opacity:.5;}
+  .swing-leg{transform-box:fill-box;transform-origin:top center;animation:legswing var(--swing-speed) ease-in-out infinite;}
+  @keyframes legswing{0%{transform:rotate(calc(-1 * var(--swing-range)));}50%{transform:rotate(var(--swing-range));}100%{transform:rotate(calc(-1 * var(--swing-range)));}}
+  .swing-side{transform-box:fill-box;transform-origin:top center;animation:sideswing var(--swing-speed) ease-in-out infinite;}
+  @keyframes sideswing{0%{transform:rotate(0deg);}50%{transform:rotate(var(--swing-range));}100%{transform:rotate(0deg);}}
+  .arm-circle{transform-box:view-box;transform-origin:96px 44px;animation:circ var(--circle-speed) linear infinite;}
+  @keyframes circ{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
+  .twist{animation:tw var(--twist-speed) ease-in-out infinite;}
+  @keyframes tw{0%{transform:rotate(-14deg);}50%{transform:rotate(14deg);}100%{transform:rotate(-14deg);}}
+  .shuffle{animation:sh var(--shuffle-speed) ease-in-out infinite;}
+  @keyframes sh{0%{transform:translateX(-16px);}50%{transform:translateX(16px);}100%{transform:translateX(-16px);}}
+  .frame{opacity:0;animation:framecycle var(--raise-speed) steps(1,end) infinite;}
+  .frame.down{animation-delay:0s;}
+  .frame.up{animation-delay:calc(var(--raise-speed) / 2);}
+  @keyframes framecycle{0%,50%{opacity:1;}50.01%,100%{opacity:0;}}
+  .sframe{opacity:0;animation:framecycle var(--raise-speed) steps(1,end) infinite;}
+  .sframe.a{animation-delay:0s;}
+  .sframe.b{animation-delay:calc(var(--raise-speed) / 2);}
+  .lframe{opacity:0;animation:framecycle calc(var(--raise-speed) * 1.4) steps(1,end) infinite;}
+  .lframe.a{animation-delay:0s;}
+  .lframe.b{animation-delay:calc(var(--raise-speed) * 0.7);}
+  @media(prefers-reduced-motion:reduce){ .swing-leg,.swing-side,.arm-circle,.twist,.shuffle{animation:none;} .frame.up,.sframe.a,.lframe.a{opacity:1;} .frame.down,.sframe.b,.lframe.b{opacity:0;} }
+  body.knee-mode [data-knee="no"]{display:none;}
+  .foot{margin-top:30px;padding-top:14px;border-top:1px solid var(--hair);font-size:12px;color:var(--muted);line-height:1.6;}
+</style>
+</head>
+<body class="knee-mode">
+  <!-- Mr. PBSF's holes, defined once (r22 reference, centered at origin); every body pulls them via <use>. -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+    <g id="pholes">
+      <circle class="phole" cx="-4" cy="-13" r="2.2"/><circle class="phole" cx="6" cy="-12" r="2.2"/>
+      <circle class="phole" cx="-13" cy="-7" r="2.3"/><circle class="phole" cx="1" cy="-7" r="2.7"/><circle class="phole" cx="15" cy="-5" r="2.1"/>
+      <circle class="phole" cx="-17" cy="2" r="2.1"/><circle class="phole" cx="-6" cy="1" r="3.0"/><circle class="phole" cx="6" cy="1" r="2.9"/><circle class="phole" cx="16" cy="4" r="2.2"/>
+      <circle class="phole" cx="-12" cy="9" r="2.5"/><circle class="phole" cx="2" cy="9" r="2.7"/><circle class="phole" cx="13" cy="10" r="2.2"/>
+      <circle class="phole" cx="-4" cy="15" r="2.1"/><circle class="phole" cx="7" cy="14" r="2.2"/>
+      <circle class="phole-open" cx="-9" cy="-2" r="2.5"/><circle class="phole-open" cx="11" cy="-2" r="2.3"/>
+    </g>
+  </defs></svg>
+
+  <div class="topbar"><a href="index.html">&#8592; Grumpy Pickleballer</a><span class="crumb">/ Warm-Up</span></div>
+  <div class="sheet">
+    <header>
+      <h1>&#129362; Dynamic Warm-Up</h1>
+      <p class="sub">Meet Mr. PBSF. Move through range, don't hold. Never static-stretch a cold knee. ~6&#8211;8 min courtside.</p>
+    </header>
+    <div class="foyer">
+      <p><b>Start here.</b> Grumpy knee today? Stay in <b>Knee-Friendly</b> &#8212; only the joint-kind moves. Feeling good? Tap <b>Full Warm-Up</b> for the deeper-loading ones too.</p>
+      <div class="toggle-row">
+        <div class="tbtn knee active" onclick="setMode('knee')">&#128994; Knee-Friendly</div>
+        <div class="tbtn full" onclick="setMode('full')">&#128992; Full Warm-Up</div>
+      </div>
+    </div>
+    <div class="legend">
+      <span><span class="dot safe"></span> Knee-friendly</span>
+      <span><span class="dot wait"></span> Deeper load &#8212; go gentle</span>
+      <span class="controls" style="margin-left:auto"><span class="cbtn" id="pausebtn" onclick="togglePause()">&#9208; Pause motion</span></span>
+    </div>
+    <div class="grid" id="grid">
+
+      <div class="card" data-knee="yes"><span class="tag safe"></span>
+        <div class="figbox"><svg viewBox="0 0 200 150" aria-label="Leg swing front back">
+          <line class="prop" x1="20" y1="138" x2="180" y2="138"/>
+          <circle class="pbody" cx="100" cy="52" r="24"/>
+          <use href="#pholes" x="100" y="52"/>
+          <circle class="j" cx="100" cy="22" r="7"/>
+          <line class="s" x1="80" y1="54" x2="64" y2="50"/><line class="prop" x1="64" y1="50" x2="64" y2="138"/>
+          <line class="s" x1="100" y1="76" x2="100" y2="138"/>
+          <line class="s swing-leg" x1="100" y1="76" x2="100" y2="138"/></svg></div>
+        <p class="name">Leg Swings &#8212; Front / Back</p><p class="dose">10 each leg</p>
+        <p class="target">Hip flexors &amp; hamstrings. Hold something for balance. Controlled &#8212; don't force the top.</p></div>
+
+      <div class="card" data-knee="yes"><span class="tag safe"></span>
+        <div class="figbox"><svg viewBox="0 0 200 150" aria-label="Leg swing side front view">
+          <line class="prop" x1="20" y1="138" x2="180" y2="138"/>
+          <circle class="pbody" cx="100" cy="56" r="24"/>
+          <use href="#pholes" x="100" y="56"/>
+          <circle class="j" cx="100" cy="26" r="7"/>
+          <line class="s" x1="82" y1="48" x2="60" y2="26"/><line class="s" x1="118" y1="48" x2="140" y2="26"/>
+          <line class="s" x1="100" y1="80" x2="100" y2="138"/>
+          <line class="s swing-side" x1="100" y1="80" x2="100" y2="138"/></svg></div>
+        <p class="name">Leg Swings &#8212; Side to Side</p><p class="dose">10 each leg</p>
+        <p class="target">The hip in-&amp;-out flexors. Preps the lateral movement pickleball lives on. (Yes, that's the "Alive" pose.)</p></div>
+
+      <div class="card" data-knee="yes"><span class="tag safe"></span>
+        <div class="figbox"><svg viewBox="0 0 200 150" aria-label="Lateral shuffle">
+          <line class="prop" x1="14" y1="138" x2="186" y2="138"/>
+          <g class="shuffle">
+            <circle class="pbody" cx="100" cy="52" r="22"/>
+            <use href="#pholes" x="100" y="52"/>
+            <circle class="j" cx="100" cy="24" r="7"/>
+            <line class="s" x1="80" y1="48" x2="64" y2="42"/><line class="s" x1="120" y1="48" x2="136" y2="42"/>
+            <line class="s" x1="88" y1="72" x2="80" y2="138"/><line class="s" x1="112" y1="72" x2="120" y2="138"/>
+          </g></svg></div>
+        <p class="name">Lateral Shuffles</p><p class="dose">20 ft out &amp; back &#215; 3</p>
+        <p class="target">Low athletic stance, push off the outside foot. The most sport-specific warm-up move for pickleball.</p></div>
+
+      <div class="card" data-knee="yes"><span class="tag safe"></span>
+        <div class="figbox"><svg viewBox="0 0 200 150" aria-label="Arm circles, side view">
+          <line class="prop" x1="20" y1="138" x2="180" y2="138"/>
+          <circle class="pbody" cx="100" cy="56" r="24"/>
+          <use href="#pholes" x="100" y="56"/>
+          <circle class="j" cx="100" cy="26" r="7"/>
+          <line class="s" x1="100" y1="80" x2="100" y2="138"/>
+          <circle class="j" cx="96" cy="44" r="3"/>
+          <g class="arm-circle"><line class="s" x1="96" y1="44" x2="80" y2="54"/><line class="s" x1="80" y1="54" x2="64" y2="67"/></g></svg></div>
+        <p class="name">Arm Circles + Shoulder Rolls</p><p class="dose">10 each way</p>
+        <p class="target">Preps the paddle shoulder. Big to small, both directions.</p></div>
+
+      <div class="card" data-knee="yes"><span class="tag safe"></span>
+        <div class="figbox"><svg viewBox="0 0 200 150" aria-label="Torso rotations">
+          <line class="prop" x1="20" y1="138" x2="180" y2="138"/>
+          <line class="s" x1="88" y1="86" x2="86" y2="138"/><line class="s" x1="112" y1="86" x2="114" y2="138"/>
+          <g class="twist" style="transform-box:view-box;transform-origin:100px 86px">
+            <circle class="pbody" cx="100" cy="56" r="22"/>
+            <use href="#pholes" x="100" y="56"/>
+            <circle class="j" cx="100" cy="28" r="7"/>
+            <line class="s" x1="80" y1="54" x2="62" y2="60"/><line class="s" x1="120" y1="54" x2="138" y2="60"/>
+          </g></svg></div>
+        <p class="name">Torso Rotations</p><p class="dose">10 each way</p>
+        <p class="target">Rotational prep for serves &amp; drives. Loose and controlled &#8212; don't crank it cold.</p></div>
+
+      <div class="card" data-knee="yes"><span class="tag safe"></span>
+        <div class="figbox"><svg viewBox="0 0 200 150" aria-label="Calf raises">
+          <line class="ground" x1="40" y1="138" x2="150" y2="138"/>
+          <line class="prop" x1="54" y1="40" x2="54" y2="138"/>
+          <g class="frame down">
+            <circle class="pbody" cx="100" cy="72" r="23"/>
+            <use href="#pholes" x="100" y="72"/>
+            <circle class="j" cx="96" cy="43" r="7"/>
+            <line class="s" x1="82" y1="70" x2="56" y2="60"/>
+            <line class="s" x1="100" y1="94" x2="100" y2="138"/><line class="s" x1="100" y1="138" x2="76" y2="138"/>
+          </g>
+          <g class="frame up">
+            <circle class="pbody" cx="100" cy="56" r="23"/>
+            <use href="#pholes" x="100" y="56"/>
+            <circle class="j" cx="96" cy="27" r="7"/>
+            <line class="s" x1="82" y1="54" x2="56" y2="52"/>
+            <line class="s" x1="100" y1="78" x2="100" y2="124"/><line class="s" x1="100" y1="124" x2="82" y2="138"/>
+          </g></svg></div>
+        <p class="name">Ankle Circles + Calf Raises</p><p class="dose">10 circles + 15 raises</p>
+        <p class="target">Ankle = the knee's first defense, and calf raises double as plantar/heel prep. Always do these.</p></div>
+
+      <div class="card" data-knee="no"><span class="tag wait"></span>
+        <div class="figbox"><svg viewBox="0 0 200 150" aria-label="Walking lunge">
+          <line class="prop" x1="20" y1="138" x2="180" y2="138"/>
+          <g class="lframe a">
+            <circle class="pbody" cx="100" cy="56" r="22"/>
+            <use href="#pholes" x="100" y="56"/>
+            <circle class="j" cx="100" cy="28" r="7"/>
+            <circle class="j" cx="86" cy="50" r="2.6"/>
+            <line class="s" x1="86" y1="50" x2="72" y2="64"/><line class="s" x1="72" y1="64" x2="90" y2="72"/>
+            <line class="s" x1="100" y1="78" x2="100" y2="138"/>
+          </g>
+          <g class="lframe b">
+            <circle class="pbody" cx="104" cy="72" r="22"/>
+            <use href="#pholes" x="104" y="72"/>
+            <circle class="j" cx="104" cy="44" r="7"/>
+            <circle class="j" cx="90" cy="66" r="2.6"/>
+            <line class="s" x1="90" y1="66" x2="76" y2="80"/><line class="s" x1="76" y1="80" x2="92" y2="88"/>
+            <line class="s" x1="104" y1="96" x2="130" y2="114"/><line class="s" x1="130" y1="114" x2="130" y2="138"/>
+            <line class="s" x1="104" y1="96" x2="98" y2="124"/><line class="s" x1="98" y1="124" x2="76" y2="138"/>
+          </g></svg></div>
+        <p class="name">Walking Lunges</p><p class="dose">8 each leg</p>
+        <p class="target">Front knee over ankle, not past toes. Deeper knee load &#8212; hidden on knee days. Sub step-back lunges to ease the joint.</p></div>
+
+      <div class="card" data-knee="no"><span class="tag wait"></span>
+        <div class="figbox"><svg viewBox="0 0 200 150" aria-label="Bodyweight squats">
+          <line class="prop" x1="20" y1="138" x2="180" y2="138"/>
+          <g class="sframe a">
+            <circle class="pbody" cx="100" cy="48" r="22"/>
+            <use href="#pholes" x="100" y="48"/>
+            <circle class="j" cx="100" cy="20" r="7"/>
+            <line class="s" x1="84" y1="46" x2="70" y2="40"/><line class="s" x1="116" y1="46" x2="130" y2="40"/>
+            <line class="s" x1="90" y1="68" x2="86" y2="138"/><line class="s" x1="110" y1="68" x2="114" y2="138"/>
+          </g>
+          <g class="sframe b">
+            <circle class="pbody" cx="100" cy="66" r="22"/>
+            <use href="#pholes" x="100" y="66"/>
+            <circle class="j" cx="100" cy="38" r="7"/>
+            <line class="s" x1="84" y1="62" x2="74" y2="50"/><line class="s" x1="116" y1="62" x2="126" y2="50"/>
+            <line class="s" x1="90" y1="86" x2="78" y2="106"/><line class="s" x1="78" y1="106" x2="80" y2="138"/>
+            <line class="s" x1="110" y1="86" x2="122" y2="106"/><line class="s" x1="122" y1="106" x2="120" y2="138"/>
+          </g></svg></div>
+        <p class="name">Bodyweight Squats</p><p class="dose">10 &#8212; slow down, quick up</p>
+        <p class="target">Full-depth wakes up quads/glutes but loads the knee. Grumpy day &#8594; keep them shallow or stay knee-friendly.</p></div>
+
+    </div>
+    <div class="foot">
+      Green = kind to a cranky knee. Amber = deeper load, shown only in Full mode.<br>
+      Dynamic only &#8212; never static-stretch a cold knee. Not medical advice.<br>
+      Prefer the tables? See the <a href="knee-foot-routine.html" style="color:var(--kitchen)">full Knee &amp; Foot Routine</a>.
+    </div>
+  </div>
+  <script>
+    function setMode(mode){
+      document.body.classList.toggle('knee-mode', mode==='knee');
+      document.querySelector('.tbtn.knee').classList.toggle('active', mode==='knee');
+      document.querySelector('.tbtn.full').classList.toggle('active', mode==='full');
+    }
+    function togglePause(){
+      var g=document.getElementById('grid'); g.classList.toggle('paused');
+      var b=document.getElementById('pausebtn'); b.textContent=g.classList.contains('paused')?'\u25B6 Play motion':'\u23F8 Pause motion';
+    }
+  </script>
+</body>
+</html>

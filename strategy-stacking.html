@@ -1,0 +1,68 @@
+<!-- v0.10 — STUB. Scaffolded and ready to expand. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pickleball Stacking Explained | Grumpy Pickleballer</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <meta name="robots" content="noindex">
+<style>
+  :root{--ink:#1c2321;--paper:#f6f4ec;--muted:#6b746f;--hair:#d8d4c6;--court:#4a7a8c;--kitchen:#c9843f;--you:#2e3835;--opp:#b5763a;--ball:#c25a3a;}
+  *{box-sizing:border-box;}
+  body{margin:0;background:#eceadf;color:var(--ink);font-family:"Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased;padding:0 0 48px;}
+  .sheet{max-width:720px;margin:0 auto;padding:0 16px;}
+  .topbar{position:sticky;top:0;z-index:10;background:#eceadfee;backdrop-filter:blur(6px);border-bottom:1px solid var(--hair);padding:10px 16px;margin-bottom:18px;display:flex;align-items:center;gap:8px;font-size:13px;flex-wrap:wrap;}
+  .topbar a{color:var(--muted);text-decoration:none;font-weight:600;}
+  .topbar .crumb{color:var(--kitchen);font-weight:700;}
+  header{border-bottom:3px solid var(--ink);padding-bottom:14px;margin-bottom:16px;}
+  h1{font-size:27px;margin:0 0 4px;letter-spacing:-0.5px;font-weight:800;}
+  .sub{color:var(--muted);font-size:13px;margin:0;line-height:1.5;}
+  .bigcourt{background:#fff;border:1px solid var(--hair);border-radius:10px;padding:10px;margin:0 0 16px;}
+  .bigcourt svg{width:100%;height:auto;display:block;}
+  p.body{font-size:14px;line-height:1.65;margin:0 0 12px;}
+  .stub{background:var(--paper);border:1px dashed var(--kitchen);border-radius:9px;padding:16px;margin:16px 0;font-size:13.5px;line-height:1.6;color:var(--muted);}
+  .cfill{fill:#eaf2f4;}.kfill{fill:#f7ecdd;}.cline{stroke:var(--court);stroke-width:2;fill:none;}
+  .klabel{fill:var(--kitchen);font-size:8px;font-weight:700;font-family:Arial;}
+  .pyou{fill:var(--you);}.popp{fill:var(--opp);}.pyou-r{stroke:var(--you);stroke-width:2.6;fill:none;}
+  .move{stroke:var(--you);stroke-width:2.4;fill:none;stroke-dasharray:5 4;stroke-linecap:round;marker-end:url(#mv);}
+  .plabel{fill:#fff;font-size:8px;font-weight:800;font-family:Arial;text-anchor:middle;}
+  .foot{margin-top:30px;padding-top:14px;border-top:1px solid var(--hair);font-size:12px;color:var(--muted);line-height:1.6;}
+</style>
+</head>
+<body>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+    <marker id="mv" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#2e3835"/></marker>
+  </defs></svg>
+  <div class="topbar"><a href="index.html">← Home</a><a href="positioning-basics.html" style="color:var(--muted)">/ Positioning</a><span class="crumb">/ Stacking</span></div>
+  <div class="sheet">
+    <header>
+      <h1>🥒 Stacking</h1>
+      <p class="sub">Keep both forehands in the middle, or hide a weaker wing on the sideline.</p>
+    </header>
+
+    <div class="bigcourt">
+      <svg viewBox="0 0 300 200" aria-label="Basic stack, partner crosses after serve">
+        <rect class="cfill" x="40" y="14" width="220" height="172"/><line x1="40" y1="14" x2="260" y2="14" stroke="#1c2321" stroke-width="3"/>
+        <rect class="kfill" x="40" y="14" width="220" height="30"/><rect class="kfill" x="40" y="156" width="220" height="30"/>
+        <line class="cline" x1="40" y1="44" x2="260" y2="44"/><line class="cline" x1="40" y1="156" x2="260" y2="156"/>
+        <line class="cline" x1="150" y1="156" x2="150" y2="186"/><rect x="40" y="14" width="220" height="172" fill="none" stroke="#1c2321" stroke-width="2"/>
+        <circle class="pyou" cx="190" cy="176" r="10"/><text class="plabel" x="190" y="179">Y</text>
+        <circle class="pyou" cx="190" cy="140" r="10"/><text class="plabel" x="190" y="143">P</text>
+        <path class="move" d="M178,140 Q110,140 96,150"/>
+        <circle class="pyou-r" cx="90" cy="150" r="10" style="opacity:.4"/>
+        <text class="klabel" x="60" y="120">stack same side, cross after serve</text>
+      </svg>
+    </div>
+
+    <p class="body">Stacking means both partners set up on the <b>same side</b> of the court before the serve, then cross to their preferred sides once the ball's in play. The payoff is keeping both forehands covering the middle (where most balls go), or tucking a weaker backhand out on the sideline.</p>
+
+    <div class="stub">
+      <b>🚧 This page is scaffolded, not finished.</b><br><br>
+      To expand: add the serving stack vs. the returning stack, the half-stack, hand signals, the recovery scramble cost, and when it's worth it vs. not. Copy a court SVG from any positioning page and drop new diagrams in above. Media slots welcome.
+    </div>
+
+    <div class="foot">Part of <a href="positioning-basics.html" style="color:var(--kitchen)">Positioning Basics</a>. Builds on <a href="strategy-the-rope.html" style="color:var(--kitchen)">the rope</a> for the post-cross recovery.</div>
+  </div>
+</body>
+</html>

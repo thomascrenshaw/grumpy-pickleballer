@@ -1,0 +1,148 @@
+<!-- v0.10 — TEMPLATE. Copy this file, rename, fill in. All shared styles live here. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Grumpy Pickleballer — [PAGE TITLE]</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <meta name="robots" content="noindex">
+<style>
+  /* ============================================================
+     SHARED DESIGN SYSTEM — keep identical across every page
+     Colors, stick-figure vocabulary, court vocabulary, layout.
+     To make a new page: copy this file, change <title>, the
+     .topbar label, the <h1>, and fill the <main>.
+     ============================================================ */
+  :root {
+    --ink:#1c2321; --paper:#f6f4ec; --line:#2e3835;
+    --safe:#3f7d5c; --wait:#b5763a; --muted:#6b746f; --hair:#d8d4c6;
+    --court:#4a7a8c; --kitchen:#c9843f;
+    --you:#2e3835; --opp:#b5763a; --ball:#c25a3a;
+  }
+  * { box-sizing:border-box; }
+  body {
+    margin:0; background:#eceadf; color:var(--ink);
+    font-family:"Helvetica Neue",Arial,sans-serif; -webkit-font-smoothing:antialiased;
+    padding:0 0 48px;
+  }
+  .sheet { max-width:820px; margin:0 auto; padding:0 16px; }
+
+  /* top bar / back nav — mobile first */
+  .topbar {
+    position:sticky; top:0; z-index:10; background:#eceadfee; backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--hair); padding:10px 16px; margin-bottom:18px;
+    display:flex; align-items:center; gap:10px; font-size:13px;
+  }
+  .topbar a { color:var(--muted); text-decoration:none; font-weight:600; }
+  .topbar a:active { color:var(--ink); }
+  .topbar .crumb { color:var(--kitchen); font-weight:700; }
+
+  header { border-bottom:3px solid var(--ink); padding-bottom:14px; margin-bottom:18px; }
+  h1 { font-size:27px; margin:0 0 4px; letter-spacing:-0.5px; font-weight:800; line-height:1.1; }
+  .sub { color:var(--muted); font-size:13px; margin:0; line-height:1.5; }
+
+  .legend { display:flex; gap:16px; flex-wrap:wrap; font-size:12px; margin:0 0 22px; align-items:center; }
+  .legend span { display:inline-flex; align-items:center; gap:6px; }
+  .dot { width:11px; height:11px; border-radius:50%; display:inline-block; }
+  .dot.safe{background:var(--safe);} .dot.wait{background:var(--wait);}
+  .dot.you{background:var(--you);} .dot.opp{background:var(--opp);}
+
+  .group-title {
+    font-size:13px; text-transform:uppercase; letter-spacing:2px; font-weight:700;
+    color:var(--muted); margin:30px 0 12px; padding-bottom:6px; border-bottom:1px solid var(--hair);
+  }
+  .grid { display:grid; grid-template-columns:1fr; gap:12px; }
+  @media(min-width:560px){ .grid{ grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); } }
+
+  .card {
+    background:var(--paper); border:1px solid var(--hair); border-radius:10px;
+    padding:14px; display:flex; flex-direction:column; position:relative;
+  }
+  .card .tag { position:absolute; top:12px; right:12px; width:10px; height:10px; border-radius:50%; }
+  .card .tag.safe{background:var(--safe);} .card .tag.wait{background:var(--wait);}
+  .figbox {
+    background:#fff; border:1px solid var(--hair); border-radius:7px; height:128px;
+    display:flex; align-items:center; justify-content:center; margin-bottom:10px;
+  }
+  .courtbox { height:210px; }
+  .figbox svg { width:100%; height:100%; }
+  .name { font-weight:700; font-size:15px; margin:0 0 2px; }
+  .dose { font-size:12.5px; color:var(--kitchen); font-weight:600; margin:0 0 6px; }
+  .target { font-size:12.5px; color:var(--muted); margin:0; line-height:1.45; }
+  .note { font-size:13px; color:var(--muted); line-height:1.6; }
+
+  /* placeholder for future video/animation on deep-dive pages */
+  .media {
+    background:#fff; border:1px dashed var(--hair); border-radius:9px; height:180px;
+    display:flex; align-items:center; justify-content:center; color:var(--muted);
+    font-size:12.5px; text-align:center; margin:14px 0; padding:12px;
+  }
+
+  /* stick figure vocabulary — matched to knee cards */
+  .s { stroke:var(--line); stroke-width:3.2; fill:none; stroke-linecap:round; stroke-linejoin:round; }
+  .j { fill:var(--line); }
+  .prop { stroke:var(--muted); stroke-width:2; fill:none; stroke-dasharray:4 4; }
+  .arrow { stroke:var(--ball); stroke-width:2.6; fill:none; stroke-linecap:round; stroke-linejoin:round; }
+
+  /* court vocabulary */
+  .cfill{fill:#eaf2f4;} .kfill{fill:#f7ecdd;} .cline{stroke:var(--court);stroke-width:2;fill:none;}
+  .klabel{fill:var(--kitchen);font-size:8px;font-weight:700;font-family:Arial;letter-spacing:.5px;}
+  .pyou{fill:var(--you);} .popp{fill:var(--opp);}
+  .pyou-r{stroke:var(--you);stroke-width:2.6;fill:none;} .popp-r{stroke:var(--opp);stroke-width:2.6;fill:none;}
+  .move{stroke:var(--you);stroke-width:2.4;fill:none;stroke-dasharray:5 4;stroke-linecap:round;marker-end:url(#mv);}
+  .movo{stroke:var(--opp);stroke-width:2.4;fill:none;stroke-dasharray:5 4;stroke-linecap:round;marker-end:url(#mvo);}
+  .bpath{stroke:var(--ball);stroke-width:2.4;fill:none;stroke-linecap:round;marker-end:url(#bp);}
+  .plabel{fill:#fff;font-size:8px;font-weight:800;font-family:Arial;text-anchor:middle;}
+
+  .foot { margin-top:30px; padding-top:14px; border-top:1px solid var(--hair); font-size:12px; color:var(--muted); line-height:1.6; }
+
+  /* reusable court <defs> — paste <use href> or copy markers into each SVG that needs arrows */
+</style>
+</head>
+<body>
+  <!-- shared arrow markers: keep one hidden SVG so every court can reference them -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+    <marker id="mv" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#2e3835"/></marker>
+    <marker id="mvo" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#b5763a"/></marker>
+    <marker id="bp" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#c25a3a"/></marker>
+  </defs></svg>
+
+  <div class="topbar">
+    <a href="index.html">← Grumpy Pickleballer</a>
+    <span class="crumb">/ [SECTION]</span>
+  </div>
+
+  <div class="sheet">
+    <header>
+      <h1>[PAGE TITLE]</h1>
+      <p class="sub">[One-line description.]</p>
+    </header>
+
+    <main>
+      <!-- ============ FILL THIS IN ============ -->
+
+      <!-- Example media placeholder for a deep-dive page: -->
+      <!-- <div class="media">🎥 Video / animation slot — drop an embed or GIF here later</div> -->
+
+      <!-- Example card grid:
+      <div class="grid">
+        <div class="card"><span class="tag safe"></span>
+          <div class="figbox"><svg viewBox="0 0 200 130">…</svg></div>
+          <p class="name">Move name</p>
+          <p class="dose">dose / cue</p>
+          <p class="target">what &amp; why</p>
+        </div>
+      </div>
+      -->
+
+      <p class="note">Replace this block. Copy a card or a court SVG from any existing page — the styles here match all of them.</p>
+
+    </main>
+
+    <div class="foot">
+      Grumpy Pickleballer · built one riff at a time.
+    </div>
+  </div>
+</body>
+</html>

@@ -1,24 +1,51 @@
-# build output
-dist/
-# generated types
-.astro/
+# --- Archives / bundles ---
+*.zip
+*.tar
+*.tar.gz
+*.tgz
 
-# dependencies
-node_modules/
+# --- macOS ---
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+.AppleDouble
+.LSOverride
+Icon
 
-# logs
+# --- Editors / IDEs ---
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+*~
+*.swp
+*.swo
+
+# --- Environment / secrets ---
+.env
+.env.*
+!.env.example
+
+# --- Logs ---
+*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-pnpm-debug.log*
 
+# --- Node / tooling (only if a build step gets added later) ---
+node_modules/
+.cache/
+dist/
+build/
+.parcel-cache/
+.astro/
 
-# environment variables
-.env
-.env.production
+# --- Temp ---
+*.tmp
+*.bak
+Thumbs.db
 
-# macOS-specific files
-.DS_Store
-
-# jetbrains setting folder
-.idea/
+# --- Local dev helpers (not part of the deployed site) ---
+pages
