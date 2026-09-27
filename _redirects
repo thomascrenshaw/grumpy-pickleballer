@@ -1,0 +1,7 @@
+# Keep internal files off the public site
+/README.md       /  301
+/README          /  301
+/_template.html  /  301
+/_template       /  301
+/anim-admin.html /  301
+/anim-admin      /  301
