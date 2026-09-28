@@ -45,13 +45,14 @@ The whole philosophy fits on a paddle: the score is information, not identity. P
 
 | File | What it is |
 |---|---|
-| `index.html` | Hub, grouped: Before you play, Positioning, The head game, Getting better |
+| `index.html` | Hub, grouped: Before you play, Positioning, The paddle, The head game, Getting better |
 | `warmup.html` | Animated 6–8 min dynamic warm-up with knee-friendly and full versions |
 | `knee-foot-routine.html` | Bottom-to-top, slow-to-fast joint routine. Not medical advice |
 | `positioning-basics.html` | Six diagrammed doubles fundamentals |
 | `strategy-the-rope.html` | Move with your partner like you're tied together |
 | `strategy-the-reset.html` | The attrition shot. Get it over once more, let them miss |
 | `strategy-stacking.html` | **Stub.** Noindexed until it's written |
+| `grips.html` | Continental to western, a tappable bevel diagram, and which grip Tom uses where |
 | `why-you-play.html` | The ethos: who you are on the court and how you treat people |
 | `mental-game.html` | In-match technique: the serve routine as a kit, the silent head |
 | `getting-better.html` | The learning ladder, the ATP, luck cuts both ways |
@@ -63,12 +64,13 @@ The whole philosophy fits on a paddle: the score is information, not identity. P
 - **Positioning, card 1:** add that the serving team has to work to reach the kitchen line together. The receiving team gets there for free.
 - **Warm-up video slots:** footage drops in when it exists.
 - **Parked, on purpose:** leg-length consistency across figures, tap-to-open benefits on warm-up moves, the torso floating off the legs during rotation.
+- **Grips:** confirm whether the over-the-shoulder shift is a true overhead or a high forehand put-away, then settle the aside.
 - **Maybe:** a pickleball journey blog. If it happens, Astro can pass these pages through untouched.
 
 ## SEO
 
 - Every indexable page has a keyword-first title, a meta description, a canonical URL, and Open Graph tags. The preview image is `img/og.png`.
-- `sitemap.xml` lists the nine indexable pages. `robots.txt` points to it.
+- `sitemap.xml` lists the ten indexable pages. `robots.txt` points to it.
 - Canonical URLs have no `.html` because Cloudflare Pages drops the extension.
 - When Stacking is written: remove its `noindex`, add it to `sitemap.xml`.
 

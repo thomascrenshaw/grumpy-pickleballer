@@ -1,0 +1,171 @@
+<!-- v1.0 — Grips: where your hand goes and which grip for which shot. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pickleball Grips: Continental, Eastern, Western | Grumpy Pickleballer</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <meta name="description" content="Where your hand goes on a pickleball paddle and when to use each grip: western for the serve, continental at the kitchen, and the shift for a ball over your shoulder.">
+  <link rel="canonical" href="https://grumpypickleballer.com/grips">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Grumpy Pickleballer">
+  <meta property="og:title" content="Pickleball Grips: Continental, Eastern, Western | Grumpy Pickleballer">
+  <meta property="og:description" content="Where your hand goes on a pickleball paddle and when to use each grip: western for the serve, continental at the kitchen, and the shift for a ball over your shoulder.">
+  <meta property="og:url" content="https://grumpypickleballer.com/grips">
+  <meta property="og:image" content="https://grumpypickleballer.com/img/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+<style>
+  :root{--ink:#1c2321;--paper:#f6f4ec;--muted:#6b746f;--hair:#d8d4c6;--kitchen:#c9843f;--pickle:#9bc24a;--pickle-line:#6d8a33;}
+  *{box-sizing:border-box;}
+  body{margin:0;background:#eceadf;color:var(--ink);font-family:"Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased;padding:0 0 48px;}
+  .sheet{max-width:720px;margin:0 auto;padding:0 16px;}
+  .topbar{position:sticky;top:0;z-index:10;background:#eceadfee;backdrop-filter:blur(6px);border-bottom:1px solid var(--hair);padding:10px 16px;margin-bottom:18px;display:flex;align-items:center;gap:8px;font-size:13px;}
+  .topbar a{color:var(--muted);text-decoration:none;font-weight:600;}
+  .topbar .crumb{color:var(--kitchen);font-weight:700;}
+  header{border-bottom:3px solid var(--ink);padding-bottom:14px;margin-bottom:16px;}
+  h1{font-size:27px;margin:0 0 4px;letter-spacing:-0.5px;font-weight:800;}
+  .sub{color:var(--muted);font-size:13px;margin:0;line-height:1.5;}
+  h2{font-size:17px;margin:26px 0 8px;font-weight:800;letter-spacing:-.2px;}
+  p.body{font-size:14px;line-height:1.65;margin:0 0 12px;}
+  .pull{background:var(--paper);border-left:4px solid var(--kitchen);border-radius:0 8px 8px 0;padding:12px 14px;margin:16px 0;font-size:14px;line-height:1.6;font-style:italic;}
+  .pull.big{font-size:16px;}
+  .aside{background:var(--paper);border:1px solid var(--hair);border-radius:9px;padding:13px 15px;margin:18px 0;font-size:12.5px;line-height:1.6;color:var(--muted);}
+  .aside b{color:var(--ink);}
+  table{width:100%;border-collapse:collapse;background:var(--paper);border:1px solid var(--hair);border-radius:10px;overflow:hidden;font-size:13px;}
+  th{text-align:left;padding:9px 11px;font-size:11.5px;color:var(--muted);font-weight:700;}
+  td{padding:9px 11px;border-top:1px solid var(--hair);vertical-align:top;line-height:1.4;}
+  td.g{font-weight:700;white-space:nowrap;}
+  .bev{font-weight:400;font-size:11.5px;color:var(--muted);}
+  td.cost{color:var(--muted);font-size:12px;}
+  .tablewrap{overflow-x:auto;margin:8px 0 12px;}
+  .foot{margin-top:30px;padding-top:14px;border-top:1px solid var(--hair);font-size:12px;color:var(--muted);line-height:1.6;}
+
+  /* The handle diagram */
+  .handle{background:var(--paper);border:1px solid var(--hair);border-radius:12px;padding:14px 14px 16px;margin:14px 0 18px;}
+  .handle svg{display:block;width:100%;max-width:340px;height:auto;margin:0 auto;}
+  .picker{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:12px 0 10px;}
+  .picker button{font:inherit;font-size:13px;font-weight:700;color:var(--ink);background:#fff;border:1.5px solid var(--hair);border-radius:999px;padding:7px 13px;cursor:pointer;}
+  .picker button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff;}
+  .picker button:focus-visible{outline:3px solid var(--kitchen);outline-offset:2px;}
+  .readout{text-align:center;font-size:13.5px;line-height:1.55;min-height:3.2em;margin:0 auto;max-width:46ch;}
+  .readout b{color:var(--kitchen);}
+  .bevel{fill:#fff;stroke:var(--ink);stroke-width:2;}
+  .num{font-size:12px;font-weight:700;fill:var(--muted);font-family:"Helvetica Neue",Arial,sans-serif;}
+  .knuckle{fill:#fff;stroke:var(--hair);stroke-width:2;transition:fill .2s,stroke .2s;}
+  .knuckle.on{fill:var(--kitchen);stroke:var(--ink);}
+  @media (prefers-reduced-motion: reduce){.knuckle{transition:none;}}
+</style>
+</head>
+<body>
+  <div class="topbar"><a href="index.html">&#8592; Grumpy Pickleballer</a><span class="crumb">/ Grips</span></div>
+  <div class="sheet">
+    <header>
+      <h1>&#129362; Grips</h1>
+      <p class="sub">Where your hand goes on the handle, and which grip goes with which shot. Three of them show up in a single rally of mine. This is my routine, about a year in; yours might look nothing like it.</p>
+    </header>
+
+    <div class="pull big">The grip decides what the paddle face is doing before you ever swing. Turn your hand one notch on the handle and the same swing hits a different shot.</div>
+
+    <h2>Find the bevels</h2>
+    <p class="body">Your handle isn't round. It has eight flat sides, called bevels. Hold the paddle with the edge pointing straight up and look at the butt cap: the top flat is bevel 1, and you count clockwise from there (lefties, count counterclockwise). Each grip is named for where the big knuckle at the base of your index finger lands.</p>
+
+    <div class="handle">
+      <svg viewBox="0 0 340 250" role="img" aria-labelledby="handle-title">
+        <title id="handle-title">End view of a paddle handle with eight numbered bevels. The highlighted bevel shows where the index knuckle sits for the selected grip.</title>
+        <!-- paddle blade seen edge-on, running vertically through the handle -->
+        <rect x="164" y="6" width="12" height="238" rx="6" fill="var(--hair)"/>
+        <text x="186" y="20" class="num">paddle edge</text>
+        <text x="314" y="120" class="num" text-anchor="middle" style="fill:var(--pickle-line)">forehand</text>
+        <text x="314" y="135" class="num" text-anchor="middle" style="fill:var(--pickle-line)">face &#8594;</text>
+        <g id="octagon"></g>
+      </svg>
+      <div class="picker" role="group" aria-label="Choose a grip">
+        <button type="button" data-g="continental" aria-pressed="true">Continental</button>
+        <button type="button" data-g="eastern" aria-pressed="false">Eastern</button>
+        <button type="button" data-g="semi" aria-pressed="false">Semi-western</button>
+        <button type="button" data-g="western" aria-pressed="false">Western</button>
+      </div>
+      <p class="readout" id="readout" aria-live="polite"></p>
+    </div>
+
+    <h2>The four grips</h2>
+    <p class="body">Moving from continental to western, your hand turns further around the handle and the paddle face closes. A closed face brushes up the back of the ball, which is where topspin comes from. The trade is that the further you go, the harder it is to hit anything else.</p>
+    <div class="tablewrap">
+      <table>
+        <tr><th>Grip</th><th>Good for</th><th>Costs you</th></tr>
+        <tr><td class="g">Continental<br><span class="bev">bevel 2</span></td><td>Dinks, volleys, blocks, resets, backhands, overheads. Same face on both sides, so no switching.</td><td class="cost">Hard to hit topspin drives.</td></tr>
+        <tr><td class="g">Eastern<br><span class="bev">bevel 3</span></td><td>The handshake. Forehand drives and easy topspin.</td><td class="cost">Backhand volleys need a switch.</td></tr>
+        <tr><td class="g">Semi-western<br><span class="bev">bevel 4</span></td><td>More topspin, and attacking high forehands.</td><td class="cost">Low balls get harder; slower to switch out of.</td></tr>
+        <tr><td class="g">Western<br><span class="bev">bevel 5</span></td><td>Maximum topspin: serves and big forehand put-aways.</td><td class="cost">Backhands and fast net exchanges.</td></tr>
+      </table>
+    </div>
+
+    <h2>What I actually use</h2>
+    <p class="body"><b>The serve: deep western.</b> Palm nearly under the handle, brush up the back of the ball, topspin. The serve is the one shot where you get all the time you want to set your hand, so it gets the most extreme grip I've got.</p>
+    <p class="body"><b>The kitchen line: continental.</b> Mostly so I can backhand the ball without changing anything. When the dinks speed up, there's no time to turn your hand, and continental doesn't ask you to.</p>
+    <p class="body"><b>A ball up over my right shoulder: the paddle turns my hand.</b> I let the momentum of the swing rotate the grip around to what I think is western. I don't plan it; the paddle just gets there.</p>
+
+    <div class="aside"><b>I looked it up, because "what I think is western" isn't a grip.</b> For a true overhead, coaches teach continental: it lets you lead with the edge and turn the paddle over into the ball, and that forearm rotation is where the power comes from. For a high forehand put-away, around shoulder height and swinging forward, shifting toward semi-western or western is legit. Which one mine is, I'm still sorting out.</div>
+
+    <h2>Leave on purpose, come back every time</h2>
+    <p class="body">Every grip other than your home grip is a trip. You go there for one shot, and then you come back before the next ball. After the serve, that means getting out of western before the return shows up. After a put-away, it means back to continental before the counter.</p>
+
+    <div class="pull">Know your home grip. Leave it on purpose. Come back every time.</div>
+
+    <div class="foot">Described for right-handers; lefties, mirror everything. Not coaching, just what's kept my paddle pointed the right way.</div>
+  </div>
+
+<script>
+(function(){
+  var g = document.getElementById('octagon');
+  var NS = 'http://www.w3.org/2000/svg', cx = 170, cy = 125, R = 78;
+  // flat-top octagon: vertices at 22.5deg + 45k (0deg = right, y down)
+  var pts = [];
+  for (var k = 0; k < 8; k++) {
+    var a = (Math.PI / 180) * (-112.5 + 45 * k);
+    pts.push([cx + R * Math.cos(a), cy + R * Math.sin(a)]);
+  }
+  var poly = document.createElementNS(NS, 'polygon');
+  poly.setAttribute('points', pts.map(function(p){return p.join(',');}).join(' '));
+  poly.setAttribute('class', 'bevel');
+  poly.setAttribute('fill', '#fff');
+  g.appendChild(poly);
+  var knuckles = {};
+  for (var b = 1; b <= 8; b++) {
+    var ang = (Math.PI / 180) * (-90 + 45 * (b - 1)); // bevel 1 at top, clockwise
+    var mx = cx + (R * 0.924) * Math.cos(ang), my = cy + (R * 0.924) * Math.sin(ang);
+    var lx = cx + (R + 20) * Math.cos(ang), ly = cy + (R + 20) * Math.sin(ang);
+    var t = document.createElementNS(NS, 'text');
+    t.setAttribute('x', lx); t.setAttribute('y', ly + 4);
+    t.setAttribute('text-anchor', 'middle'); t.setAttribute('class', 'num');
+    t.textContent = b; g.appendChild(t);
+    if (b >= 2 && b <= 5) {
+      var c = document.createElementNS(NS, 'circle');
+      c.setAttribute('cx', mx); c.setAttribute('cy', my); c.setAttribute('r', 9);
+      c.setAttribute('class', 'knuckle'); g.appendChild(c);
+      knuckles[b] = c;
+    }
+  }
+  var grips = {
+    continental: {b:2, text:'<b>Continental</b>, knuckle on bevel 2. Home grip at the kitchen line; forehand and backhand without a switch.'},
+    eastern:     {b:3, text:'<b>Eastern</b>, knuckle on bevel 3. The handshake: palm flat behind the face, forehand drives.'},
+    semi:        {b:4, text:'<b>Semi-western</b>, knuckle on bevel 4. Face closing; more topspin, good on high forehands.'},
+    western:     {b:5, text:'<b>Western</b>, knuckle on bevel 5. Palm under the handle; the topspin serve lives here.'}
+  };
+  var readout = document.getElementById('readout');
+  var buttons = document.querySelectorAll('.picker button');
+  function show(key){
+    var gr = grips[key];
+    for (var n in knuckles) knuckles[n].classList.toggle('on', +n === gr.b);
+    buttons.forEach(function(btn){ btn.setAttribute('aria-pressed', btn.dataset.g === key ? 'true' : 'false'); });
+    readout.innerHTML = gr.text;
+  }
+  buttons.forEach(function(btn){ btn.addEventListener('click', function(){ show(btn.dataset.g); }); });
+  show('continental');
+})();
+</script>
+</body>
+</html>
