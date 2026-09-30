@@ -6,7 +6,7 @@ The sincere site. One of three doors into the same guy:
 |---|---|---|
 | **grumpypickleballer.com** | **Tom, for real** | **Sincere, a little cranky, all heart** |
 | doyouevendinkbro.com | Tom, in costume | Supremely confident, always wrong |
-| howcanyounothavefunplayingpickleball.com | Kristen, watching | Fond, wry, affectionate |
+| howcanyounothavefunplayingpickleball.com | Kristen, watching | Fond, wry, affectionate (not built yet) |
 
 ## Why this exists
 
@@ -39,18 +39,20 @@ The whole philosophy fits on a paddle: the score is information, not identity. P
 - All timing comes from one `:root` block: `--swing-speed: 1.7s`, `--swing-range: 55deg`, `--circle-speed: 1.7s`.
 - One technique per kind of motion: continuous rotate for swings and arm circles, `translateX` for shuffles, rotate for the torso, and a two-frame opacity toggle for calf raises, squats, and lunges.
 - `prefers-reduced-motion` is respected.
+- `anim-admin.html` is the local tuning dashboard for those variables. It's a dev tool and never deploys.
 
 ## Pages
 
 | File | What it is |
 |---|---|
-| `index.html` | Hub, grouped: Before you play, Positioning, The paddle, The head game, Getting better |
+| `index.html` | Hub with quote-led tiles and a featured sayings card, grouped: Before you play, Positioning, The paddle, The head game, Getting better |
 | `warmup.html` | Animated 6–8 min dynamic warm-up with knee-friendly and full versions |
 | `knee-foot-routine.html` | Bottom-to-top, slow-to-fast joint routine. Not medical advice |
 | `positioning-basics.html` | Six diagrammed doubles fundamentals |
 | `strategy-the-rope.html` | Move with your partner like you're tied together |
 | `strategy-the-reset.html` | The attrition shot. Get it over once more, let them miss |
 | `strategy-stacking.html` | **Stub.** Noindexed until it's written |
+| `sayings.html` | Things I Say on the Court: ten sayings, each opening into origin, meaning, and the principle behind it. Featured at the top of the hub |
 | `grips.html` | Continental to western, a tappable bevel diagram, and which grip Tom uses where |
 | `why-you-play.html` | The ethos: who you are on the court and how you treat people |
 | `mental-game.html` | In-match technique: the serve routine as a kit, the silent head |
@@ -58,6 +60,8 @@ The whole philosophy fits on a paddle: the score is information, not identity. P
 | `_template.html` | Starting point for new pages. Noindexed and redirected away |
 
 ## To do
+
+- **Sayings:** only Tom's own lines go on the sayings page and in hub tile quotes. Add new ones as they come up at the court.
 
 - **Stacking:** waiting on the stacking how-to Tom wrote for Sonya.
 - **Positioning, card 1:** add that the serving team has to work to reach the kitchen line together. The receiving team gets there for free.
@@ -69,7 +73,7 @@ The whole philosophy fits on a paddle: the score is information, not identity. P
 ## SEO
 
 - Every indexable page has a keyword-first title, a meta description, a canonical URL, and Open Graph tags. The preview image is `img/og.png`.
-- `sitemap.xml` lists the ten indexable pages. `robots.txt` points to it.
+- `sitemap.xml` lists the eleven indexable pages. `robots.txt` points to it.
 - Canonical URLs have no `.html` because Cloudflare Pages drops the extension.
 - When Stacking is written: remove its `noindex`, add it to `sitemap.xml`.
 
@@ -77,6 +81,6 @@ The whole philosophy fits on a paddle: the score is information, not identity. P
 
 Cloudflare Pages, connected to this repo. Framework preset: None. Build command: empty. Output directory: root. Push to `main` and it redeploys.
 
-`_redirects` keeps this README and the template off the public site.
+`_redirects` keeps this README, the template, and the anim dashboard off the public site.
 
-Local preview: run `./pages` in this folder.
+Local preview: run `pages` in this folder.
