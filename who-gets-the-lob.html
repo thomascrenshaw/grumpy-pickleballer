@@ -1,0 +1,150 @@
+<!-- v1.0 — Who Gets the Lob -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!-- readable: larger type, system font, darker gray -->
+<meta id="readable" name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Who Gets the Lob? Pickleball Doubles Switching | Grumpy Pickleballer</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <meta name="description" content="Who takes a lob in pickleball doubles: generally, the player on the opposite side calls it and gets it, and the player lobbed over switches. The same idea covers getting pulled wide, with exceptions.">
+  <link rel="canonical" href="https://grumpypickleballer.com/who-gets-the-lob">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Grumpy Pickleballer">
+  <meta property="og:title" content="Who Gets the Lob? Pickleball Doubles Switching | Grumpy Pickleballer">
+  <meta property="og:description" content="Who takes a lob in pickleball doubles: generally, the player on the opposite side calls it and gets it, and the player lobbed over switches. The same idea covers getting pulled wide, with exceptions.">
+  <meta property="og:url" content="https://grumpypickleballer.com/who-gets-the-lob">
+  <meta property="og:image" content="https://grumpypickleballer.com/img/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+<style>
+  :root{--ink:#1c2321;--paper:#f6f4ec;--muted:#505854;--hair:#d8d4c6;--kitchen:#c9843f;--pickle:#9bc24a;--pickle-line:#6d8a33;
+        --court:#4a7a8c;--you:#2e3835;--opp:#b5763a;--ball:#c25a3a;}
+  *{box-sizing:border-box;}
+  body{margin:0;background:#eceadf;color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;padding:0 0 48px;}
+  .sheet{max-width:720px;margin:0 auto;padding:0 16px;}
+  .topbar{position:sticky;top:0;z-index:10;background:#eceadfee;backdrop-filter:blur(6px);border-bottom:1px solid var(--hair);padding:10px 16px;margin-bottom:18px;display:flex;align-items:center;gap:8px;font-size:15px;}
+  .topbar a{color:var(--muted);text-decoration:none;font-weight:600;}
+  .topbar .crumb{color:var(--kitchen);font-weight:700;}
+  header{border-bottom:3px solid var(--ink);padding-bottom:14px;margin-bottom:16px;}
+  h1{font-size:27px;margin:0 0 4px;letter-spacing:-0.5px;font-weight:800;}
+  .sub{color:var(--muted);font-size:15px;margin:0;line-height:1.5;}
+  h2{font-size:18.5px;margin:26px 0 8px;font-weight:800;letter-spacing:-.2px;}
+  p.body{font-size:16px;line-height:1.65;margin:0 0 12px;}
+  .pull{background:var(--paper);border-left:4px solid var(--kitchen);border-radius:0 8px 8px 0;padding:12px 14px;margin:16px 0;font-size:16px;line-height:1.6;font-style:italic;}
+  .pull.big{font-size:17.5px;}
+  .aside{background:var(--paper);border:1px solid var(--hair);border-radius:9px;padding:13px 15px;margin:18px 0;font-size:14px;line-height:1.6;color:var(--muted);}
+  .aside b{color:var(--ink);}
+  ol.steps{list-style:none;counter-reset:s;padding:0;margin:10px 0 14px;}
+  ol.steps li{counter-increment:s;position:relative;padding:0 0 14px 36px;font-size:16px;line-height:1.65;}
+  ol.steps li::before{content:counter(s);position:absolute;left:0;top:1px;width:25px;height:25px;border-radius:50%;background:var(--ink);color:#fff;font-weight:800;font-size:13.5px;display:flex;align-items:center;justify-content:center;}
+  ol.steps .label{display:block;font-weight:800;}
+  table{width:100%;border-collapse:collapse;background:var(--paper);border:1px solid var(--hair);border-radius:10px;overflow:hidden;font-size:15px;}
+  th{text-align:left;padding:9px 11px;font-size:13px;color:var(--muted);font-weight:700;}
+  td{padding:9px 11px;border-top:1px solid var(--hair);vertical-align:top;line-height:1.45;}
+  td.k{font-weight:800;white-space:nowrap;}
+  .tablewrap{overflow-x:auto;margin:8px 0 14px;}
+  a.inline{color:var(--kitchen);}
+  .diagram{background:#fff;border:1px solid var(--hair);border-radius:10px;padding:10px;margin:10px 0 6px;}
+  .diagram svg{display:block;width:100%;max-width:360px;height:auto;margin:0 auto;}
+  .cap{font-size:14px;color:var(--muted);line-height:1.5;margin:0 0 14px;text-align:center;}
+  .foot{margin-top:30px;padding-top:14px;border-top:1px solid var(--hair);font-size:14px;color:var(--muted);line-height:1.6;}
+
+  .lbl{font-size:10px;font-weight:800;letter-spacing:.8px;fill:#505854;font-family:-apple-system,BlinkMacSystemFont,Arial,sans-serif;}
+  .pl{font-size:10px;font-weight:800;fill:#fff;font-family:Arial,sans-serif;}
+  .call{font-size:11px;font-weight:800;fill:#1c2321;font-family:-apple-system,BlinkMacSystemFont,Arial,sans-serif;}
+
+</style>
+</head>
+<body>
+  <div class="topbar"><a href="index.html">&#8592; Grumpy Pickleballer</a><span class="crumb">/ Who Gets the Lob</span></div>
+  <div class="sheet">
+    <header>
+      <h1>&#129362; Who Gets the Lob</h1>
+      <p class="sub">Generally speaking, the player on the opposite side calls it and gets it, and the player who got lobbed switches. The same idea applies to getting pulled wide.</p>
+    </header>
+
+    <div class="pull big">If you see empty court on your side, so does your opponent.</div>
+
+    <h2>The lob</h2>
+    <ol class="steps">
+      <li><span class="label">Generally speaking, the player on the opposite side calls it and gets it.</span>They're usually already behind the ball's path and can run to it facing forward. The player who got lobbed would often have to backpedal, which is how people fall.</li>
+      <li><span class="label">The player who got lobbed usually switches.</span>Slide across and cover the side your partner just left. Now you're both where you need to be for the next ball.</li>
+      <li><span class="label">Say it, early and loud.</span>&#8220;Mine!&#8221; from the one going back. &#8220;Switch!&#8221; from the one sliding over. Whatever words your crew uses, use them before the ball bounces.</li>
+    </ol>
+
+    <div class="diagram"><svg viewBox="0 0 240 300" role="img" aria-labelledby="lob-t">
+  <title id="lob-t">A lob goes over Y. P, on the opposite side, calls it and crosses behind to get it, while Y switches to P's side.</title>
+  <defs>
+    <marker id="lobmv" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#2e3835"/></marker>
+    <marker id="lobbp" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#c25a3a"/></marker>
+  </defs>
+  <rect x="20" y="40" width="200" height="240" fill="#eaf2f4"/>
+  <rect x="20" y="40" width="200" height="76" fill="#f7ecdd"/>
+  <line x1="20" y1="116" x2="220" y2="116" stroke="#4a7a8c" stroke-width="2"/>
+  <line x1="120" y1="116" x2="120" y2="280" stroke="#4a7a8c" stroke-width="2"/>
+  <rect x="20" y="40" width="200" height="240" fill="none" stroke="#1c2321" stroke-width="2"/>
+  <line x1="12" y1="40" x2="228" y2="40" stroke="#1c2321" stroke-width="4"/>
+  <text x="228" y="33" text-anchor="end" class="lbl">NET</text>
+  <text x="26" y="58" class="lbl" style="fill:#c9843f">KITCHEN</text>
+  <text x="120" y="296" text-anchor="middle" class="lbl">BASELINE</text>
+  <circle cx="80" cy="20" r="9" fill="#b5763a"/><circle cx="160" cy="20" r="9" fill="#b5763a"/>
+<path d="M80,30 L62,250" fill="none" stroke="#c25a3a" stroke-width="2.4" stroke-linecap="round" marker-end="url(#lobbp)"/>
+<text x="46" y="92" class="lbl" style="fill:#c25a3a">LOB</text>
+<path d="M168,136 Q168,236 76,254" fill="none" stroke="#2e3835" stroke-width="2.4" stroke-dasharray="5 4" stroke-linecap="round" marker-end="url(#lobmv)"/>
+<path d="M84,124 L152,124" fill="none" stroke="#2e3835" stroke-width="2.4" stroke-dasharray="5 4" stroke-linecap="round" marker-end="url(#lobmv)"/>
+<circle cx="70" cy="124" r="10" fill="#2e3835"/><text x="70" y="128" text-anchor="middle" class="pl">Y</text>
+<circle cx="170" cy="124" r="10" fill="#2e3835"/><text x="170" y="128" text-anchor="middle" class="pl">P</text>
+<circle cx="61" cy="258" r="5" fill="#c25a3a"/>
+<text x="176" y="196" text-anchor="start" class="call">P: “Mine!”</text>
+<text x="120" y="108" text-anchor="middle" class="call">Y: “Switch!”</text>
+</svg></div>
+    <p class="cap">A typical lob: P calls it and crosses behind; Y switches to P's side.</p>
+
+    <h2>Same idea, different shot: getting pulled wide</h2>
+    <p class="body">A sharp angle drags one player out past the sideline, and suddenly the other half of your side is wide open. The other team sees it before you do. Usually, the partner still in the court slides toward the middle and says so, and the player who got pulled wide gets back as fast as they can.</p>
+
+    <div class="diagram"><svg viewBox="0 0 240 300" role="img" aria-labelledby="wide-t">
+  <title id="wide-t">Y gets pulled wide past the sideline. P slides toward the middle, leaving the right side empty.</title>
+  <defs>
+    <marker id="widemv" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#2e3835"/></marker>
+    <marker id="widebp" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#c25a3a"/></marker>
+  </defs>
+  <rect x="20" y="40" width="200" height="240" fill="#eaf2f4"/>
+  <rect x="20" y="40" width="200" height="76" fill="#f7ecdd"/>
+  <line x1="20" y1="116" x2="220" y2="116" stroke="#4a7a8c" stroke-width="2"/>
+  <line x1="120" y1="116" x2="120" y2="280" stroke="#4a7a8c" stroke-width="2"/>
+  <rect x="20" y="40" width="200" height="240" fill="none" stroke="#1c2321" stroke-width="2"/>
+  <line x1="12" y1="40" x2="228" y2="40" stroke="#1c2321" stroke-width="4"/>
+  <text x="228" y="33" text-anchor="end" class="lbl">NET</text>
+  <text x="26" y="58" class="lbl" style="fill:#c9843f">KITCHEN</text>
+  <text x="120" y="296" text-anchor="middle" class="lbl">BASELINE</text>
+  <circle cx="80" cy="20" r="9" fill="#b5763a"/><circle cx="160" cy="20" r="9" fill="#b5763a"/>
+<rect x="140" y="138" width="78" height="140" fill="#c9843f" opacity=".18"/>
+<text x="177" y="206" text-anchor="middle" class="lbl" style="fill:#a8672a">EMPTY</text>
+<text x="177" y="219" text-anchor="middle" class="lbl" style="fill:#a8672a">COURT</text>
+<path d="M80,30 L16,138" fill="none" stroke="#c25a3a" stroke-width="2.4" stroke-linecap="round" marker-end="url(#widebp)"/>
+<circle cx="176" cy="124" r="10" fill="none" stroke="#2e3835" stroke-width="1.5" stroke-dasharray="3 3"/>
+<path d="M164,124 L134,124" fill="none" stroke="#2e3835" stroke-width="2.4" stroke-dasharray="5 4" stroke-linecap="round" marker-end="url(#widemv)"/>
+<circle cx="12" cy="150" r="10" fill="#2e3835"/><text x="12" y="154" text-anchor="middle" class="pl">Y</text>
+<circle cx="120" cy="124" r="10" fill="#2e3835"/><text x="120" y="128" text-anchor="middle" class="pl">P</text>
+<text x="120" y="108" text-anchor="middle" class="call">P: “I got middle!”</text>
+</svg></div>
+    <p class="cap">A typical pull wide: P slides from the dotted spot toward the middle; the empty court is the other team's target.</p>
+
+    <h2>The rule of thumb</h2>
+    <p class="body">It's a rule of thumb, not a law. Empty court is a signal, and both teams can see it. When you see it on your side, communicate and move: &#8220;I got your side,&#8221; &#8220;switch,&#8221; whatever works. The words matter less than saying something.</p>
+    <div class="aside"><b>&#8220;Well, you know, there are exceptions.&#8221;</b> I can already hear it from the coaches at the court, and they're right. If the lob is short enough to hit as an overhead without backpedaling, the player it went over can take it. If your partner can't get there in time, the call changes. And if you and your partner have agreed on something different, do that. The point is to decide out loud, not to follow a rule off a cliff.</div>
+
+    <p class="body">The calls themselves get their own page: <a class="inline" href="communication.html">Talk to Your Partner</a>.</p>
+
+    <div class="aside"><b>The other approach.</b> A certain scout recommends lobbing everything, ideally into the sun. <a class="inline" href="https://doyouevendinkbro.com/dink-report">His full playbook</a> is available, against my advice.</div>
+
+    <div class="foot">Described for doubles. Every crew has its own calls; what matters is that you have some.
+      <span class="xwink" style="display:block;margin-top:10px;">Not affiliated with <a href="https://doyouevendinkbro.com" style="color:inherit;text-decoration:underline;text-underline-offset:2px">doyouevendinkbro.com</a>. I've spoken to him about it, but he insists we're partners. We have never been seen in the same room.</span>
+    </div>
+  </div>
+
+</body>
+</html>

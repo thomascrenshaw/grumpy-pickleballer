@@ -16,6 +16,8 @@ The whole philosophy fits on a paddle: the score is information, not identity. P
 
 ## Voice
 
+- Rules of thumb, not laws. Say "generally" or "usually" and leave room for the exceptions a coach would raise.
+
 - First person, conversational, a little cranky, never mean.
 - Organize what Tom actually said. Don't invent opinions for him.
 - Humble by disclaimer, not by title: "this is *my* routine, about a year in, yours might look nothing like it."
@@ -45,15 +47,20 @@ The whole philosophy fits on a paddle: the score is information, not identity. P
 
 | File | What it is |
 |---|---|
-| `index.html` | Hub with quote-led tiles and a featured sayings card, grouped: Before you play, Positioning, The paddle, The head game, Getting better |
+| `index.html` | Hub with a featured sayings card and quote-led tiles, grouped: Before you play, Positioning, Playing the game, The paddle, The head game, Getting better, Advanced |
 | `warmup.html` | Animated 6–8 min dynamic warm-up with knee-friendly and full versions |
 | `knee-foot-routine.html` | Bottom-to-top, slow-to-fast joint routine. Not medical advice |
 | `positioning-basics.html` | Six diagrammed doubles fundamentals |
 | `strategy-the-rope.html` | Move with your partner like you're tied together |
 | `strategy-the-reset.html` | The attrition shot. Get it over once more, let them miss |
-| `strategy-stacking.html` | **Stub.** Noindexed until it's written |
+| `strategy-stacking.html` | **Stub**, now under Advanced (skills you probably won't use at crew or rec play). Noindexed until it's written |
 | `sayings.html` | Things I Say on the Court: ten sayings, each opening into origin, meaning, and the principle behind it. Featured at the top of the hub |
 | `grips.html` | Continental to western, a tappable bevel diagram, and which grip Tom uses where |
+| `pre-snap-read.html` | Returning serve like a quarterback reads a defense: formation, snap, call, conditions, knowing your crew |
+| `who-gets-the-lob.html` | Generally, the opposite side calls it and gets it and the lobbed player switches, with an exceptions note. Two court diagrams: the lob and getting pulled wide |
+| `communication.html` | Talk to Your Partner: the one-word calls and how to use them |
+| `finding-your-paddle.html` | The best paddle is the one that works for you; how to try before you buy |
+| `weighting.html` | Where to add weight and what it changes, with a tappable paddle diagram and a three-question quiz |
 | `why-you-play.html` | The ethos: who you are on the court and how you treat people |
 | `mental-game.html` | In-match technique: the serve routine as a kit, the silent head |
 | `getting-better.html` | The learning ladder, the ATP, luck cuts both ways |
@@ -61,6 +68,7 @@ The whole philosophy fits on a paddle: the score is information, not identity. P
 
 ## To do
 
+- **Weighting, My build:** update as the hybrid test on the elongated paddle settles.
 - **Sayings:** only Tom's own lines go on the sayings page and in hub tile quotes. Add new ones as they come up at the court.
 
 - **Stacking:** waiting on the stacking how-to Tom wrote for Sonya.
@@ -73,7 +81,7 @@ The whole philosophy fits on a paddle: the score is information, not identity. P
 ## SEO
 
 - Every indexable page has a keyword-first title, a meta description, a canonical URL, and Open Graph tags. The preview image is `img/og.png`.
-- `sitemap.xml` lists the eleven indexable pages. `robots.txt` points to it.
+- `sitemap.xml` lists the sixteen indexable pages. `robots.txt` points to it.
 - Canonical URLs have no `.html` because Cloudflare Pages drops the extension.
 - When Stacking is written: remove its `noindex`, add it to `sitemap.xml`.
 
