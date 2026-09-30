@@ -3,7 +3,8 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- readable: larger type, system font, darker gray -->
+<meta id="readable" name="viewport" content="width=device-width, initial-scale=1.0">
 <title>How to Get Better at Pickleball | Grumpy Pickleballer</title>
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <meta name="description" content="There&#x27;s no hack, it&#x27;s reps. The learning ladder, the around-the-post shot, luck cutting both ways, and going against your own brain.">
@@ -18,23 +19,27 @@
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
 <style>
-  :root{--ink:#1c2321;--paper:#f6f4ec;--muted:#6b746f;--hair:#d8d4c6;--kitchen:#c9843f;--pickle:#9bc24a;--pickle-line:#6d8a33;}
+  :root{--ink:#1c2321;--paper:#f6f4ec;--muted:#505854;--hair:#d8d4c6;--kitchen:#c9843f;--pickle:#9bc24a;--pickle-line:#6d8a33;}
   *{box-sizing:border-box;}
-  body{margin:0;background:#eceadf;color:var(--ink);font-family:"Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased;padding:0 0 48px;}
+  body{margin:0;background:#eceadf;color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;padding:0 0 48px;}
   .sheet{max-width:720px;margin:0 auto;padding:0 16px;}
-  .topbar{position:sticky;top:0;z-index:10;background:#eceadfee;backdrop-filter:blur(6px);border-bottom:1px solid var(--hair);padding:10px 16px;margin-bottom:18px;display:flex;align-items:center;gap:8px;font-size:13px;}
+  .topbar{position:sticky;top:0;z-index:10;background:#eceadfee;backdrop-filter:blur(6px);border-bottom:1px solid var(--hair);padding:10px 16px;margin-bottom:18px;display:flex;align-items:center;gap:8px;font-size:15px;}
   .topbar a{color:var(--muted);text-decoration:none;font-weight:600;}
   .topbar .crumb{color:var(--kitchen);font-weight:700;}
   header{border-bottom:3px solid var(--ink);padding-bottom:14px;margin-bottom:16px;}
   h1{font-size:27px;margin:0 0 4px;letter-spacing:-0.5px;font-weight:800;}
-  .sub{color:var(--muted);font-size:13px;margin:0;line-height:1.5;}
-  h2{font-size:17px;margin:26px 0 8px;font-weight:800;letter-spacing:-.2px;}
-  p.body{font-size:14px;line-height:1.65;margin:0 0 12px;}
-  .pull{background:var(--paper);border-left:4px solid var(--kitchen);border-radius:0 8px 8px 0;padding:12px 14px;margin:16px 0;font-size:14px;line-height:1.6;font-style:italic;}
-  .pull.big{font-size:16px;}
-  .aside{background:var(--paper);border:1px solid var(--hair);border-radius:9px;padding:13px 15px;margin:18px 0;font-size:12.5px;line-height:1.6;color:var(--muted);}
+  .sub{color:var(--muted);font-size:15px;margin:0;line-height:1.5;}
+  h2{font-size:18.5px;margin:26px 0 8px;font-weight:800;letter-spacing:-.2px;}
+  p.body{font-size:16px;line-height:1.65;margin:0 0 12px;}
+  .pull{background:var(--paper);border-left:4px solid var(--kitchen);border-radius:0 8px 8px 0;padding:12px 14px;margin:16px 0;font-size:16px;line-height:1.6;font-style:italic;}
+  .pull.big{font-size:17.5px;}
+  .aside{background:var(--paper);border:1px solid var(--hair);border-radius:9px;padding:13px 15px;margin:18px 0;font-size:14px;line-height:1.6;color:var(--muted);}
   .aside b{color:var(--ink);}
-  .foot{margin-top:30px;padding-top:14px;border-top:1px solid var(--hair);font-size:12px;color:var(--muted);line-height:1.6;}
+  ol.steps{list-style:none;counter-reset:s;padding:0;margin:10px 0 14px;}
+  ol.steps li{counter-increment:s;position:relative;padding:0 0 14px 36px;font-size:16px;line-height:1.65;}
+  ol.steps li::before{content:counter(s);position:absolute;left:0;top:1px;width:25px;height:25px;border-radius:50%;background:var(--ink);color:#fff;font-weight:800;font-size:14px;display:flex;align-items:center;justify-content:center;}
+  .hardest{display:block;font-style:italic;color:var(--kitchen);font-weight:700;font-size:15px;margin:1px 0 2px;}
+  .foot{margin-top:30px;padding-top:14px;border-top:1px solid var(--hair);font-size:13.5px;color:var(--muted);line-height:1.6;}
 </style>
 </head>
 <body>
@@ -52,14 +57,22 @@
     <h2>If you're the best in the group, that's a job</h2>
     <p class="body">Your job is to make the group better, and the way you do that is <i>not</i> by coaching or lecturing — we covered over on <a href="why-you-play.html" style="color:var(--kitchen)">Why You Play</a> why unsolicited advice is really just a way of making the game about you. You do it by playing down only to the exact point where you're still challenging them. Not one notch further. If you make it easy, you're not being nice — you're disrespecting them and their desire to get better. A friend and mentor put it to me in exactly those words, and he's right: dialing it all the way down tells people you don't think they're worth a real ball. Give them shots they have to reach for. That's the gift.</p>
 
-    <h2>The ladder</h2>
-    <p class="body">Here's how I break down learning a new shot while I'm actually playing games — say somebody better than me keeps catching me on angles I can't handle yet. First goal: get your paddle on the ball. That's it. It does not matter where the ball goes after. Keep your eye on it and get some part of the paddle on it — the tip, the sweet spot, your thumb, doesn't matter. Paddle touches ball, you improved, full stop. Remember: a minute ago you were whiffing it entirely. Now you're getting to it, which means your brain has started to solve where the ball is going — you're <i>anticipating</i>. Hang onto that word.</p>
-    <p class="body">Second goal, and this is the rung that takes the longest because it's the hardest: get the right part of the paddle on the ball and get it back over the net. Sweet spot, over the net, repeatably. Once you're doing that consistently, you've won the battle — you've taught yourself to defend a shot you couldn't defend before, in a spot you couldn't cover before. Everything past that point is fine-tuning, and fine-tuning is just reps.</p>
+    <h2>The ladder: five steps</h2>
+    <p class="body">Here's how I break down learning a new shot while I'm actually playing games. Say somebody better than me keeps catching me on angles I can't handle yet.</p>
+    <ol class="steps">
+      <li><b>Make the effort.</b><span class="hardest">This is the hardest part.</span>Sharp angle, lob over your partner's head: run for it.</li>
+      <li><b>Get paddle on it.</b><span class="hardest">This is the hardest part.</span>That's progress. If you're touching it, you're reading it earlier and reacting faster than you were. A minute ago you were whiffing it entirely; now your brain has started to solve where the ball is going. You're <i>anticipating</i>. Hang onto that word.</li>
+      <li><b>Get it over, and in.</b><span class="hardest">This is the hardest part.</span>ATP or OTN (over the net), and landing inside the lines. Pointing the paddle face the right way while you're moving is hard. Loosening your grip right before contact while you're moving is hard.</li>
+      <li><b>Put it where you want it.</b><span class="hardest">This is the hardest part.</span>Now it's a game of a couple of degrees of paddle face and a couple percent of power. Minor tweaks, major rewards.</li>
+      <li><b>Stop thinking about it.</b><span class="hardest">This is the hardest part.</span>For me, it was also the easiest. Once I'm confident I can do something repeatably (the serve, the return, the lob, chasing down a lob), it's autopilot.</li>
+    </ol>
 
-    <div class="aside"><b>The around-the-post party.</b> Want a shot you get to actively celebrate? Learn the ATP. Grab a friend and practice curling a wide dink around the post onto the far court — and mind the specific court, because every one has different side posts and obstructions. Don't sprint full-speed into the fence chasing it; the fence will not move for you, no matter how committed you are. At most levels an ATP is basically a small party: you celebrate the <i>shot</i>, not the point, and everyone around you is thrilled because it's genuinely hard. And when mine clangs off the post instead? I switch the paddle to my left hand, run my right hand through my hair, and say "psyche." Then on to the next point. I still have to consciously think one through in the half-second before the second bounce — which is exactly the point of the next rung.</div>
+    <div class="pull big">It's all the hardest part, because the hardest part is always the thing you're learning. The one that takes the longest is placement. Always will be.</div>
 
-    <h2>The top rung: do it without thinking</h2>
-    <p class="body">The last step of learning anything is to stop thinking about it. This is the serve routine again: I'm not thinking about my serve, I just know it's golden — unless it isn't, because this is pickleball and the game is <a href="why-you-play.html" style="color:var(--kitchen)">designed to make you fail</a>. When a ball is rocketing at my face, I don't think "I should get my paddle up and block this." I just do it. That's the top of the ladder: paddle-on-ball, then sweet-spot-over-the-net, then reps, until the shot drops out of your conscious brain entirely and your body just handles it. You can't jump to this rung. You rep your way up to it — same as the <a href="mental-game.html" style="color:var(--kitchen)">serve you can hit with your eyes closed</a>.</p>
+    <div class="aside"><b>The around-the-post party.</b> Want a shot you get to actively celebrate? Learn the ATP. Grab a friend and practice curling a wide dink around the post onto the far court — and mind the specific court, because every one has different side posts and obstructions. Don't sprint full-speed into the fence chasing it; the fence will not move for you, no matter how committed you are. At most levels an ATP is basically a small party: you celebrate the <i>shot</i>, not the point, and everyone around you is thrilled because it's genuinely hard. And when mine clangs off the post instead? I switch the paddle to my left hand, run my right hand through my hair, and say "psyche." Then on to the next point. I still have to consciously think one through in the half-second before the second bounce — which means that shot isn't on step five for me yet.</div>
+
+    <h2>Step five, up close</h2>
+    <p class="body">The last step of learning anything is to stop thinking about it. This is the serve routine again: I'm not thinking about my serve, I just know it's golden — unless it isn't, because this is pickleball and the game is <a href="why-you-play.html" style="color:var(--kitchen)">designed to make you fail</a>. When a ball is rocketing at my face, I don't think "I should get my paddle up and block this." I just do it. That's the top of the ladder: effort, paddle on ball, over and in, placement, then reps until the shot drops out of your conscious brain entirely and your body just handles it. You can't jump to this step. You rep your way up to it — same as the <a href="mental-game.html" style="color:var(--kitchen)">serve you can hit with your eyes closed</a>.</p>
 
     <h2>The out ball, and the lie your brain tells</h2>
     <p class="body">Now the hardest thing in the game, which isn't a shot at all — it's a decision. There is no worse feeling than calling "No!" on a ball and then watching it drop a foot <i>inside</i> the baseline. And here's what your brain does next: the very next time, it makes you hit a ball that was sailing out — and you'll never know it was out, because you hit it.</p>

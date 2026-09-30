@@ -49,3 +49,6 @@ Thumbs.db
 
 # --- Local dev helpers (not part of the deployed site) ---
 pages
+
+# --- Internal Tools ---
+anim-admin.html
