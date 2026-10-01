@@ -1,0 +1,206 @@
+<!-- v1.0 — Weighting -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!-- readable: larger type, system font, darker gray -->
+<meta id="readable" name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pickleball Paddle Weighting: Where to Add Weight | Grumpy Pickleballer</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <meta name="description" content="Where to add weight to a pickleball paddle and what it changes: top for power, 3 and 9 for a bigger sweet spot, handle for quicker hands. Take the quiz to find your spot.">
+  <link rel="canonical" href="https://grumpypickleballer.com/weighting">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Grumpy Pickleballer">
+  <meta property="og:title" content="Pickleball Paddle Weighting: Where to Add Weight | Grumpy Pickleballer">
+  <meta property="og:description" content="Where to add weight to a pickleball paddle and what it changes: top for power, 3 and 9 for a bigger sweet spot, handle for quicker hands. Take the quiz to find your spot.">
+  <meta property="og:url" content="https://grumpypickleballer.com/weighting">
+  <meta property="og:image" content="https://grumpypickleballer.com/img/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+<style>
+  :root{--ink:#1c2321;--paper:#f6f4ec;--muted:#505854;--hair:#d8d4c6;--kitchen:#c9843f;--pickle:#9bc24a;--pickle-line:#6d8a33;
+        --court:#4a7a8c;--you:#2e3835;--opp:#b5763a;--ball:#c25a3a;}
+  *{box-sizing:border-box;}
+  body{margin:0;background:#eceadf;color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;padding:0 0 48px;}
+  .sheet{max-width:720px;margin:0 auto;padding:0 16px;}
+  .topbar{position:sticky;top:0;z-index:10;background:#eceadfee;backdrop-filter:blur(6px);border-bottom:1px solid var(--hair);padding:10px 16px;margin-bottom:18px;display:flex;align-items:center;gap:8px;font-size:15px;}
+  .topbar a{color:var(--muted);text-decoration:none;font-weight:600;}
+  .topbar .crumb{color:var(--kitchen);font-weight:700;}
+  header{border-bottom:3px solid var(--ink);padding-bottom:14px;margin-bottom:16px;}
+  h1{font-size:27px;margin:0 0 4px;letter-spacing:-0.5px;font-weight:800;}
+  .sub{color:var(--muted);font-size:15px;margin:0;line-height:1.5;}
+  h2{font-size:18.5px;margin:26px 0 8px;font-weight:800;letter-spacing:-.2px;}
+  p.body{font-size:16px;line-height:1.65;margin:0 0 12px;}
+  .pull{background:var(--paper);border-left:4px solid var(--kitchen);border-radius:0 8px 8px 0;padding:12px 14px;margin:16px 0;font-size:16px;line-height:1.6;font-style:italic;}
+  .pull.big{font-size:17.5px;}
+  .aside{background:var(--paper);border:1px solid var(--hair);border-radius:9px;padding:13px 15px;margin:18px 0;font-size:14px;line-height:1.6;color:var(--muted);}
+  .aside b{color:var(--ink);}
+  ol.steps{list-style:none;counter-reset:s;padding:0;margin:10px 0 14px;}
+  ol.steps li{counter-increment:s;position:relative;padding:0 0 14px 36px;font-size:16px;line-height:1.65;}
+  ol.steps li::before{content:counter(s);position:absolute;left:0;top:1px;width:25px;height:25px;border-radius:50%;background:var(--ink);color:#fff;font-weight:800;font-size:13.5px;display:flex;align-items:center;justify-content:center;}
+  ol.steps .label{display:block;font-weight:800;}
+  table{width:100%;border-collapse:collapse;background:var(--paper);border:1px solid var(--hair);border-radius:10px;overflow:hidden;font-size:15px;}
+  th{text-align:left;padding:9px 11px;font-size:13px;color:var(--muted);font-weight:700;}
+  td{padding:9px 11px;border-top:1px solid var(--hair);vertical-align:top;line-height:1.45;}
+  td.k{font-weight:800;white-space:nowrap;}
+  .tablewrap{overflow-x:auto;margin:8px 0 14px;}
+  a.inline{color:var(--kitchen);}
+  .diagram{background:#fff;border:1px solid var(--hair);border-radius:10px;padding:10px;margin:10px 0 6px;}
+  .diagram svg{display:block;width:100%;max-width:360px;height:auto;margin:0 auto;}
+  .cap{font-size:14px;color:var(--muted);line-height:1.5;margin:0 0 14px;text-align:center;}
+  .foot{margin-top:30px;padding-top:14px;border-top:1px solid var(--hair);font-size:14px;color:var(--muted);line-height:1.6;}
+
+  .tuner{background:var(--paper);border:1px solid var(--hair);border-radius:12px;padding:14px;margin:12px 0 18px;}
+  .tuner svg{display:block;width:100%;max-width:220px;height:auto;margin:0 auto;}
+  .zone{fill:#c9843f;opacity:0;transition:opacity .2s;}
+  .zone.on{opacity:.75;}
+  .zonebtns{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:12px 0 8px;}
+  .zonebtns button,.quiz button{font:inherit;font-size:15px;font-weight:700;color:var(--ink);background:#fff;border:1.5px solid var(--hair);border-radius:999px;padding:8px 14px;cursor:pointer;}
+  .zonebtns button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff;}
+  .zonebtns button:focus-visible,.quiz button:focus-visible{outline:3px solid var(--kitchen);outline-offset:2px;}
+  .readout{font-size:16px;line-height:1.6;margin:6px 0 0;}
+  .readout b{color:var(--kitchen);}
+  .quiz{background:#fff;border:1px solid var(--hair);border-radius:12px;padding:16px;margin:12px 0 18px;}
+  .quiz .qn{font-size:13px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;color:var(--muted);margin:0 0 4px;}
+  .quiz .qt{font-size:18px;font-weight:800;margin:0 0 12px;line-height:1.35;}
+  .quiz .opts{display:flex;flex-direction:column;gap:8px;}
+  .quiz .opts button{border-radius:10px;text-align:left;font-weight:600;padding:11px 14px;}
+  .quiz .opts button:hover{border-color:var(--kitchen);}
+  .result h3{font-size:19px;margin:0 0 8px;}
+  .result dl{margin:0;} .result dt{font-size:13px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;color:var(--muted);margin:10px 0 2px;}
+  .result dd{margin:0;font-size:16px;line-height:1.55;}
+  .again{margin-top:14px;}
+  ul.build{margin:0 0 12px;padding-left:20px;} ul.build li{font-size:16px;line-height:1.6;margin:0 0 8px;}
+  @media (prefers-reduced-motion: reduce){.zone{transition:none;}}
+
+</style>
+</head>
+<body>
+  <div class="topbar"><a href="index.html">&#8592; Grumpy Pickleballer</a><span class="crumb">/ Weighting</span></div>
+  <div class="sheet">
+    <header>
+      <h1>&#129362; Weighting Your Paddle</h1>
+      <p class="sub">Where to add weight, what it changes, and what to expect. Take the quiz to find where yours should go.</p>
+    </header>
+
+    <p class="body">Adding weight to a paddle changes how it swings, how it holds up against hard hitters, and how quick it feels in your hands. Where you put the weight matters more than how much. Tap a spot to see what it does, or take the quiz below to find where yours should go.</p>
+
+    <div class="tuner">
+      <svg viewBox="0 0 160 300" role="img" aria-labelledby="pd-t">
+  <title id="pd-t">A pickleball paddle face-on, with the top edge, the two sides, and the handle marked as places to add weight.</title>
+  <rect x="20" y="10" width="120" height="176" rx="26" fill="#fff" stroke="#1c2321" stroke-width="3"/>
+  <rect x="62" y="186" width="36" height="96" rx="8" fill="#2e3835"/>
+  <rect x="58" y="276" width="44" height="14" rx="5" fill="#2e3835"/>
+  <rect class="zone" data-z="top" x="44" y="10" width="72" height="16" rx="7"/>
+  <rect class="zone" data-z="sides" x="20" y="78" width="15" height="46" rx="6"/>
+  <rect class="zone" data-z="sides" x="125" y="78" width="15" height="46" rx="6"/>
+  <rect class="zone" data-z="handle" x="58" y="262" width="44" height="28" rx="6"/>
+  <text x="80" y="44" text-anchor="middle" style="font:800 11px -apple-system,Arial,sans-serif;fill:#505854">12</text>
+  <text x="46" y="105" text-anchor="middle" style="font:800 11px -apple-system,Arial,sans-serif;fill:#505854">9</text>
+  <text x="114" y="105" text-anchor="middle" style="font:800 11px -apple-system,Arial,sans-serif;fill:#505854">3</text>
+</svg>
+      <div class="zonebtns" role="group" aria-label="Show a weight location">
+        <button type="button" data-z="top" aria-pressed="false">Top (12)</button>
+        <button type="button" data-z="sides" aria-pressed="false">Sides (3 &amp; 9)</button>
+        <button type="button" data-z="handle" aria-pressed="false">Handle</button>
+      </div>
+      <p class="readout" id="zone-readout" aria-live="polite">Tap a spot on the paddle.</p>
+    </div>
+
+    <h2>Where should your weight go?</h2>
+    <div class="quiz" id="quiz" aria-live="polite"></div>
+
+    <h2>The basics</h2>
+    <div class="tablewrap">
+      <table>
+        <tr><th>Where</th><th>What it changes</th><th>The trade</th></tr>
+        <tr><td class="k">Top (12)</td><td>Swing weight. More power and drive through the ball.</td><td>Slower in fast hand battles, and the most load on your arm per gram.</td></tr>
+        <tr><td class="k">Sides (3 &amp; 9)</td><td>Twist weight. A bigger sweet spot; the paddle twists less on off-center hits, so blocks hold their ground.</td><td>A little slower overall. Keep both sides equal.</td></tr>
+        <tr><td class="k">Handle</td><td>Counterbalance. More total weight for stability, but the head feels lighter and quicker.</td><td>Heavier paddle overall, and less power from the head.</td></tr>
+        <tr><td class="k">Mixed</td><td>Weight in more than one spot, or different spots on each side. You get some of each effect.</td><td>Harder to tell which change did what. Change one thing at a time.</td></tr>
+      </table>
+    </div>
+
+    <h2>What to expect</h2>
+    <ol class="steps">
+      <li><span class="label">Go in small steps.</span>A couple of grams at a time. Tape comes off, so nothing is permanent.</li>
+      <li><span class="label">Keep the sides even.</span>Whatever goes on 3 goes on 9.</li>
+      <li><span class="label">Give it a few sessions.</span>The first session with any change feels wrong. Judge it after three.</li>
+      <li><span class="label">Listen to your arm.</span>More weight means more load on your elbow and shoulder. If something starts to hurt, take the weight back off. Not medical advice; just common sense.</li>
+    </ol>
+
+    <h2>My build</h2>
+    <div class="pull">Even my paddle has a kit.</div>
+    <ul class="build">
+      <li><b>My widebody paddle</b> runs a hybrid setup: weight low on one side, at 7 to 9 o'clock, and high on the other, at 1 to 3. The idea is to add plow-through while keeping the sweet spot. I'm testing the same setup on my elongated paddle right now.</li>
+      <li><b>Both of my primary paddles</b> also carry about 12 grams on the handle, spread around it at 1, 3, 6, and 9 o'clock.</li>
+      <li><b>The Loco</b> is its own thing: a one-ounce weight at the bottom of the handle.</li>
+    </ul>
+    <p class="body">Why hybrid? Because it's all give and take. Putting weight at the top adds plow-through, but it doesn't come free: it takes something away from another part of the paddle, like the sweet spot or stability. Splitting the weight is my way of getting some of the plow without giving up the rest.</p>
+    <p class="body">None of that is a recommendation. It's what I'm trying, a few grams and a few sessions at a time.</p>
+
+    <div class="foot">Described for tape or weights you can take back off. Start small; your arm is the one doing the work.
+      <span class="xwink" style="display:block;margin-top:10px;">Not affiliated with <a href="https://doyouevendinkbro.com" style="color:inherit;text-decoration:underline;text-underline-offset:2px">doyouevendinkbro.com</a>. I've spoken to him about it, but he insists we're partners. We have never been seen in the same room.</span>
+    </div>
+  </div>
+<script>
+(function(){
+  var ZONES={
+    top:{name:"Top of the head (12 o'clock)", what:"Adds swing weight: more power and more drive through the ball on drives and put-aways.",
+         start:"Add a gram or two across the top edge, centered.", trade:"Slower in fast exchanges at the kitchen, and the most load on your arm for each gram."},
+    sides:{name:"The sides (3 and 9 o'clock)", what:"Adds twist weight: a bigger sweet spot, less twisting on off-center hits, and blocks that hold their ground against hard hitters.",
+         start:"Add a couple of grams on each side, the same amount on both.", trade:"A little slower overall, and a little more weight on your arm."},
+    handle:{name:"The handle", what:"Counterbalance: more total weight for stability, but the head feels lighter and your hands feel quicker.",
+         start:"Add a few grams inside the end cap or under the grip.", trade:"The paddle gets heavier overall, and you give up a little power from the head."},
+    none:{name:"Don't add weight (yet)", what:"If your arm is already complaining, more weight is the wrong direction.",
+         start:"Look at grip pressure and technique first, or try a lighter paddle. If pain sticks around, see a professional.", trade:"None. Your elbow will thank you."}
+  };
+  var QS=[
+    {q:"What's bugging you most?", o:[
+      ["Blocks and resets get pushed back on me", {sides:2,handle:1}],
+      ["My drives and put-aways don't have enough pop", {top:2}],
+      ["My hands feel slow in fast exchanges", {handle:2}],
+      ["My arm gets tired or sore", {none:3}]]},
+    {q:"When you hit off-center, near the edge of the paddle\u2026", o:[
+      ["The paddle twists in my hand", {sides:2}],
+      ["The ball dies; no power", {top:1,sides:1}],
+      ["Honestly, it feels fine", {}]]},
+    {q:"Pick up your paddle. It feels\u2026", o:[
+      ["Light, maybe a little flimsy", {sides:1,top:1}],
+      ["Head-heavy, a little slow to get around", {handle:2}],
+      ["About right", {}],
+      ["Already on the heavy side", {none:2}]]}
+  ];
+  var zones=document.querySelectorAll('.zone'), zbtns=document.querySelectorAll('.zonebtns button'), zro=document.getElementById('zone-readout');
+  function light(z){ zones.forEach(function(r){ r.classList.toggle('on', r.dataset.z===z); });
+    zbtns.forEach(function(b){ b.setAttribute('aria-pressed', b.dataset.z===z?'true':'false'); }); }
+  zbtns.forEach(function(b){ b.addEventListener('click', function(){ var z=ZONES[b.dataset.z]; light(b.dataset.z);
+    zro.innerHTML='<b>'+z.name+'.</b> '+z.what+' <i>The trade:</i> '+z.trade; }); });
+
+  var quiz=document.getElementById('quiz'), step=0, score={};
+  function esc(t){ var d=document.createElement('div'); d.textContent=t; return d.innerHTML; }
+  function ask(){
+    var Q=QS[step], h='<p class="qn">Question '+(step+1)+' of '+QS.length+'</p><p class="qt">'+esc(Q.q)+'</p><div class="opts">';
+    Q.o.forEach(function(o,i){ h+='<button type="button" data-i="'+i+'">'+esc(o[0])+'</button>'; });
+    quiz.innerHTML=h+'</div>';
+    quiz.querySelectorAll('.opts button').forEach(function(b){ b.addEventListener('click', function(){
+      var w=Q.o[+b.dataset.i][1]; for(var k in w){ score[k]=(score[k]||0)+w[k]; }
+      step++; if(step<QS.length) ask(); else result(); }); });
+  }
+  function result(){
+    var order=['none','sides','handle','top'], best=null, bestv=0;
+    order.forEach(function(k){ var v=score[k]||0; if(v>bestv){ best=k; bestv=v; } });
+    var key=best||'none', z=ZONES[key];
+    if(!best){ z={name:"Leave it alone", what:"Nothing you picked points at a problem weight would fix.", start:"Play it as it is. If something starts bugging you, come back and take the quiz again.", trade:"None."}; }
+    light(best && best!=='none' ? best : null);
+    quiz.innerHTML='<div class="result"><p class="qn">Your spot</p><h3>'+z.name+'</h3><dl><dt>What it does</dt><dd>'+z.what+'</dd><dt>How to start</dt><dd>'+z.start+'</dd><dt>The trade</dt><dd>'+z.trade+'</dd></dl>'
+      +'<button type="button" class="again">Take it again</button></div>';
+    quiz.querySelector('.again').addEventListener('click', function(){ step=0; score={}; light(null); ask(); });
+  }
+  ask();
+})();
+</script>
+<script src="nav.js" defer></script>
+</body>
+</html>

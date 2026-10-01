@@ -1,71 +1,198 @@
-<!-- v0.10 — STUB. Scaffolded and ready to expand. -->
+<!-- v1.0 — Stacking -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <!-- readable: larger type, system font, darker gray -->
 <meta id="readable" name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pickleball Stacking Explained | Grumpy Pickleballer</title>
+<title>Pickleball Stacking Explained: Serve and Return | Grumpy Pickleballer</title>
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
-  <meta name="robots" content="noindex">
+  <meta name="description" content="How pickleball stacking works on the serve and the return: where each partner starts at an even or odd score, who moves where, and what to do with the third shot.">
+  <link rel="canonical" href="https://grumpypickleballer.com/strategy-stacking">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Grumpy Pickleballer">
+  <meta property="og:title" content="Pickleball Stacking Explained: Serve and Return | Grumpy Pickleballer">
+  <meta property="og:description" content="How pickleball stacking works on the serve and the return: where each partner starts at an even or odd score, who moves where, and what to do with the third shot.">
+  <meta property="og:url" content="https://grumpypickleballer.com/strategy-stacking">
+  <meta property="og:image" content="https://grumpypickleballer.com/img/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
 <style>
-  :root{--ink:#1c2321;--paper:#f6f4ec;--muted:#505854;--hair:#d8d4c6;--court:#4a7a8c;--kitchen:#c9843f;--you:#2e3835;--opp:#b5763a;--ball:#c25a3a;}
+  :root{--ink:#1c2321;--paper:#f6f4ec;--muted:#505854;--hair:#d8d4c6;--kitchen:#c9843f;--pickle:#9bc24a;--pickle-line:#6d8a33;
+        --court:#4a7a8c;--you:#2e3835;--opp:#b5763a;--ball:#c25a3a;}
   *{box-sizing:border-box;}
   body{margin:0;background:#eceadf;color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;padding:0 0 48px;}
   .sheet{max-width:720px;margin:0 auto;padding:0 16px;}
-  .topbar{position:sticky;top:0;z-index:10;background:#eceadfee;backdrop-filter:blur(6px);border-bottom:1px solid var(--hair);padding:10px 16px;margin-bottom:18px;display:flex;align-items:center;gap:8px;font-size:15px;flex-wrap:wrap;}
+  .topbar{position:sticky;top:0;z-index:10;background:#eceadfee;backdrop-filter:blur(6px);border-bottom:1px solid var(--hair);padding:10px 16px;margin-bottom:18px;display:flex;align-items:center;gap:8px;font-size:15px;}
   .topbar a{color:var(--muted);text-decoration:none;font-weight:600;}
   .topbar .crumb{color:var(--kitchen);font-weight:700;}
   header{border-bottom:3px solid var(--ink);padding-bottom:14px;margin-bottom:16px;}
   h1{font-size:27px;margin:0 0 4px;letter-spacing:-0.5px;font-weight:800;}
   .sub{color:var(--muted);font-size:15px;margin:0;line-height:1.5;}
-  .bigcourt{background:#fff;border:1px solid var(--hair);border-radius:10px;padding:10px;margin:0 0 16px;}
-  .bigcourt svg{width:100%;height:auto;display:block;}
+  h2{font-size:18.5px;margin:26px 0 8px;font-weight:800;letter-spacing:-.2px;}
   p.body{font-size:16px;line-height:1.65;margin:0 0 12px;}
-  .stub{background:var(--paper);border:1px dashed var(--kitchen);border-radius:9px;padding:16px;margin:16px 0;font-size:15.5px;line-height:1.6;color:var(--muted);}
-  .cfill{fill:#eaf2f4;}.kfill{fill:#f7ecdd;}.cline{stroke:var(--court);stroke-width:2;fill:none;}
-  .klabel{fill:var(--kitchen);font-size:8px;font-weight:700;font-family:Arial;}
-  .pyou{fill:var(--you);}.popp{fill:var(--opp);}.pyou-r{stroke:var(--you);stroke-width:2.6;fill:none;}
-  .move{stroke:var(--you);stroke-width:2.4;fill:none;stroke-dasharray:5 4;stroke-linecap:round;marker-end:url(#mv);}
-  .plabel{fill:#fff;font-size:8px;font-weight:800;font-family:Arial;text-anchor:middle;}
-  .foot{margin-top:30px;padding-top:14px;border-top:1px solid var(--hair);font-size:13.5px;color:var(--muted);line-height:1.6;}
+  .pull{background:var(--paper);border-left:4px solid var(--kitchen);border-radius:0 8px 8px 0;padding:12px 14px;margin:16px 0;font-size:16px;line-height:1.6;font-style:italic;}
+  .pull.big{font-size:17.5px;}
+  .aside{background:var(--paper);border:1px solid var(--hair);border-radius:9px;padding:13px 15px;margin:18px 0;font-size:14px;line-height:1.6;color:var(--muted);}
+  .aside b{color:var(--ink);}
+  ol.steps{list-style:none;counter-reset:s;padding:0;margin:10px 0 14px;}
+  ol.steps li{counter-increment:s;position:relative;padding:0 0 14px 36px;font-size:16px;line-height:1.65;}
+  ol.steps li::before{content:counter(s);position:absolute;left:0;top:1px;width:25px;height:25px;border-radius:50%;background:var(--ink);color:#fff;font-weight:800;font-size:13.5px;display:flex;align-items:center;justify-content:center;}
+  ol.steps .label{display:block;font-weight:800;}
+  table{width:100%;border-collapse:collapse;background:var(--paper);border:1px solid var(--hair);border-radius:10px;overflow:hidden;font-size:15px;}
+  th{text-align:left;padding:9px 11px;font-size:13px;color:var(--muted);font-weight:700;}
+  td{padding:9px 11px;border-top:1px solid var(--hair);vertical-align:top;line-height:1.45;}
+  td.k{font-weight:800;white-space:nowrap;}
+  .tablewrap{overflow-x:auto;margin:8px 0 14px;}
+  a.inline{color:var(--kitchen);}
+  .diagram{background:#fff;border:1px solid var(--hair);border-radius:10px;padding:10px;margin:10px 0 6px;}
+  .diagram svg{display:block;width:100%;max-width:360px;height:auto;margin:0 auto;}
+  .cap{font-size:14px;color:var(--muted);line-height:1.5;margin:0 0 14px;text-align:center;}
+  .foot{margin-top:30px;padding-top:14px;border-top:1px solid var(--hair);font-size:14px;color:var(--muted);line-height:1.6;}
+
 </style>
 </head>
 <body>
-  <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
-    <marker id="mv" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#2e3835"/></marker>
-  </defs></svg>
-  <div class="topbar"><a href="index.html">← Home</a><a href="positioning-basics.html" style="color:var(--muted)">/ Positioning</a><span class="crumb">/ Stacking</span></div>
+  <div class="topbar"><a href="index.html">&#8592; Grumpy Pickleballer</a><span class="crumb">/ Stacking</span></div>
   <div class="sheet">
     <header>
-      <h1>🥒 Stacking</h1>
-      <p class="sub">Keep both forehands in the middle, or hide a weaker wing on the sideline.</p>
+      <h1>&#129362; Stacking</h1>
+      <p class="sub">Keeping each player on their preferred side, whatever the score. An advanced skill: you probably won't use it at crew or rec play, but you'll see it.</p>
     </header>
 
-    <div class="bigcourt">
-      <svg viewBox="0 0 300 200" aria-label="Basic stack, partner crosses after serve">
-        <rect class="cfill" x="40" y="14" width="220" height="172"/><line x1="40" y1="14" x2="260" y2="14" stroke="#1c2321" stroke-width="3"/>
-        <rect class="kfill" x="40" y="14" width="220" height="30"/><rect class="kfill" x="40" y="156" width="220" height="30"/>
-        <line class="cline" x1="40" y1="44" x2="260" y2="44"/><line class="cline" x1="40" y1="156" x2="260" y2="156"/>
-        <line class="cline" x1="150" y1="156" x2="150" y2="186"/><rect x="40" y="14" width="220" height="172" fill="none" stroke="#1c2321" stroke-width="2"/>
-        <circle class="pyou" cx="190" cy="176" r="10"/><text class="plabel" x="190" y="179">Y</text>
-        <circle class="pyou" cx="190" cy="140" r="10"/><text class="plabel" x="190" y="143">P</text>
-        <path class="move" d="M178,140 Q110,140 96,150"/>
-        <circle class="pyou-r" cx="90" cy="150" r="10" style="opacity:.4"/>
-        <text class="klabel" x="60" y="120">stack same side, cross after serve</text>
-      </svg>
-    </div>
+    <div class="aside"><b>Who's who on this page.</b> <b>R</b> is the player who wants to play the right side. <b>L</b> is the player who wants the left. In a lot of stacks that's about keeping both forehands in the middle, or putting a lefty and a righty on their best sides.</div>
 
-    <p class="body">Stacking means both partners set up on the <b>same side</b> of the court before the serve, then cross to their preferred sides once the ball's in play. The payoff is keeping both forehands covering the middle (where most balls go), or tucking a weaker backhand out on the sideline.</p>
+    <p class="body">In doubles, where you stand depends on your score. At an even score you're both on your starting sides. At an odd score you've swapped. Stacking is how a team gets around that: you line up so each player can get back to their preferred side right after the serve or the return. Talk it through with your partner before the game. It only works if you both know the plan.</p>
 
-    <div class="stub">
-      <b>🚧 This page is scaffolded, not finished.</b><br><br>
-      To expand: add the serving stack vs. the returning stack, the half-stack, hand signals, the recovery scramble cost, and when it's worth it vs. not. Copy a court SVG from any positioning page and drop new diagrams in above. Media slots welcome.
-    </div>
+    <h2>On the return</h2>
+    <p class="body"><b>Our score is even:</b> business as usual. R on the right, L on the left. Whoever the serve comes to stays back to return it; the partner is up at the kitchen line.</p>
+    <p class="body"><b>Our score is odd, serve comes to our right:</b> L starts at the right baseline and R starts at the left kitchen line. L returns and immediately heads to the left side. As soon as the return is clear, R slides right toward the middle and protects L's approach to the line.</p>
+    <div class="diagram"><svg viewBox="0 0 240 300" role="img" aria-labelledby="rr-t">
+  <title id="rr-t">Return, odd score, serve to the right: L returns from the right baseline then crosses to the left kitchen line; R slides from the left kitchen line to just right of the middle.</title>
+  <defs>
+    <marker id="rrmv" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#2e3835"/></marker>
+    <marker id="rrbp" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#c25a3a"/></marker>
+  </defs>
+  <rect x="20" y="40" width="200" height="240" fill="#eaf2f4"/>
+  <rect x="20" y="40" width="200" height="76" fill="#f7ecdd"/>
+  <line x1="20" y1="116" x2="220" y2="116" stroke="#4a7a8c" stroke-width="2"/>
+  <line x1="120" y1="116" x2="120" y2="280" stroke="#4a7a8c" stroke-width="2"/>
+  <rect x="20" y="40" width="200" height="240" fill="none" stroke="#1c2321" stroke-width="2"/>
+  <line x1="12" y1="40" x2="228" y2="40" stroke="#1c2321" stroke-width="4"/>
+  <text x="228" y="33" text-anchor="end" style="font-family:-apple-system,BlinkMacSystemFont,Arial,sans-serif;font-size:10px;font-weight:800;letter-spacing:.8px;fill:#505854">NET</text>
+  <text x="26" y="58" style="font-family:-apple-system,BlinkMacSystemFont,Arial,sans-serif;font-size:10px;font-weight:800;letter-spacing:.8px;fill:#c9843f">KITCHEN</text>
+  <text x="120" y="296" text-anchor="middle" style="font-family:-apple-system,BlinkMacSystemFont,Arial,sans-serif;font-size:10px;font-weight:800;letter-spacing:.8px;fill:#505854">BASELINE</text>
+  <text x="24" y="296" style="font-family:-apple-system,BlinkMacSystemFont,Arial,sans-serif;font-size:9px;font-weight:800;fill:#505854">LEFT</text>
+  <text x="216" y="296" text-anchor="end" style="font-family:-apple-system,BlinkMacSystemFont,Arial,sans-serif;font-size:9px;font-weight:800;fill:#505854">RIGHT</text>
+  <circle cx="80" cy="20" r="9" fill="#b5763a"/><circle cx="160" cy="20" r="9" fill="#b5763a"/>
+<path d="M80,30 L164,256" fill="none" stroke="#c25a3a" stroke-width="2.4" stroke-linecap="round" marker-end="url(#rrbp)"/>
+<path d="M162,262 Q110,220 50,140" fill="none" stroke="#2e3835" stroke-width="2.4" stroke-dasharray="5 4" stroke-linecap="round" marker-end="url(#rrmv)"/>
+<path d="M82,124 L130,124" fill="none" stroke="#2e3835" stroke-width="2.4" stroke-dasharray="5 4" stroke-linecap="round" marker-end="url(#rrmv)"/>
+<circle cx="70" cy="124" r="10" fill="#2e3835"/><text x="70" y="128" text-anchor="middle" style="font:800 10px Arial,sans-serif;fill:#fff">R</text>
+<circle cx="172" cy="268" r="10" fill="#2e3835"/><text x="172" y="272" text-anchor="middle" style="font:800 10px Arial,sans-serif;fill:#fff">L</text>
+</svg></div>
+    <p class="cap">Odd score, serve to the right. L returns and crosses left; R slides right to cover the approach.</p>
 
-    <div class="foot">Part of <a href="positioning-basics.html" style="color:var(--kitchen)">Positioning Basics</a>. Builds on <a href="strategy-the-rope.html" style="color:var(--kitchen)">the rope</a> for the post-cross recovery.
+    <p class="body"><b>Our score is odd, serve comes to our left:</b> R starts at the left baseline and L starts at the right kitchen line. R returns and immediately heads to the right side. As soon as the return is clear, L slides toward the middle and protects R's approach to the line.</p>
+    <div class="diagram"><svg viewBox="0 0 240 300" role="img" aria-labelledby="rl-t">
+  <title id="rl-t">Return, odd score, serve to the left: R returns from the left baseline then crosses to the right kitchen line; L slides from the right kitchen line to just left of the middle.</title>
+  <defs>
+    <marker id="rlmv" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#2e3835"/></marker>
+    <marker id="rlbp" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#c25a3a"/></marker>
+  </defs>
+  <rect x="20" y="40" width="200" height="240" fill="#eaf2f4"/>
+  <rect x="20" y="40" width="200" height="76" fill="#f7ecdd"/>
+  <line x1="20" y1="116" x2="220" y2="116" stroke="#4a7a8c" stroke-width="2"/>
+  <line x1="120" y1="116" x2="120" y2="280" stroke="#4a7a8c" stroke-width="2"/>
+  <rect x="20" y="40" width="200" height="240" fill="none" stroke="#1c2321" stroke-width="2"/>
+  <line x1="12" y1="40" x2="228" y2="40" stroke="#1c2321" stroke-width="4"/>
+  <text x="228" y="33" text-anchor="end" style="font-family:-apple-system,BlinkMacSystemFont,Arial,sans-serif;font-size:10px;font-weight:800;letter-spacing:.8px;fill:#505854">NET</text>
+  <text x="26" y="58" style="font-family:-apple-system,BlinkMacSystemFont,Arial,sans-serif;font-size:10px;font-weight:800;letter-spacing:.8px;fill:#c9843f">KITCHEN</text>
+  <text x="120" y="296" text-anchor="middle" style="font-family:-apple-system,BlinkMacSystemFont,Arial,sans-serif;font-size:10px;font-weight:800;letter-spacing:.8px;fill:#505854">BASELINE</text>
+  <text x="24" y="296" style="font-family:-apple-system,BlinkMacSystemFont,Arial,sans-serif;font-size:9px;font-weight:800;fill:#505854">LEFT</text>
+  <text x="216" y="296" text-anchor="end" style="font-family:-apple-system,BlinkMacSystemFont,Arial,sans-serif;font-size:9px;font-weight:800;fill:#505854">RIGHT</text>
+  <circle cx="80" cy="20" r="9" fill="#b5763a"/><circle cx="160" cy="20" r="9" fill="#b5763a"/>
+<path d="M160,30 L76,256" fill="none" stroke="#c25a3a" stroke-width="2.4" stroke-linecap="round" marker-end="url(#rlbp)"/>
+<path d="M78,262 Q130,220 190,140" fill="none" stroke="#2e3835" stroke-width="2.4" stroke-dasharray="5 4" stroke-linecap="round" marker-end="url(#rlmv)"/>
+<path d="M158,124 L110,124" fill="none" stroke="#2e3835" stroke-width="2.4" stroke-dasharray="5 4" stroke-linecap="round" marker-end="url(#rlmv)"/>
+<circle cx="170" cy="124" r="10" fill="#2e3835"/><text x="170" y="128" text-anchor="middle" style="font:800 10px Arial,sans-serif;fill:#fff">L</text>
+<circle cx="68" cy="268" r="10" fill="#2e3835"/><text x="68" y="272" text-anchor="middle" style="font:800 10px Arial,sans-serif;fill:#fff">R</text>
+</svg></div>
+    <p class="cap">Odd score, serve to the left. R returns and crosses right; L slides left to cover the approach.</p>
+
+
+    <h2>On the serve</h2>
+    <p class="body"><b>Our score is even:</b> business as usual. Each of you serves from your normal spot.</p>
+    <p class="body"><b>Our score is odd, serving from the right</b> (R's home side, L's serve): you both start on the right side, with L serving. After the serve, L moves left along the baseline and R moves into position on the right. You're both back and ready for the return.</p>
+    <div class="diagram"><svg viewBox="0 0 240 300" role="img" aria-labelledby="sr-t">
+  <title id="sr-t">Serve, odd score, from the right: R and L both start on the right. L serves, then moves left along the baseline while R takes the right.</title>
+  <defs>
+    <marker id="srmv" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#2e3835"/></marker>
+    <marker id="srbp" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#c25a3a"/></marker>
+  </defs>
+  <rect x="20" y="40" width="200" height="240" fill="#eaf2f4"/>
+  <rect x="20" y="40" width="200" height="76" fill="#f7ecdd"/>
+  <line x1="20" y1="116" x2="220" y2="116" stroke="#4a7a8c" stroke-width="2"/>
+  <line x1="120" y1="116" x2="120" y2="280" stroke="#4a7a8c" stroke-width="2"/>
+  <rect x="20" y="40" width="200" height="240" fill="none" stroke="#1c2321" stroke-width="2"/>
+  <line x1="12" y1="40" x2="228" y2="40" stroke="#1c2321" stroke-width="4"/>
+  <text x="228" y="33" text-anchor="end" style="font-family:-apple-system,BlinkMacSystemFont,Arial,sans-serif;font-size:10px;font-weight:800;letter-spacing:.8px;fill:#505854">NET</text>
+  <text x="26" y="58" style="font-family:-apple-system,BlinkMacSystemFont,Arial,sans-serif;font-size:10px;font-weight:800;letter-spacing:.8px;fill:#c9843f">KITCHEN</text>
+  <text x="120" y="296" text-anchor="middle" style="font-family:-apple-system,BlinkMacSystemFont,Arial,sans-serif;font-size:10px;font-weight:800;letter-spacing:.8px;fill:#505854">BASELINE</text>
+  <text x="24" y="296" style="font-family:-apple-system,BlinkMacSystemFont,Arial,sans-serif;font-size:9px;font-weight:800;fill:#505854">LEFT</text>
+  <text x="216" y="296" text-anchor="end" style="font-family:-apple-system,BlinkMacSystemFont,Arial,sans-serif;font-size:9px;font-weight:800;fill:#505854">RIGHT</text>
+  <circle cx="80" cy="20" r="9" fill="#b5763a"/><circle cx="160" cy="20" r="9" fill="#b5763a"/>
+<path d="M146,262 L76,32" fill="none" stroke="#c25a3a" stroke-width="2.4" stroke-linecap="round" marker-end="url(#srbp)"/>
+<path d="M136,272 L66,272" fill="none" stroke="#2e3835" stroke-width="2.4" stroke-dasharray="5 4" stroke-linecap="round" marker-end="url(#srmv)"/>
+<path d="M198,262 L176,262" fill="none" stroke="#2e3835" stroke-width="2.4" stroke-dasharray="5 4" stroke-linecap="round" marker-end="url(#srmv)"/>
+<circle cx="148" cy="272" r="10" fill="#2e3835"/><text x="148" y="276" text-anchor="middle" style="font:800 10px Arial,sans-serif;fill:#fff">L</text>
+<circle cx="200" cy="272" r="10" fill="#2e3835"/><text x="200" y="276" text-anchor="middle" style="font:800 10px Arial,sans-serif;fill:#fff">R</text>
+</svg></div>
+    <p class="cap">Odd score, serving from the right. L serves, then slides left; R takes the right.</p>
+
+    <p class="body"><b>Our score is odd, serving from the left</b> (L's home side, R's serve): you both start on the left side, with R serving. After the serve, R moves right along the baseline and L moves into position on the left.</p>
+    <div class="diagram"><svg viewBox="0 0 240 300" role="img" aria-labelledby="sl-t">
+  <title id="sl-t">Serve, odd score, from the left: R and L both start on the left. R serves, then moves right along the baseline while L takes the left.</title>
+  <defs>
+    <marker id="slmv" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#2e3835"/></marker>
+    <marker id="slbp" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#c25a3a"/></marker>
+  </defs>
+  <rect x="20" y="40" width="200" height="240" fill="#eaf2f4"/>
+  <rect x="20" y="40" width="200" height="76" fill="#f7ecdd"/>
+  <line x1="20" y1="116" x2="220" y2="116" stroke="#4a7a8c" stroke-width="2"/>
+  <line x1="120" y1="116" x2="120" y2="280" stroke="#4a7a8c" stroke-width="2"/>
+  <rect x="20" y="40" width="200" height="240" fill="none" stroke="#1c2321" stroke-width="2"/>
+  <line x1="12" y1="40" x2="228" y2="40" stroke="#1c2321" stroke-width="4"/>
+  <text x="228" y="33" text-anchor="end" style="font-family:-apple-system,BlinkMacSystemFont,Arial,sans-serif;font-size:10px;font-weight:800;letter-spacing:.8px;fill:#505854">NET</text>
+  <text x="26" y="58" style="font-family:-apple-system,BlinkMacSystemFont,Arial,sans-serif;font-size:10px;font-weight:800;letter-spacing:.8px;fill:#c9843f">KITCHEN</text>
+  <text x="120" y="296" text-anchor="middle" style="font-family:-apple-system,BlinkMacSystemFont,Arial,sans-serif;font-size:10px;font-weight:800;letter-spacing:.8px;fill:#505854">BASELINE</text>
+  <text x="24" y="296" style="font-family:-apple-system,BlinkMacSystemFont,Arial,sans-serif;font-size:9px;font-weight:800;fill:#505854">LEFT</text>
+  <text x="216" y="296" text-anchor="end" style="font-family:-apple-system,BlinkMacSystemFont,Arial,sans-serif;font-size:9px;font-weight:800;fill:#505854">RIGHT</text>
+  <circle cx="80" cy="20" r="9" fill="#b5763a"/><circle cx="160" cy="20" r="9" fill="#b5763a"/>
+<path d="M94,262 L164,32" fill="none" stroke="#c25a3a" stroke-width="2.4" stroke-linecap="round" marker-end="url(#slbp)"/>
+<path d="M104,272 L174,272" fill="none" stroke="#2e3835" stroke-width="2.4" stroke-dasharray="5 4" stroke-linecap="round" marker-end="url(#slmv)"/>
+<path d="M42,262 L62,262" fill="none" stroke="#2e3835" stroke-width="2.4" stroke-dasharray="5 4" stroke-linecap="round" marker-end="url(#slmv)"/>
+<circle cx="92" cy="272" r="10" fill="#2e3835"/><text x="92" y="276" text-anchor="middle" style="font:800 10px Arial,sans-serif;fill:#fff">R</text>
+<circle cx="40" cy="272" r="10" fill="#2e3835"/><text x="40" y="276" text-anchor="middle" style="font:800 10px Arial,sans-serif;fill:#fff">L</text>
+</svg></div>
+    <p class="cap">Odd score, serving from the left. R serves, then slides right; L takes the left.</p>
+
+
+    <h2>Then: drive or drop?</h2>
+    <p class="body">Once the stack has sorted itself out, you're hitting the third shot. As a rule of thumb, you've got three good options:</p>
+    <ol class="steps">
+      <li><span class="label">At the player still moving up.</span>Catch them on the move. If they pop it up, drop into the kitchen and get to the line. If they drive it back, either drive at the player already at the line or start dropping and moving forward.</li>
+      <li><span class="label">A drive at the player already at the line.</span>The goal is to make the fourth shot, their return, an easier ball to drop into the kitchen. Try not to drive a second time.</li>
+      <li><span class="label">A drop into the kitchen.</span>If the return is short, drop it into the kitchen or push the approaching player back.</li>
+    </ol>
+    <p class="body">Getting forward after the third shot is its own skill; <a class="inline" href="positioning-basics.html#serving-defense">Positioning Basics</a> covers why the serving team starts on defense and how to move up together.</p>
+
+    <div class="foot">Every stacking team runs its own version. This is the one I play; work out yours with your partner before the first serve.
       <span class="xwink" style="display:block;margin-top:10px;">Not affiliated with <a href="https://doyouevendinkbro.com" style="color:inherit;text-decoration:underline;text-underline-offset:2px">doyouevendinkbro.com</a>. I've spoken to him about it, but he insists we're partners. We have never been seen in the same room.</span>
     </div>
   </div>
+
+<script src="nav.js" defer></script>
 </body>
 </html>
