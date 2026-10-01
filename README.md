@@ -6,7 +6,7 @@ The sincere site. One of three doors into the same guy:
 |---|---|---|
 | **grumpypickleballer.com** | **Tom, for real** | **Sincere, a little cranky, all heart** |
 | doyouevendinkbro.com | Tom, in costume | Supremely confident, always wrong |
-| howcanyounothavefunplayingpickleball.com | Kristen, watching | Fond, wry, affectionate (not built yet) |
+| howcanyounothavefunplayingpickleball.com | Kristen, watching | Fond, wry, affectionate |
 
 ## Why this exists
 
@@ -42,7 +42,6 @@ The whole philosophy fits on a paddle: the score is information, not identity. P
 - All timing comes from one `:root` block: `--swing-speed: 1.7s`, `--swing-range: 55deg`, `--circle-speed: 1.7s`.
 - One technique per kind of motion: continuous rotate for swings and arm circles, `translateX` for shuffles, rotate for the torso, and a two-frame opacity toggle for calf raises, squats, and lunges.
 - `prefers-reduced-motion` is respected.
-- `anim-admin.html` is the local tuning dashboard for those variables. It's a dev tool and never deploys.
 
 ## Pages
 
@@ -97,6 +96,6 @@ The whole philosophy fits on a paddle: the score is information, not identity. P
 
 Cloudflare Pages, connected to this repo. Framework preset: None. Build command: empty. Output directory: root. Push to `main` and it redeploys.
 
-`_redirects` keeps this README, the template, and the anim dashboard off the public site.
+`_redirects` keeps this README and the template off the public site.
 
-Local preview: run `pages` in this folder.
+Local preview: run `./pages` in this folder.
