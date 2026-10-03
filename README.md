@@ -72,7 +72,6 @@ The whole philosophy fits on a paddle: the score is information, not identity. P
 - **Weighting, My build:** update as the hybrid test on the elongated paddle settles.
 - **Sayings:** only Tom's own lines go on the sayings page and in hub tile quotes. Add new ones as they come up at the court.
 
-- **Positioning, card 1 diagram:** the "KITCHEN (NVZ)" label overlaps the P marker.
 - **Warm-up video slots:** footage drops in when it exists.
 - **Parked, on purpose:** leg-length consistency across figures, tap-to-open benefits on warm-up moves, the torso floating off the legs during rotation.
 - **Grips:** confirm whether the over-the-shoulder shift is a true overhead or a high forehand put-away, then settle the aside.
