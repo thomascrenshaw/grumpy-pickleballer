@@ -85,7 +85,19 @@
   @media(prefers-reduced-motion:reduce){ .swing-leg,.swing-side,.arm-circle,.twist,.shuffle{animation:none;} .frame.up,.sframe.a,.lframe.a{opacity:1;} .frame.down,.sframe.b,.lframe.b{opacity:0;} }
   body.knee-mode [data-knee="no"]{display:none;}
   .foot{margin-top:30px;padding-top:14px;border-top:1px solid var(--hair);font-size:13.5px;color:var(--muted);line-height:1.6;}
+
+  /* solo mode: warmup.html?solo=<move>[,<move>] shows just those figures (used by the Watch popups) */
+  html.solo .topbar, html.solo header, html.solo .foyer, html.solo .foot, html.solo .mightlike{display:none !important;}
+  html.solo .legend > span:not(.controls){display:none;}
+  html.solo .legend{justify-content:flex-end;margin:0 0 8px;}
+  html.solo .controls{margin:0;}
+  html.solo body{padding:8px 0;}
+  html.solo .sheet{padding:0 8px;}
+  html.solo .grid{grid-template-columns:1fr;}
+  html.solo .card{display:none !important;}
+  html.solo .card.solo-on{display:flex !important;}
 </style>
+<script>(function(){var m=/[?&]solo=([a-z0-9,-]+)/.exec(location.search);if(m)document.documentElement.className+=" solo";})();</script>
 </head>
 <body class="knee-mode">
   <!-- Mr. PBSF's holes, defined once (r22 reference, centered at origin); every body pulls them via <use>. -->
@@ -120,7 +132,7 @@
     </div>
     <div class="grid" id="grid">
 
-      <div class="card" data-knee="yes"><span class="tag safe"></span>
+      <div class="card" data-move="leg-swings-fb" data-knee="yes"><span class="tag safe"></span>
         <div class="figbox"><svg viewBox="0 0 200 150" aria-label="Leg swing front back">
           <line class="prop" x1="20" y1="138" x2="180" y2="138"/>
           <circle class="pbody" cx="100" cy="52" r="24"/>
@@ -132,7 +144,7 @@
         <p class="name">Leg Swings &#8212; Front / Back</p><p class="dose">10 each leg</p>
         <p class="target">Hip flexors &amp; hamstrings. Hold something for balance. Controlled &#8212; don't force the top.</p></div>
 
-      <div class="card" data-knee="yes"><span class="tag safe"></span>
+      <div class="card" data-move="leg-swings-side" data-knee="yes"><span class="tag safe"></span>
         <div class="figbox"><svg viewBox="0 0 200 150" aria-label="Leg swing side front view">
           <line class="prop" x1="20" y1="138" x2="180" y2="138"/>
           <circle class="pbody" cx="100" cy="56" r="24"/>
@@ -144,7 +156,7 @@
         <p class="name">Leg Swings &#8212; Side to Side</p><p class="dose">10 each leg</p>
         <p class="target">The hip in-&amp;-out flexors. Preps the lateral movement pickleball lives on. (Yes, that's the "Alive" pose.)</p></div>
 
-      <div class="card" data-knee="yes"><span class="tag safe"></span>
+      <div class="card" data-move="shuffles" data-knee="yes"><span class="tag safe"></span>
         <div class="figbox"><svg viewBox="0 0 200 150" aria-label="Lateral shuffle">
           <line class="prop" x1="14" y1="138" x2="186" y2="138"/>
           <g class="shuffle">
@@ -157,7 +169,7 @@
         <p class="name">Lateral Shuffles</p><p class="dose">20 ft out &amp; back &#215; 3</p>
         <p class="target">Low athletic stance, push off the outside foot. The most sport-specific warm-up move for pickleball.</p></div>
 
-      <div class="card" data-knee="yes"><span class="tag safe"></span>
+      <div class="card" data-move="arm-circles" data-knee="yes"><span class="tag safe"></span>
         <div class="figbox"><svg viewBox="0 0 200 150" aria-label="Arm circles, side view">
           <line class="prop" x1="20" y1="138" x2="180" y2="138"/>
           <circle class="pbody" cx="100" cy="56" r="24"/>
@@ -169,20 +181,21 @@
         <p class="name">Arm Circles + Shoulder Rolls</p><p class="dose">10 each way</p>
         <p class="target">Preps the paddle shoulder. Big to small, both directions.</p></div>
 
-      <div class="card" data-knee="yes"><span class="tag safe"></span>
+      <div class="card" data-move="torso" data-knee="yes"><span class="tag safe"></span>
         <div class="figbox"><svg viewBox="0 0 200 150" aria-label="Torso rotations">
           <line class="prop" x1="20" y1="138" x2="180" y2="138"/>
-          <line class="s" x1="88" y1="86" x2="86" y2="138"/><line class="s" x1="112" y1="86" x2="114" y2="138"/>
-          <g class="twist" style="transform-box:view-box;transform-origin:100px 86px">
-            <circle class="pbody" cx="100" cy="56" r="22"/>
-            <use href="#pholes" x="100" y="56"/>
-            <circle class="j" cx="100" cy="28" r="7"/>
-            <line class="s" x1="80" y1="54" x2="62" y2="60"/><line class="s" x1="120" y1="54" x2="138" y2="60"/>
+          <line class="s" x1="93" y1="76" x2="86" y2="138"/><line class="s" x1="107" y1="76" x2="114" y2="138"/>
+          <g class="twist" style="transform-box:view-box;transform-origin:100px 78px">
+            <circle class="pbody" cx="100" cy="64" r="22"/>
+            <use href="#pholes" x="100" y="64"/>
+            <circle class="j" cx="100" cy="36" r="7"/>
+            <line class="s" x1="80" y1="62" x2="62" y2="68"/><line class="s" x1="120" y1="62" x2="138" y2="68"/>
           </g></svg></div>
         <p class="name">Torso Rotations</p><p class="dose">10 each way</p>
-        <p class="target">Rotational prep for serves &amp; drives. Loose and controlled &#8212; don't crank it cold.</p></div>
+        <p class="target">Rotational prep for serves &amp; drives. Loose and controlled &#8212; don't crank it cold.</p>
+        <p class="target" style="margin-top:6px;font-style:italic;">Demonstrated by Mr. PBSF, who has no hips. Yours should twist, not tip.</p></div>
 
-      <div class="card" data-knee="yes"><span class="tag safe"></span>
+      <div class="card" data-move="ankle-calf" data-knee="yes"><span class="tag safe"></span>
         <div class="figbox"><svg viewBox="0 0 200 150" aria-label="Calf raises">
           <line class="ground" x1="40" y1="138" x2="150" y2="138"/>
           <line class="prop" x1="54" y1="40" x2="54" y2="138"/>
@@ -203,7 +216,7 @@
         <p class="name">Ankle Circles + Calf Raises</p><p class="dose">10 circles + 15 raises</p>
         <p class="target">Ankle = the knee's first defense, and calf raises double as plantar/heel prep. Always do these.</p></div>
 
-      <div class="card" data-knee="no"><span class="tag wait"></span>
+      <div class="card" data-move="lunges" data-knee="no"><span class="tag wait"></span>
         <div class="figbox"><svg viewBox="0 0 200 150" aria-label="Walking lunge">
           <line class="prop" x1="20" y1="138" x2="180" y2="138"/>
           <g class="lframe a">
@@ -226,7 +239,7 @@
         <p class="name">Walking Lunges</p><p class="dose">8 each leg</p>
         <p class="target">Front knee over ankle, not past toes. Deeper knee load &#8212; hidden on knee days. Sub step-back lunges to ease the joint.</p></div>
 
-      <div class="card" data-knee="no"><span class="tag wait"></span>
+      <div class="card" data-move="squats" data-knee="no"><span class="tag wait"></span>
         <div class="figbox"><svg viewBox="0 0 200 150" aria-label="Bodyweight squats">
           <line class="prop" x1="20" y1="138" x2="180" y2="138"/>
           <g class="sframe a">
@@ -252,6 +265,7 @@
       Green = kind to a cranky knee. Amber = deeper load, shown only in Full mode.<br>
       Dynamic only &#8212; never static-stretch a cold knee. Not medical advice.<br>
       Prefer the tables? See the <a href="knee-foot-routine.html" style="color:var(--kitchen)">full Knee &amp; Foot Routine</a>.
+      <span class="pbsf-note" style="display:block;margin-top:10px;"><b style="color:var(--ink)">About the demonstrator:</b> Mr. PBSF is a pickleball with sticks for limbs. He has no knees, no hamstrings, and no birthday. Move within your own range, not his.</span>
       <span class="xwink" style="display:block;margin-top:10px;">Not affiliated with <a href="https://doyouevendinkbro.com" style="color:inherit;text-decoration:underline;text-underline-offset:2px">doyouevendinkbro.com</a>. I've spoken to him about it, but he insists we're partners. We have never been seen in the same room.</span>
     </div>
   </div>
@@ -265,6 +279,13 @@
       var g=document.getElementById('grid'); g.classList.toggle('paused');
       var b=document.getElementById('pausebtn'); b.textContent=g.classList.contains('paused')?'\u25B6 Play motion':'\u23F8 Pause motion';
     }
+  
+    (function(){
+      var m=/[?&]solo=([a-z0-9,-]+)/.exec(location.search); if(!m) return;
+      m[1].split(',').forEach(function(id){
+        var c=document.querySelector('.card[data-move="'+id+'"]'); if(c) c.classList.add('solo-on');
+      });
+    })();
   </script>
 <script src="nav.js" defer></script>
 </body>
