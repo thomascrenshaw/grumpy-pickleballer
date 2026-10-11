@@ -48,8 +48,8 @@ The whole philosophy fits on a paddle: the score is information, not identity. P
 | File | What it is |
 |---|---|
 | `index.html` | Hub with a featured sayings card and quote-led tiles, grouped: Before you play, Positioning, Playing the game, The paddle, The head game, Getting better, Advanced |
-| `warmup.html` | Animated 6–8 min dynamic warm-up with knee-friendly and full versions |
-| `knee-foot-routine.html` | Bottom-to-top, slow-to-fast joint routine. Not medical advice |
+| `warmup.html` | Animated 6–8 min dynamic warm-up with knee-friendly and full versions. `?solo=<move>[,<move>]` shows just those figures (that's what the Watch popups load) |
+| `knee-foot-routine.html` | Bottom-to-top, slow-to-fast joint routine. Not medical advice. Warm-up rows have a Watch button that pops the matching animation up in a dialog |
 | `positioning-basics.html` | Six diagrammed doubles fundamentals |
 | `strategy-the-rope.html` | Move with your partner like you're tied together |
 | `strategy-the-reset.html` | The attrition shot. Get it over once more, let them miss |
@@ -73,7 +73,7 @@ The whole philosophy fits on a paddle: the score is information, not identity. P
 - **Sayings:** only Tom's own lines go on the sayings page and in hub tile quotes. Add new ones as they come up at the court.
 
 - **Warm-up video slots:** footage drops in when it exists.
-- **Parked, on purpose:** leg-length consistency across figures, tap-to-open benefits on warm-up moves, the torso floating off the legs during rotation.
+- **Parked, on purpose:** leg-length consistency across figures, tap-to-open benefits on warm-up moves.
 - **Grips:** confirm whether the over-the-shoulder shift is a true overhead or a high forehand put-away, then settle the aside.
 - **Maybe:** a pickleball journey blog. If it happens, Astro can pass these pages through untouched.
 
@@ -81,7 +81,7 @@ The whole philosophy fits on a paddle: the score is information, not identity. P
 
 - **Sayings:** review the "what I mean" and "why I think it works" text (Claude wrote most of it), and add "Brains are pretty fast."
 - **Deep dives:** Take another one, Luck cuts both ways, The silent head.
-- **Mr. PBSF:** leg-length consistency across figures, tap-to-open benefits on warm-up moves, the torso floating off the legs during rotation. Also give him a proper introduction somewhere on the site, so readers know who the stick figure is.
+- **Mr. PBSF:** leg-length consistency across figures, tap-to-open benefits on warm-up moves. Also give him a proper introduction somewhere on the site, so readers know who the stick figure is.
 - **Mascot cleanup:** a human-drawn vector version of the grumpy pickle (fixes the headband knot covering the P, the hands, and the stray holes) before it goes on anything for sale.
 
 ## SEO
