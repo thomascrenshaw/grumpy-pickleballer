@@ -8,7 +8,7 @@
     { id: "positioning", name: "Positioning", pages: [
       ["positioning-basics", "Positioning Basics"], ["strategy-the-rope", "The Rope"], ["strategy-the-reset", "The Reset"] ] },
     { id: "playing-the-game", name: "Playing the game", pages: [
-      ["pre-snap-read", "The Pre-Snap Read"], ["who-gets-the-lob", "Who Gets the Lob"], ["communication", "Talk to Your Partner"] ] },
+      ["pre-snap-read", "The Pre-Snap Read"], ["who-gets-the-lob", "Who Gets the Lob"], ["communication", "Talk to Your Partner"], ["lose-like-a-winner", "Lose Like a Winner"] ] },
     { id: "the-paddle", name: "The paddle", pages: [
       ["grips", "Grips"], ["finding-your-paddle", "Finding Your Paddle"], ["weighting", "Weighting"] ] },
     { id: "the-head-game", name: "The head game", pages: [
