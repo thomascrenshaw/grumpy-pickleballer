@@ -12,7 +12,7 @@
     { id: "the-paddle", name: "The paddle", pages: [
       ["grips", "Grips"], ["finding-your-paddle", "Finding Your Paddle"], ["weighting", "Weighting"] ] },
     { id: "the-head-game", name: "The head game", pages: [
-      ["why-you-play", "Why You Play"], ["mental-game", "The Mental Game"] ] },
+      ["why-you-play", "Why You Play"], ["mental-game", "The Mental Game"], ["game-within-the-game", "The Game Within the Game"] ] },
     { id: "getting-better", name: "Getting better", pages: [
       ["getting-better", "Getting Better"] ] },
     { id: "advanced", name: "Advanced", pages: [
