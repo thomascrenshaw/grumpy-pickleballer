@@ -65,6 +65,7 @@ The whole philosophy fits on a paddle: the score is information, not identity. P
 | `why-you-play.html` | The ethos: who you are on the court and how you treat people |
 | `mental-game.html` | In-match technique: the serve routine as a kit, the silent head |
 | `game-within-the-game.html` | The head game: fumbling the ball, the second chase during the routine, "BALL ON!", even the pros play it (reps) |
+| `lose-like-a-winner.html` | Sportsmanship in Playing the Game: don't slam it just because you can, lose like a winner, same posture every game |
 | `getting-better.html` | The learning ladder, the ATP, luck cuts both ways |
 | `_template.html` | Starting point for new pages. Noindexed and redirected away |
 
@@ -88,7 +89,7 @@ The whole philosophy fits on a paddle: the score is information, not identity. P
 ## SEO
 
 - Every indexable page has a keyword-first title, a meta description, a canonical URL, and Open Graph tags. The preview image is `img/og.png`.
-- `sitemap.xml` lists the eighteen indexable pages. `robots.txt` points to it.
+- `sitemap.xml` lists the nineteen indexable pages. `robots.txt` points to it.
 - Canonical URLs have no `.html` because Cloudflare Pages drops the extension.
 - When Stacking is written: remove its `noindex`, add it to `sitemap.xml`.
 
