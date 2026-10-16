@@ -56,7 +56,8 @@ The whole philosophy fits on a paddle: the score is information, not identity. P
 | `strategy-stacking.html` | Under Advanced. Stacking on the return and the serve at even and odd scores (R and L, no names), four diagrams, third-shot options |
 | `sayings.html` | Things I Say on the Court: ten sayings, each opening into origin, meaning, and the principle behind it. Featured at the top of the hub |
 | `grips.html` | Continental to western, a tappable bevel diagram, and which grip Tom uses where |
-| `nav.js` | The one list of sections and pages. Adds the section link to each page's top bar and the "You might also like" block. New page? Add it here and to the hub |
+| `nav.js` | The one list of sections and pages. Adds the section link to each page's top bar and the "You might also like" block, and holds the UPDATES list behind What's New. New page? Add it here, to the hub, and one line to UPDATES |
+| `whats-new.html` | The full What's New log, grouped by month. Filled in by nav.js from UPDATES |
 | `pre-snap-read.html` | Returning serve like a quarterback reads a defense: formation, snap, call, conditions, knowing your crew |
 | `who-gets-the-lob.html` | Generally, the opposite side calls it and gets it and the lobbed player switches, with an exceptions note. Two court diagrams: the lob and getting pulled wide |
 | `communication.html` | Talk to Your Partner: the one-word calls and how to use them |
@@ -68,6 +69,24 @@ The whole philosophy fits on a paddle: the score is information, not identity. P
 | `lose-like-a-winner.html` | Sportsmanship in Playing the Game: don't slam it just because you can, lose like a winner, same posture every game |
 | `getting-better.html` | The learning ladder, the ATP, luck cuts both ways |
 | `_template.html` | Starting point for new pages. Noindexed and redirected away |
+
+## What's New
+
+Every change worth telling people about is one line in the `UPDATES` list near the top of `nav.js`, newest first:
+
+```
+["page-slug", "2026-10-14", "new", "One short line about what changed."],
+```
+
+Use `"new"` for a new page and `"updated"` for a change to an existing one. That one line drives four things:
+
+- **The hub strip:** the latest three entries, under the intro.
+- **Since your last visit:** returning visitors see "N new things since your last visit" instead. Their last visit date is kept only in their own browser (localStorage). Nothing is sent anywhere.
+- **Tile badges:** a New or Updated pill on the hub tile for 30 days (`BADGE_DAYS`), or longer for someone who hasn't been back since.
+- **whats-new.html:** the full log, grouped by month.
+
+Skip typo fixes and wording tweaks. Add a line when a regular would want to go look.
+
 
 ## To do
 
@@ -89,7 +108,7 @@ The whole philosophy fits on a paddle: the score is information, not identity. P
 ## SEO
 
 - Every indexable page has a keyword-first title, a meta description, a canonical URL, and Open Graph tags. The preview image is `img/og.png`.
-- `sitemap.xml` lists the nineteen indexable pages. `robots.txt` points to it.
+- `sitemap.xml` lists the twenty indexable pages. `robots.txt` points to it.
 - Canonical URLs have no `.html` because Cloudflare Pages drops the extension.
 - When Stacking is written: remove its `noindex`, add it to `sitemap.xml`.
 
