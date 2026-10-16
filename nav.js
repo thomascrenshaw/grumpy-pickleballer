@@ -30,6 +30,8 @@
     ["lose-like-a-winner",   "2026-10-15", "new",     "Don't slam it just because you can, and keep your head up when you lose."],
     ["knee-foot-routine",    "2026-10-10", "updated", "Watch buttons: Mr. PBSF, who has no knees, demonstrates the warm-up moves."],
     ["warmup",               "2026-10-10", "updated", "Torso rotations reattached to the legs. Mr. PBSF now has a disclaimer."],
+    ["sayings",              "2026-10-03", "updated", "Tap a saying to open it. One at a time, so the page stays short."],
+    ["why-you-play",         "2026-10-03", "updated", "Take another one: now covers serves that go long or wide, not just into the net."],
     ["strategy-stacking",    "2026-09-30", "new",     "The full stacking guide: serve and return, even and odd scores, four diagrams."],
     ["positioning-basics",   "2026-09-30", "updated", "Why the serving team starts on defense, with two new diagrams."],
     ["mental-game",          "2026-09-30", "updated", "Under all the paddle taps and breaths, the actual ritual."],
