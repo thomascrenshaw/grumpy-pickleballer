@@ -26,22 +26,22 @@
      That's all. The hub strip, the tile badges, the What's New page and
      "since your last visit" are all built from this list. */
   var UPDATES = [
-    ["game-within-the-game", "2026-10-14", "new",     "Fumble it, kick it, chase it, hear “BALL ON!” Even the pros play it."],
+    ["game-within-the-game", "2026-10-15", "new",     "Fumble it, kick it, chase it, hear “BALL ON!” Even the pros play it."],
+    ["lose-like-a-winner",   "2026-10-15", "new",     "Don't slam it just because you can, and keep your head up when you lose."],
     ["knee-foot-routine",    "2026-10-10", "updated", "Watch buttons: Mr. PBSF, who has no knees, demonstrates the warm-up moves."],
     ["warmup",               "2026-10-10", "updated", "Torso rotations reattached to the legs. Mr. PBSF now has a disclaimer."],
-    ["lose-like-a-winner",   "2026-10-04", "new",     "Don't slam it just because you can, and keep your head up when you lose."],
-    ["strategy-stacking",    "2026-10-02", "new",     "The full stacking guide: serve and return, even and odd scores, four diagrams."],
-    ["positioning-basics",   "2026-10-02", "updated", "Why the serving team starts on defense, with two new diagrams."],
-    ["mental-game",          "2026-10-02", "updated", "Under all the paddle taps and breaths, the actual ritual."],
-    ["why-you-play",         "2026-10-02", "updated", "Why a 7–2 blowout was a lot closer than it looked."],
-    ["who-gets-the-lob",     "2026-10-01", "new",     "Who calls it, who gets it, who switches, and the exceptions."],
-    ["communication",        "2026-10-01", "new",     "Mine, Yours, Switch, Stay, Out, Bounce: the calls that save points."],
-    ["finding-your-paddle",  "2026-10-01", "new",     "The best paddle is the one that works for you. How to try before you buy."],
-    ["weighting",            "2026-10-01", "new",     "Where to add weight and what it changes, with a quiz to find your spot."],
-    ["sayings",              "2026-09-30", "new",     "Things I say on the court, and why I actually believe them."],
-    ["pre-snap-read",        "2026-09-30", "new",     "Returning serve like a quarterback reads a defense."],
+    ["strategy-stacking",    "2026-09-30", "new",     "The full stacking guide: serve and return, even and odd scores, four diagrams."],
+    ["positioning-basics",   "2026-09-30", "updated", "Why the serving team starts on defense, with two new diagrams."],
+    ["mental-game",          "2026-09-30", "updated", "Under all the paddle taps and breaths, the actual ritual."],
+    ["why-you-play",         "2026-09-30", "updated", "Why a 7–2 blowout was a lot closer than it looked."],
+    ["who-gets-the-lob",     "2026-09-30", "new",     "Who calls it, who gets it, who switches, and the exceptions."],
+    ["communication",        "2026-09-30", "new",     "Mine, Yours, Switch, Stay, Out, Bounce: the calls that save points."],
+    ["finding-your-paddle",  "2026-09-30", "new",     "The best paddle is the one that works for you. How to try before you buy."],
+    ["weighting",            "2026-09-30", "new",     "Where to add weight and what it changes, with a quiz to find your spot."],
+    ["sayings",              "2026-09-29", "new",     "Things I say on the court, and why I actually believe them."],
+    ["pre-snap-read",        "2026-09-29", "new",     "Returning serve like a quarterback reads a defense."],
     ["getting-better",       "2026-09-29", "updated", "The five steps of learning a shot. Every one is the hardest part."],
-    ["grips",                "2026-09-28", "new",     "Continental to western, and which grip goes with which shot."]
+    ["grips",                "2026-09-27", "new",     "Continental to western, and which grip goes with which shot."]
   ];
   var BADGE_DAYS = 30;   // how long a tile keeps its New / Updated badge
   var STRIP_COUNT = 3;   // how many entries the hub strip shows
