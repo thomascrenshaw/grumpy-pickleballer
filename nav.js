@@ -10,7 +10,7 @@
     { id: "positioning", name: "Positioning", pages: [
       ["positioning-basics", "Positioning Basics"], ["strategy-the-rope", "The Rope"], ["strategy-the-reset", "The Reset"] ] },
     { id: "playing-the-game", name: "Playing the game", pages: [
-      ["pre-snap-read", "The Pre-Snap Read"], ["who-gets-the-lob", "Who Gets the Lob"], ["communication", "Talk to Your Partner"], ["lose-like-a-winner", "Lose Like a Winner"] ] },
+      ["pre-snap-read", "The Pre-Snap Read"], ["who-gets-the-lob", "Who Gets the Lob"], ["communication", "Talk to Your Partner"], ["line-calls", "Line Calls"], ["lose-like-a-winner", "Lose Like a Winner"] ] },
     { id: "the-paddle", name: "The paddle", pages: [
       ["grips", "Grips"], ["finding-your-paddle", "Finding Your Paddle"], ["weighting", "Weighting"] ] },
     { id: "the-head-game", name: "The head game", pages: [
@@ -26,6 +26,7 @@
      That's all. The hub strip, the tile badges, the What's New page and
      "since your last visit" are all built from this list. */
   var UPDATES = [
+    ["line-calls",           "2026-10-23", "new",     "If you think it was out, it was in. If you and your partner can't agree, it was in."],
     ["game-within-the-game", "2026-10-15", "new",     "Fumble it, kick it, chase it, hear “BALL ON!” Even the pros play it."],
     ["lose-like-a-winner",   "2026-10-15", "new",     "Don't slam it just because you can, and keep your head up when you lose."],
     ["knee-foot-routine",    "2026-10-10", "updated", "Watch buttons: Mr. PBSF, who has no knees, demonstrates the warm-up moves."],
@@ -96,7 +97,18 @@
     ".wnlog li:first-child{border-top:none;}" +
     ".wnlog .when{display:block;font-size:13px;color:var(--muted);margin-bottom:2px;}" +
     ".wnlog a{color:var(--ink);font-weight:800;font-size:17px;}" +
-    ".wnlog .note{display:block;font-size:15.5px;color:var(--muted);line-height:1.5;margin-top:3px;}";
+    ".wnlog .note{display:block;font-size:15.5px;color:var(--muted);line-height:1.5;margin-top:3px;}" +
+    /* citations: <sup class="cite"><a href="#src-1" id="cite-1">1</a></sup> + a .sources list at the bottom */
+    "sup.cite{font-size:.72em;line-height:0;margin-left:1px;}" +
+    "sup.cite a{color:var(--kitchen);font-weight:800;text-decoration:none;padding:0 2px;}" +
+    "[id^='src-'],[id^='cite-']{scroll-margin-top:70px;}" +
+    ".sources{margin:30px 0 0;padding-top:16px;border-top:1px solid var(--hair);}" +
+    ".sources h2{font-size:15px;text-transform:uppercase;letter-spacing:2px;color:var(--muted);margin:0 0 10px;font-weight:700;}" +
+    ".sources ol{margin:0;padding-left:22px;font-size:15px;line-height:1.55;color:var(--muted);}" +
+    ".sources li{margin:0 0 8px;}" +
+    ".sources li:target{background:#fff6e8;border-radius:6px;}" +
+    ".sources a{color:var(--kitchen);}" +
+    ".sources a.back{text-decoration:none;font-weight:800;margin-left:4px;}";
   document.head.appendChild(css);
 
   /* ---------- updates helpers ---------- */

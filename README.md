@@ -66,6 +66,7 @@ The whole philosophy fits on a paddle: the score is information, not identity. P
 | `why-you-play.html` | The ethos: who you are on the court and how you treat people |
 | `mental-game.html` | In-match technique: the serve routine as a kit, the silent head |
 | `game-within-the-game.html` | The head game: fumbling the ball, the second chase during the routine, "BALL ON!", even the pros play it (reps) |
+| `line-calls.html` | Playing the Game: if you think it was out, it was in; partners disagree, it's in; call it the best you can; don't play line judge from 29 or 44 feet away. Rulebook aside |
 | `lose-like-a-winner.html` | Sportsmanship in Playing the Game: don't slam it just because you can, lose like a winner, same posture every game |
 | `getting-better.html` | The learning ladder, the ATP, luck cuts both ways |
 | `_template.html` | Starting point for new pages. Noindexed and redirected away |
@@ -88,6 +89,33 @@ Use `"new"` for a new page and `"updated"` for a change to an existing one. That
 Skip typo fixes and wording tweaks. Add a line when a regular would want to go look.
 
 
+## Rants already on the site
+
+Tom's rules of pickleball that already have a home. Check here before writing a new page; a new rant often belongs on an existing one.
+
+- **Warm up, don't wreck your knees.** Never static-stretch a cold knee. → Dynamic Warm-Up, Knee & Foot Routine
+- **Let the court do the work.** The serving team starts on defense; the middle usually goes to the forehand. → Positioning Basics
+- **Move like you're tied together.** → The Rope
+- **Get it over once more and let them miss.** → The Reset
+- **Read the return like a quarterback.** → The Pre-Snap Read
+- **Who gets the lob:** generally, the other side calls it and gets it, and the lobbed player switches. → Who Gets the Lob
+- **Talk to your partner.** Mine, Yours, Switch, Stay, Out, Bounce. → Talk to Your Partner
+- **If you think it was out, it was in.** Partners disagree, it's in. Call it the best you can. Don't play line judge from 29 or 44 feet away. → Line Calls
+- **Don't slam it just because you can.** Lose like a winner, same posture every game. → Lose Like a Winner
+- **The best paddle is the one that works for you.** Try before you buy. → Finding Your Paddle, Grips, Weighting
+- **The score is information, not identity.** Play the person, not your ego. Playing down is a gift. Take another one (net, long or wide). Tap the paddle, mean it. → Why You Play
+- **The ritual and the silent head.** Close your eyes, wait for the sound. → The Mental Game
+- **Fumble it, kick it, chase it, BALL ON!** Even the pros play it. → The Game Within the Game
+- **Every step of learning a shot is the hardest part.** Luck cuts both ways. → Getting Better
+- **Stacking**, for when you're ready. → Stacking
+- **The one-liners** live on the sayings page. → Things I Say on the Court
+
+### Ranted, not posted yet
+
+- **Low tennis slices and spinny serves:** the grumpy version waits until Tom is less grumpy. (The scout's version is live as Case Files 05 and 06.)
+- **Sayings in the parking lot:** "Nice serve." "You!" (and the matching fix on Talk to Your Partner). "Played harder at 0–7 than 0–1." "Brains are pretty fast."
+- **Deep dives:** Take another one, Luck cuts both ways, The silent head.
+
 ## To do
 
 - **Weighting, My build:** update as the hybrid test on the elongated paddle settles.
@@ -108,7 +136,7 @@ Skip typo fixes and wording tweaks. Add a line when a regular would want to go l
 ## SEO
 
 - Every indexable page has a keyword-first title, a meta description, a canonical URL, and Open Graph tags. The preview image is `img/og.png`.
-- `sitemap.xml` lists the twenty indexable pages. `robots.txt` points to it.
+- `sitemap.xml` lists the twenty-one indexable pages. `robots.txt` points to it.
 - Canonical URLs have no `.html` because Cloudflare Pages drops the extension.
 - When Stacking is written: remove its `noindex`, add it to `sitemap.xml`.
 
