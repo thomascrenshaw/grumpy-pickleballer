@@ -23,6 +23,7 @@ The whole philosophy fits on a paddle: the score is information, not identity. P
 - Organize what Tom actually said. Don't invent opinions for him.
 - Humble by disclaimer, not by title: "this is *my* routine, about a year in, yours might look nothing like it."
 - The profanity on Why You Play is load-bearing. Leave it.
+- **Cite facts.** Anything that's a fact rather than Tom's opinion (a rule, a measurement, a date) gets a numbered citation that jumps to a Sources list at the bottom of the page. Markup: `<sup class="cite"><a href="#src-1" id="cite-1">1</a></sup>` in the text, and `<section class="sources">` with an `<ol>` of `<li id="src-1">… <a class="back" href="#cite-1">↩</a></li>` just above the footer. The styles live in `nav.js`. Prefer the primary source (the rulebook itself) over a summary site.
 - The mirror image of the bro site: every sincere tip here has a scout version there. If a line here starts sounding like the scout, it's on the wrong site.
 
 ## Design
@@ -99,7 +100,7 @@ Tom's rules of pickleball that already have a home. Check here before writing a 
 - **Get it over once more and let them miss.** → The Reset
 - **Read the return like a quarterback.** → The Pre-Snap Read
 - **Who gets the lob:** generally, the other side calls it and gets it, and the lobbed player switches. → Who Gets the Lob
-- **Talk to your partner.** Mine, Yours, Switch, Stay, Out, Bounce. → Talk to Your Partner
+- **Talk to your partner.** Mine, Yours, Switch, Stay, Out, Bounce. Advanced: the wide dink, edge line to edge line. → Talk to Your Partner
 - **If you think it was out, it was in.** Partners disagree, it's in. Call it the best you can. Don't play line judge from 29 or 44 feet away. → Line Calls
 - **Don't slam it just because you can.** Lose like a winner, same posture every game. → Lose Like a Winner
 - **The best paddle is the one that works for you.** Try before you buy. → Finding Your Paddle, Grips, Weighting
@@ -113,10 +114,13 @@ Tom's rules of pickleball that already have a home. Check here before writing a 
 ### Ranted, not posted yet
 
 - **Low tennis slices and spinny serves:** the grumpy version waits until Tom is less grumpy. (The scout's version is live as Case Files 05 and 06.)
-- **Sayings in the parking lot:** "Nice serve." "You!" (and the matching fix on Talk to Your Partner). "Played harder at 0–7 than 0–1." "Brains are pretty fast."
+- **Sayings in the parking lot:** "A routine isn't a routine if you don't do it regularly." "Nice serve." "You!" (and the matching fix on Talk to Your Partner). "Played harder at 0–7 than 0–1." "Brains are pretty fast."
 - **Deep dives:** Take another one, Luck cuts both ways, The silent head.
 
 ## To do
+
+- **Blendering (Tom's term, Oct 24):** moving your opponents around so much they don't remember which side they started the point on. A search found no prior use. Candidate saying ("Blender them") with the real tactic: side to side, hit where they just left; ties to Who Gets the Lob (switches). Scout option: claims he invented it, then blenders himself and serves from the wrong side.
+- **Banked line (Point Break, modified):** "Pickleball is the source. It can change your life. Swear to Mr. PBSF." Home TBD: maybe the Mr. PBSF introduction, or merch.
 
 - **Weighting, My build:** update as the hybrid test on the elongated paddle settles.
 - **Sayings:** only Tom's own lines go on the sayings page and in hub tile quotes. Add new ones as they come up at the court.

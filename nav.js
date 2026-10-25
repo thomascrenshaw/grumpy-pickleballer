@@ -26,6 +26,7 @@
      That's all. The hub strip, the tile badges, the What's New page and
      "since your last visit" are all built from this list. */
   var UPDATES = [
+    ["communication",        "2026-10-24", "updated", "Advanced: the wide dink, kitchen edge line to kitchen edge line, and what happens to the middle."],
     ["line-calls",           "2026-10-23", "new",     "If you think it was out, it was in. If you and your partner can't agree, it was in."],
     ["game-within-the-game", "2026-10-15", "new",     "Fumble it, kick it, chase it, hear “BALL ON!” Even the pros play it."],
     ["lose-like-a-winner",   "2026-10-15", "new",     "Don't slam it just because you can, and keep your head up when you lose."],
@@ -99,8 +100,9 @@
     ".wnlog a{color:var(--ink);font-weight:800;font-size:17px;}" +
     ".wnlog .note{display:block;font-size:15.5px;color:var(--muted);line-height:1.5;margin-top:3px;}" +
     /* citations: <sup class="cite"><a href="#src-1" id="cite-1">1</a></sup> + a .sources list at the bottom */
-    "sup.cite{font-size:.72em;line-height:0;margin-left:1px;}" +
-    "sup.cite a{color:var(--kitchen);font-weight:800;text-decoration:none;padding:0 2px;}" +
+    "sup.cite{font-size:.82em;line-height:0;margin-left:3px;}" +
+    "sup.cite a{display:inline-block;min-width:1.6em;padding:3px 5px;border-radius:6px;background:#f6e6cf;color:#8a5a22;font-weight:800;text-align:center;text-decoration:none;line-height:1.1;}" +
+    "sup.cite a:active{background:var(--kitchen);color:#fff;}" +
     "[id^='src-'],[id^='cite-']{scroll-margin-top:70px;}" +
     ".sources{margin:30px 0 0;padding-top:16px;border-top:1px solid var(--hair);}" +
     ".sources h2{font-size:15px;text-transform:uppercase;letter-spacing:2px;color:var(--muted);margin:0 0 10px;font-weight:700;}" +
