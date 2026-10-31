@@ -7,6 +7,8 @@
   var SECTIONS = [
     { id: "before-you-play", name: "Before you play", pages: [
       ["warmup", "Dynamic Warm-Up"], ["knee-foot-routine", "Knee & Foot Routine"] ] },
+    { id: "tools", name: "Tools", pages: [
+      ["round-robin", "Round Robin"] ] },
     { id: "positioning", name: "Positioning", pages: [
       ["positioning-basics", "Positioning Basics"], ["strategy-the-rope", "The Rope"], ["strategy-the-reset", "The Reset"] ] },
     { id: "playing-the-game", name: "Playing the game", pages: [
@@ -26,6 +28,7 @@
      That's all. The hub strip, the tile badges, the What's New page and
      "since your last visit" are all built from this list. */
   var UPDATES = [
+    ["round-robin",          "2026-10-31", "new",     "A round robin generator: popcorn, rotating or fixed partners, fair sit-outs, tap two names to swap."],
     ["communication",        "2026-10-24", "updated", "Advanced: the wide dink, kitchen edge line to kitchen edge line, and what happens to the middle."],
     ["line-calls",           "2026-10-23", "new",     "If you think it was out, it was in. If you and your partner can't agree, it was in."],
     ["game-within-the-game", "2026-10-15", "new",     "Fumble it, kick it, chase it, hear “BALL ON!” Even the pros play it."],
@@ -54,7 +57,8 @@
     "getting-better": ["mental-game", "grips", "sayings"],
     "strategy-stacking": ["positioning-basics", "communication"],
     "sayings": ["why-you-play", "mental-game", "getting-better"],
-    "whats-new": ["sayings", "getting-better", "warmup"]
+    "whats-new": ["sayings", "getting-better", "warmup"],
+    "round-robin": ["communication", "line-calls", "lose-like-a-winner"]
   };
   var EXTRA = { "sayings": "Things I Say on the Court", "whats-new": "What's New" };
 

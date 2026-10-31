@@ -58,6 +58,7 @@ The whole philosophy fits on a paddle: the score is information, not identity. P
 | `sayings.html` | Things I Say on the Court: ten sayings, each opening into origin, meaning, and the principle behind it. Featured at the top of the hub |
 | `grips.html` | Continental to western, a tappable bevel diagram, and which grip Tom uses where |
 | `nav.js` | The one list of sections and pages. Adds the section link to each page's top bar and the "You might also like" block, and holds the UPDATES list behind What's New. New page? Add it here, to the hub, and one line to UPDATES |
+| `round-robin.html` | Tools: round robin generator (popcorn, rotating partners, fixed partners), fair sit-outs, tap-to-swap, copy for the group chat. Saves the roster and schedule in the visitor's browser under `gp_roundrobin` (same `gp_` naming as `gp_lastVisit`). Saved data is per device: a roster set up at home won't be on your phone at the court. Still `noindex` and out of `sitemap.xml` until it's proven at the court |
 | `whats-new.html` | The full What's New log, grouped by month. Filled in by nav.js from UPDATES |
 | `pre-snap-read.html` | Returning serve like a quarterback reads a defense: formation, snap, call, conditions, knowing your crew |
 | `who-gets-the-lob.html` | Generally, the opposite side calls it and gets it and the lobbed player switches, with an exceptions note. Two court diagrams: the lob and getting pulled wide |
