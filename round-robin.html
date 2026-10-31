@@ -1,4 +1,4 @@
-<!-- v1.1 — Round Robin (tool): site links, house rules, per-round copy. noindex until it survives a real session at the court. -->
+<!-- v1.3 — Round Robin (tool): site links, house rules, per-round copy, #play= session links with roster dedupe and maybe-same-person checks. noindex until it survives a real session at the court. -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -119,7 +119,14 @@
   .empty{color:var(--muted);font-weight:700;}
   .aside{background:var(--paper);border:1px solid var(--hair);border-radius:9px;padding:13px 15px;margin:18px 0;font-size:14.5px;line-height:1.6;color:var(--muted);}
   .aside b{color:var(--ink);}
+  .aside code{font-size:13px;background:#fff;border:1px solid var(--hair);border-radius:5px;padding:1px 5px;overflow-wrap:anywhere;}
   a.inline{color:var(--kitchen);font-weight:700;}
+  .loaded{background:#fff;border:2px solid var(--kitchen);border-radius:12px;padding:12px 14px;margin:0 0 14px;font-size:15.5px;line-height:1.5;display:flex;gap:10px;align-items:flex-start;}
+  .loaded[hidden]{display:none;}
+  .loaded p{margin:0 0 4px;}
+  .loaded p:last-child{margin:0;}
+  .loaded .x{flex:none;margin-left:auto;}
+  .loaded .warn{color:#8f3a22;font-weight:700;}
   .nudge{margin:12px 2px 0;font-size:15.5px;}
   .round-head .row{margin:0;flex-wrap:nowrap;}
   .sitlink{font-size:14.5px;font-weight:700;color:var(--kitchen);margin-left:4px;}
@@ -137,6 +144,7 @@
       <p class="sub">Pick who showed up, pick a format, get courts. Tap any two names in the same round to swap them.</p>
     </header>
 
+    <div class="loaded" id="loaded" role="status" hidden></div>
     <section class="setup" aria-label="Setup">
       <div>
         <span class="lbl" id="typeLbl">Format</span>
@@ -191,6 +199,10 @@
         <li><q>If you're losing, lose like a winner.</q> <a class="inline" href="lose-like-a-winner.html">Lose Like a Winner</a></li>
       </ul>
     </div>
+
+    <div class="aside"><b>Your names stay on your phone.</b> The roster and schedule are saved only in this browser, on this device (most likely your phone at the court). Nothing is sent to this site or anywhere else, and there are no accounts. Clear your browser data and they're gone. Open the page on another device and it starts empty.</div>
+
+    <div class="aside"><b>Using an AI assistant?</b> If yours can see your Pickleheads sessions, it can build a session link like <code>grumpypickleballer.com/round-robin#play=Tom%20C,Kristen%20L,&#8230;</code> Open it and the page fills in who's playing, matches names already on your list, adds only the new ones, and asks before treating &#8220;Thomas C&#8221; as your &#8220;Tom C.&#8221; The names ride after the <code>#</code>, which browsers never send to the site, and the page clears them from the address once they're loaded. The assistant sees the names while it builds the link; the page itself still keeps them only on your device.</div>
 
     <div class="aside"><b>How it decides.</b> Each round, whoever has sat out the least sits first, and nobody sits twice in a row if it can be avoided. Then it tries a pile of shuffles and keeps the one with the fewest repeat partners. Each round has its own Copy button, so you can post rounds to the group chat one at a time instead of yelling them across the courts. Rotating partners also spreads out who you play against. Fixed partners uses the standard circle rotation, so every team sees every other team before anyone repeats.</div>
 
@@ -491,7 +503,78 @@ document.addEventListener('click',function(e){
   if(b.id==='copy')return copyText(asText(),b,'Copy for the group chat');
 });
 
-if(!S.sched||S.sched.length===0&&S.n>=4)generate();else renderAll();
+/* ---------- session links: round-robin#play=Tom,Lee,Diane%20C ----------
+   Sets who's playing from the link and adds only new names to the roster.
+   Matching: exact name (any capitalization) first; then a bare first name ("Diane")
+   matches one saved "Diane C". Two saved Dianes and a bare "Diane" = ask, don't guess.
+   The names sit after the #, so they never reach the server. The # is cleared after
+   loading so a refresh can't re-apply it over your edits. */
+/* Possible same person: same first letter, the shorter first name tucked inside the longer
+   (Rob/Robert, Tom/Thomas), and compatible last initials (M/M, M/Mo, or one has none).
+   It only ever asks; it never merges on its own, and there's no nickname list to maintain. */
+function subseq(a,b){var i=0;for(var j=0;j<b.length&&i<a.length;j++)if(a[i]===b[j])i++;return i===a.length}
+function parts(n){var t=n.toLowerCase().trim().split(/\s+/);return {first:t[0],last:t.length>1?t[t.length-1].replace(/\./g,''):''}}
+function maybeSame(a,b){
+  var A=parts(a),B=parts(b);if(A.first===B.first&&A.last===B.last)return false;
+  if(A.first[0]!==B.first[0])return false;
+  var s=A.first.length<=B.first.length?A.first:B.first,l=s===A.first?B.first:A.first;
+  if(!subseq(s,l))return false;
+  if(A.last&&B.last&&A.last.indexOf(B.last)!==0&&B.last.indexOf(A.last)!==0)return false;
+  return true;
+}
+var PENDING=[];
+function fromLink(){
+  var m=location.hash.match(/^#play=(.*)$/);if(!m)return false;
+  var raw=m[1].split(',').map(function(x){try{return decodeURIComponent(x.replace(/\+/g,' ')).trim().slice(0,24)}catch(e){return ''}}).filter(Boolean).slice(0,48);
+  var byLower={};S.roster.forEach(function(r){byLower[r.toLowerCase()]=r});
+  var playing=[],added=[],ambig=[],repeats=[],seen={};PENDING=[];
+  raw.forEach(function(n){
+    var k=n.toLowerCase();
+    if(seen[k]){repeats.push(n);return}seen[k]=1;
+    var hit=byLower[k];
+    if(!hit&&n.indexOf(' ')<0){
+      var c=S.roster.filter(function(r){return r.toLowerCase().split(' ')[0]===k});
+      if(c.length===1)hit=c[0];
+      else if(c.length>1){ambig.push(n+' ('+c.join(' or ')+')');playing.push('');return}
+    }
+    if(!hit){
+      var near=S.roster.filter(function(r){return maybeSame(n,r)});
+      if(near.length){PENDING.push({name:n,near:near,slot:playing.length});playing.push(n);return}
+      S.roster.push(n);byLower[k]=n;added.push(n);hit=n;
+    }
+    if(playing.indexOf(hit)<0)playing.push(hit);
+  });
+  S.n=Math.max(4,playing.length);
+  S.slots=playing.concat(new Array(Math.max(0,S.n-playing.length)).fill('')).slice(0,S.n);
+  S.courts=Math.max(1,maxCourts());newSlot=-1;
+  try{history.replaceState(null,'',location.pathname+location.search)}catch(e){}
+  var cnt=playing.length;
+  var msg='<div><p><b>Loaded '+cnt+' player'+(cnt===1?'':'s')+' from your link.</b> '+liveCourts()+' court'+(liveCourts()===1?'':'s')+'; change it below if you have fewer.</p>';
+  msg+=added.length?'<p>New on your roster: '+added.map(esc).join(', ')+'.</p>':(PENDING.length?'':'<p>Everyone was already on your roster.</p>');
+  PENDING.forEach(function(q,i){
+    msg+=q.near.length===1
+      ?'<p class="warn" data-q="'+i+'">Is <b>'+esc(q.name)+'</b> your '+esc(q.near[0])+'? <button class="btn small" type="button" data-same="'+i+'">Same person</button> <button class="btn small" type="button" data-diff="'+i+'">Different</button></p>'
+      :'<p class="warn" data-q="'+i+'"><b>'+esc(q.name)+'</b> might be '+q.near.map(esc).join(' or ')+'. Pick in the dropdown, or <button class="btn small" type="button" data-diff="'+i+'">Add as new</button></p>';
+  });
+  if(ambig.length)msg+='<p class="warn">Couldn’t tell which: '+ambig.map(esc).join('; ')+'. Pick them in the dropdowns.</p>';
+  if(repeats.length)msg+='<p class="warn">Listed twice: '+repeats.map(esc).join(', ')+'. If that’s two people, add a last initial.</p>';
+  msg+='</div><button class="btn small x" type="button" data-dismiss aria-label="Close">&#215;</button>';
+  var el=$('#loaded');el.innerHTML=msg;el.hidden=false;
+  return true;
+}
+document.addEventListener('click',function(e){
+  var b=e.target.closest('[data-same],[data-diff]');if(!b)return;
+  var i=+(b.dataset.same!==undefined?b.dataset.same:b.dataset.diff),q=PENDING[i];if(!q)return;
+  if(b.dataset.same!==undefined){var at=S.slots.indexOf(q.name);if(at>=0)S.slots[at]=q.near[0]}
+  else if(S.roster.indexOf(q.name)<0)S.roster.push(q.name);
+  var line=b.closest('[data-q]');if(line)line.innerHTML=b.dataset.same!==undefined?'Using '+esc(q.near[0])+'.':'Added '+esc(q.name)+' to your roster.';
+  PENDING[i]=null;save();renderAll();
+});
+document.addEventListener('click',function(e){var b=e.target.closest('[data-dismiss]');if(b)$('#loaded').hidden=true});
+window.addEventListener('hashchange',function(){if(fromLink())generate()});
+
+if(fromLink())generate();
+else if(!S.sched||S.sched.length===0&&S.n>=4)generate();else renderAll();
 })();
 </script>
 <script src="nav.js" defer></script>
