@@ -1,4 +1,4 @@
-<!-- v1.0 — Round Robin (tool). noindex until it survives a real session at the court. -->
+<!-- v1.1 — Round Robin (tool): site links, house rules, per-round copy. noindex until it survives a real session at the court. -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -119,6 +119,13 @@
   .empty{color:var(--muted);font-weight:700;}
   .aside{background:var(--paper);border:1px solid var(--hair);border-radius:9px;padding:13px 15px;margin:18px 0;font-size:14.5px;line-height:1.6;color:var(--muted);}
   .aside b{color:var(--ink);}
+  a.inline{color:var(--kitchen);font-weight:700;}
+  .nudge{margin:12px 2px 0;font-size:15.5px;}
+  .round-head .row{margin:0;flex-wrap:nowrap;}
+  .sitlink{font-size:14.5px;font-weight:700;color:var(--kitchen);margin-left:4px;}
+  .rules ul{margin:8px 0 0;padding-left:18px;}
+  .rules li{margin:0 0 4px;}
+  .rules q{color:var(--ink);font-weight:700;font-style:italic;}
   .foot{margin-top:30px;padding-top:14px;border-top:1px solid var(--hair);font-size:14px;color:var(--muted);line-height:1.6;}
 </style>
 </head>
@@ -162,6 +169,7 @@
         <div class="row"><button class="btn go small" type="button" id="saveRoster">Save roster</button><button class="btn small" type="button" id="clearSlots">Clear who's playing</button></div>
       </details>
     </section>
+    <p class="note nudge">Round 1 starts cold. <a class="inline" href="warmup.html">Warm up first &#8594;</a></p>
 
     <div class="bar">
       <div class="summary" id="summary"></div>
@@ -176,7 +184,15 @@
       <div class="tablewrap"><table id="stats"></table></div>
     </details>
 
-    <div class="aside"><b>How it decides.</b> Each round, whoever has sat out the least sits first, and nobody sits twice in a row if it can be avoided. Then it tries a pile of shuffles and keeps the one with the fewest repeat partners. Rotating partners also spreads out who you play against. Fixed partners uses the standard circle rotation, so every team sees every other team before anyone repeats.</div>
+    <div class="aside rules"><b>House rules.</b>
+      <ul>
+        <li><q>If you think it was out, it was in.</q> <a class="inline" href="line-calls.html">Line Calls</a></li>
+        <li><q>Take another one.</q> <a class="inline" href="why-you-play.html">Why You Play</a></li>
+        <li><q>If you're losing, lose like a winner.</q> <a class="inline" href="lose-like-a-winner.html">Lose Like a Winner</a></li>
+      </ul>
+    </div>
+
+    <div class="aside"><b>How it decides.</b> Each round, whoever has sat out the least sits first, and nobody sits twice in a row if it can be avoided. Then it tries a pile of shuffles and keeps the one with the fewest repeat partners. Each round has its own Copy button, so you can post rounds to the group chat one at a time instead of yelling them across the courts. Rotating partners also spreads out who you play against. Fixed partners uses the standard circle rotation, so every team sees every other team before anyone repeats.</div>
 
     <div class="foot">Your crew, your courts. It just does the math so nobody has to.
       <span class="xwink" style="display:block;margin-top:10px;">Not affiliated with <a href="https://doyouevendinkbro.com" style="color:inherit;text-decoration:underline;text-underline-offset:2px">doyouevendinkbro.com</a>. I've spoken to him about it, but he insists we're partners. We have never been seen in the same room.</span>
@@ -335,7 +351,8 @@ function renderSetup(){
       :'Spreads partners and opponents as evenly as the math allows, with sit-outs rotating fairly.',
     fixed:'Teams stay together and opponents rotate. T1 and T1 are a team, T2 and T2 the next, and so on.'+(S.n%2?' Odd count, so the last player sits as the sub.':'')
   };
-  $('#typeHint').textContent=hints[S.type];
+  var talk=S.type==='fixed'?'':' New partner? Ten seconds before the first serve: \u201cWhat do you say for switch?\u201d <a class="inline" href="communication.html">Talk to Your Partner &#8594;</a>';
+  $('#typeHint').innerHTML=esc(hints[S.type])+talk;
   $('#sitNote').textContent=S.n<4?'You need at least 4 players for a court.':
     c+' court'+(c===1?'':'s')+' in play, '+sitting+' sitting out each round.'+(S.courts>maxCourts()?' ('+S.n+' players only fill '+maxCourts()+'.)':'');
   var slots=$('#slots');slots.className='slots'+(S.type==='fixed'?' fixed':'');
@@ -348,7 +365,7 @@ function chip(r,p){return '<button type="button" class="chip'+(sel&&sel.r===r&&s
 function renderRounds(){
   var el=$('#rounds');
   if(!S.sched||!S.sched.length){el.innerHTML='<p class="empty">Add at least 4 players to fill a court.</p>';repeatCount=0;return}
-  var seen={};repeatCount=0;
+  var seen={};repeatCount=0;var firstSit=-1;S.sched.some(function(R,i){if(R.sits.length){firstSit=i;return true}});
   el.innerHTML=S.sched.map(function(R,ri){
     function side(T,cls){
       var k=Math.min(T[0],T[1])+'-'+Math.max(T[0],T[1]);
@@ -358,8 +375,8 @@ function renderRounds(){
     var courts=R.matches.map(function(M,mi){
       return '<div class="court"><div class="court-label">Court '+(mi+1)+'</div><div class="court-body">'+side(M[0],'a')+'<div class="net" aria-hidden="true"></div>'+side(M[1],'b')+'</div></div>';
     }).join('');
-    var sits=R.sits.length?'<div class="sits"><span class="sits-label">Sitting out</span>'+R.sits.map(function(p){return chip(ri,p)}).join('')+'</div>':'';
-    return '<section aria-label="Round '+(ri+1)+'"><div class="round-head"><h2>Round '+(ri+1)+'</h2><button class="btn small" type="button" data-reshuffle="'+ri+'">Reshuffle this round</button></div><div class="courts">'+courts+'</div>'+sits+'</section>';
+    var sits=R.sits.length?'<div class="sits"><span class="sits-label">Sitting out</span>'+R.sits.map(function(p){return chip(ri,p)}).join('')+(ri===firstSit?'<a class="sitlink" href="pre-snap-read.html">Sitting out is scouting &#8594;</a>':'')+'</div>':'';
+    return '<section aria-label="Round '+(ri+1)+'"><div class="round-head"><h2>Round '+(ri+1)+'</h2><div class="row"><button class="btn small" type="button" data-copyround="'+ri+'">Copy</button><button class="btn small" type="button" data-reshuffle="'+ri+'">Reshuffle</button></div></div><div class="courts">'+courts+'</div>'+sits+'</section>';
   }).join('');
 }
 function renderSummary(){
@@ -382,13 +399,22 @@ function renderStats(){
 }
 function renderAll(){renderSetup();renderRounds();renderSummary();renderStats()}
 
+function roundLines(R,ri){
+  var lines=['Round '+(ri+1)];
+  R.matches.forEach(function(M,mi){lines.push('  Ct '+(mi+1)+': '+nm(M[0][0])+' & '+nm(M[0][1])+' vs '+nm(M[1][0])+' & '+nm(M[1][1]))});
+  if(R.sits.length)lines.push('  Sit: '+R.sits.map(nm).join(', '));
+  return lines;
+}
+function copyText(txt,b,label){
+  var fb=$('#copyFallback');
+  var ok=function(){b.textContent='Copied';fb.hidden=true;setTimeout(function(){b.textContent=label},1400)};
+  var fail=function(){fb.hidden=false;fb.value=txt;fb.focus();fb.select();b.textContent='Select and copy below'};
+  try{navigator.clipboard.writeText(txt).then(ok,fail)}catch(err){fail()}
+}
 function asText(){
   var lines=['Round robin: '+TYPES[S.type].label+', '+S.n+' players'];
-  (S.sched||[]).forEach(function(R,ri){
-    lines.push('','Round '+(ri+1));
-    R.matches.forEach(function(M,mi){lines.push('  Ct '+(mi+1)+': '+nm(M[0][0])+' & '+nm(M[0][1])+' vs '+nm(M[1][0])+' & '+nm(M[1][1]))});
-    if(R.sits.length)lines.push('  Sit: '+R.sits.map(nm).join(', '));
-  });
+  (S.sched||[]).forEach(function(R,ri){lines.push('');lines=lines.concat(roundLines(R,ri))});
+  lines.push('','Made with grumpypickleballer.com/round-robin');
   return lines.join('\n');
 }
 
@@ -441,6 +467,7 @@ document.addEventListener('click',function(e){
   if(d.add!==undefined)return addName(+d.add);
   if(d.cancel!==undefined){newSlot=-1;return renderSetup()}
   if(d.reshuffle!==undefined)return reshuffle(+d.reshuffle);
+  if(d.copyround!==undefined)return copyText(roundLines(S.sched[+d.copyround],+d.copyround).join('\n'),b,'Copy');
   if(d.p!==undefined){
     var r=+d.r,p=+d.p;
     if(sel&&sel.r===r&&sel.p===p)sel=null;
@@ -461,12 +488,7 @@ document.addEventListener('click',function(e){
     b.textContent='Saved';setTimeout(function(){b.textContent='Save roster'},1400);
     return refreshNames();
   }
-  if(b.id==='copy'){
-    var txt=asText(),fb=$('#copyFallback');
-    var ok=function(){b.textContent='Copied';fb.hidden=true;setTimeout(function(){b.textContent='Copy for the group chat'},1400)};
-    var fail=function(){fb.hidden=false;fb.value=txt;fb.focus();fb.select();b.textContent='Select and copy below'};
-    try{navigator.clipboard.writeText(txt).then(ok,fail)}catch(err){fail()}
-  }
+  if(b.id==='copy')return copyText(asText(),b,'Copy for the group chat');
 });
 
 if(!S.sched||S.sched.length===0&&S.n>=4)generate();else renderAll();
