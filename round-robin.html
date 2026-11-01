@@ -1,24 +1,24 @@
-<!-- v1.3 — Round Robin (tool): site links, house rules, per-round copy, #play= session links with roster dedupe and maybe-same-person checks. noindex until it survives a real session at the court. -->
+<!-- v1.5 — Round Robin (tool): public. Partner requests. Site links, house rules, per-round copy, #play= session links with roster dedupe and maybe-same-person checks, SEO guide + FAQ. -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <!-- readable: larger type, system font, darker gray -->
 <meta id="readable" name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pickleball Round Robin Generator: Popcorn, Rotating &amp; Fixed Partners | Grumpy Pickleballer</title>
+<title>Free Pickleball Round Robin Generator: No App, No Account | Grumpy Pickleballer</title>
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
-  <meta name="robots" content="noindex">
-  <meta name="description" content="Free pickleball round robin generator. Pick who showed up, choose popcorn, rotating partners or fixed partners, and get court assignments with fair sit-outs. Tap two names to swap.">
+  <meta name="description" content="Free pickleball round robin generator for popcorn, rotating partners or fixed partners. Fair sit-outs, few repeat partners, tap to swap, copy rounds to your group chat. No app, no account.">
   <link rel="canonical" href="https://grumpypickleballer.com/round-robin">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Grumpy Pickleballer">
-  <meta property="og:title" content="Pickleball Round Robin Generator | Grumpy Pickleballer">
-  <meta property="og:description" content="Pick who showed up, pick a format, get courts. Fair sit-outs, no repeat partners when it can be avoided.">
+  <meta property="og:title" content="Free Pickleball Round Robin Generator | Grumpy Pickleballer">
+  <meta property="og:description" content="Pick who showed up, pick a format, get courts. Fair sit-outs, few repeat partners, no app and no account. Names stay on your phone.">
   <meta property="og:url" content="https://grumpypickleballer.com/round-robin">
   <meta property="og:image" content="https://grumpypickleballer.com/img/og.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
+  <script type="application/ld+json">[{"@context": "https://schema.org", "@type": "WebApplication", "name": "Pickleball Round Robin Generator", "url": "https://grumpypickleballer.com/round-robin", "applicationCategory": "SportsApplication", "operatingSystem": "Any (web browser)", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "description": "Free pickleball round robin generator for popcorn, rotating partners or fixed partners. Fair sit-outs, few repeat partners, tap to swap, copy rounds to your group chat. No app, no account.", "publisher": {"@type": "Organization", "name": "Grumpy Pickleballer", "url": "https://grumpypickleballer.com/"}}, {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Is this round robin generator free?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. No ads, no account, no app to install. It runs in your browser."}}, {"@type": "Question", "name": "Does it work on a phone at the court?", "acceptedAnswer": {"@type": "Answer", "text": "Yes, it's built for phones. Add it to your home screen and it opens like an app. Your roster and schedule survive a refresh."}}, {"@type": "Question", "name": "Is this a Pickleheads alternative?", "acceptedAnswer": {"@type": "Answer", "text": "For round robins, yes. If you mostly use Pickleheads to generate round robins, this does that part for free in your browser. Pickleheads does much more, like finding games, running sessions and groups. This only does the round robin."}}, {"@type": "Question", "name": "What happens with an odd number of players?", "acceptedAnswer": {"@type": "Answer", "text": "Whoever has sat out the least sits first, and nobody sits twice in a row if it can be avoided. With fixed partners and an odd count, the extra player is the sub."}}, {"@type": "Question", "name": "How many rounds should I schedule?", "acceptedAnswer": {"@type": "Answer", "text": "With rotating partners, a multiple of 4 players and every court full, the number of players minus one is enough for everyone to partner everyone once. Otherwise, schedule as many rounds as your court time allows."}}, {"@type": "Question", "name": "Where are player names stored?", "acceptedAnswer": {"@type": "Answer", "text": "Only in your browser, on your device. Nothing is sent to this site or anywhere else."}}]}]</script>
 <style>
   :root{--ink:#1c2321;--paper:#f6f4ec;--muted:#505854;--hair:#d8d4c6;--kitchen:#c9843f;--pickle:#9bc24a;--pickle-line:#6d8a33;
         --court:#4a7a8c;--cfill:#eaf2f4;--kfill:#f7ecdd;--you:#2e3835;--opp:#b5763a;--ball:#c25a3a;--sel:#fff3c4;
@@ -123,6 +123,16 @@
   a.inline{color:var(--kitchen);font-weight:700;}
   .loaded{background:#fff;border:2px solid var(--kitchen);border-radius:12px;padding:12px 14px;margin:0 0 14px;font-size:15.5px;line-height:1.5;display:flex;gap:10px;align-items:flex-start;}
   .loaded[hidden]{display:none;}
+  details.req summary{cursor:pointer;font-size:13px;text-transform:uppercase;letter-spacing:1.5px;font-weight:800;color:var(--muted);}
+  details.req[open] summary{margin-bottom:8px;}
+  .reqpair{display:flex;align-items:center;gap:8px;}
+  .reqpair select,.whensel{flex:1;min-width:0;font:700 16px/1.2 var(--sans);padding:9px 8px;border:1px solid var(--hair);border-radius:8px;background:#fff;color:var(--ink);width:100%;}
+  .reqpair span{font-weight:800;color:var(--muted);}
+  .reqopts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px;}
+  .against{display:flex;flex-wrap:wrap;gap:6px;}
+  .against button{font:700 15px/1.2 var(--sans);padding:8px 11px;border-radius:999px;border:1.5px solid var(--hair);background:#fff;color:var(--ink);cursor:pointer;}
+  .against button[aria-pressed="true"]{background:var(--ink);color:#fff;border-color:var(--ink);}
+  .tag.ok{background:#e4efcf;color:#3f5a17;}
   .loaded p{margin:0 0 4px;}
   .loaded p:last-child{margin:0;}
   .loaded .x{flex:none;margin-left:auto;}
@@ -133,6 +143,14 @@
   .rules ul{margin:8px 0 0;padding-left:18px;}
   .rules li{margin:0 0 4px;}
   .rules q{color:var(--ink);font-weight:700;font-style:italic;}
+  .guide{margin-top:34px;padding-top:6px;border-top:3px solid var(--ink);}
+  .guide h2{font-size:21px;margin:18px 0 8px;font-weight:800;letter-spacing:-.3px;}
+  .guide h3{font-size:17px;margin:16px 0 6px;font-weight:800;}
+  .guide p,.guide li{font-size:16px;line-height:1.6;}
+  .guide ul{padding-left:20px;margin:6px 0 10px;}
+  details.faq{background:var(--paper);border:1px solid var(--hair);border-radius:9px;margin:0 0 8px;}
+  details.faq summary{cursor:pointer;font-weight:800;font-size:16px;padding:12px 14px;}
+  details.faq p{margin:0;padding:0 14px 12px;color:var(--muted);}
   .foot{margin-top:30px;padding-top:14px;border-top:1px solid var(--hair);font-size:14px;color:var(--muted);line-height:1.6;}
 </style>
 </head>
@@ -140,8 +158,8 @@
   <div class="topbar"><a href="index.html">&#8592; Grumpy Pickleballer</a><span class="crumb">/ Round Robin</span></div>
   <div class="sheet">
     <header>
-      <h1>&#129362; Round Robin</h1>
-      <p class="sub">Pick who showed up, pick a format, get courts. Tap any two names in the same round to swap them.</p>
+      <h1>&#129362; Pickleball Round Robin Generator</h1>
+      <p class="sub">Pick who showed up, pick a format, get courts. Free, no app, no account. Tap any two names in the same round to swap them.</p>
     </header>
 
     <div class="loaded" id="loaded" role="status" hidden></div>
@@ -170,6 +188,19 @@
         <div class="slots" id="slots"></div>
       </div>
 
+      <details class="req" id="reqBox">
+        <summary>Partner request (optional)</summary>
+        <p class="note" style="margin:0 0 10px">Two people who want to play together a set number of times, like a tournament pair. They partner only in those games, and everyone else stays as even as the math allows.</p>
+        <div class="reqpair"><select id="reqA" aria-label="First partner"></select><span>&amp;</span><select id="reqB" aria-label="Second partner"></select></div>
+        <div class="reqopts">
+          <div><label class="lbl" for="reqGames">Games together</label><div class="stepper"><button type="button" data-step="reqGames" data-d="-1" aria-label="Fewer games">&#8722;</button><input id="reqGames" type="number" inputmode="numeric" min="1"><button type="button" data-step="reqGames" data-d="1" aria-label="More games">+</button></div></div>
+          <div><label class="lbl" for="reqWhen">When</label><select id="reqWhen" class="whensel"><option value="spread">Spread out</option><option value="end">End of session</option></select></div>
+        </div>
+        <span class="lbl" style="margin-top:12px">Against (optional)</span>
+        <div class="against" id="reqAgainst"></div>
+        <p class="note" id="reqNote"></p>
+      </details>
+
       <details class="roster" id="rosterBox">
         <summary>Your roster</summary>
         <label for="rosterText" class="note" style="display:block;margin:0 0 6px">One name per line. These fill the dropdowns. Your roster is kept only in this browser. Nothing is sent anywhere.</label>
@@ -194,6 +225,7 @@
 
     <div class="aside rules"><b>House rules.</b>
       <ul>
+        <li><q>The score doesn't really matter. It just tells me who's serving.</q> <a class="inline" href="sayings.html#score">Things I Say</a></li>
         <li><q>If you think it was out, it was in.</q> <a class="inline" href="line-calls.html">Line Calls</a></li>
         <li><q>Take another one.</q> <a class="inline" href="why-you-play.html">Why You Play</a></li>
         <li><q>If you're losing, lose like a winner.</q> <a class="inline" href="lose-like-a-winner.html">Lose Like a Winner</a></li>
@@ -204,7 +236,29 @@
 
     <div class="aside"><b>Using an AI assistant?</b> If yours can see your Pickleheads sessions, it can build a session link like <code>grumpypickleballer.com/round-robin#play=Tom%20C,Kristen%20L,&#8230;</code> Open it and the page fills in who's playing, matches names already on your list, adds only the new ones, and asks before treating &#8220;Thomas C&#8221; as your &#8220;Tom C.&#8221; The names ride after the <code>#</code>, which browsers never send to the site, and the page clears them from the address once they're loaded. The assistant sees the names while it builds the link; the page itself still keeps them only on your device.</div>
 
-    <div class="aside"><b>How it decides.</b> Each round, whoever has sat out the least sits first, and nobody sits twice in a row if it can be avoided. Then it tries a pile of shuffles and keeps the one with the fewest repeat partners. Each round has its own Copy button, so you can post rounds to the group chat one at a time instead of yelling them across the courts. Rotating partners also spreads out who you play against. Fixed partners uses the standard circle rotation, so every team sees every other team before anyone repeats.</div>
+    <div class="aside"><b>How it decides.</b> Each round, whoever has sat out the least sits first, and nobody sits twice in a row if it can be avoided. Then it tries a pile of shuffles and keeps the one with the fewest repeat partners. Each round has its own Copy button, so you can post rounds to the group chat one at a time instead of yelling them across the courts. Rotating partners also spreads out who you play against. Fixed partners uses the standard circle rotation, so every team sees every other team before anyone repeats. A partner request locks one pair together for the games you set (and only those), picks their opponents from your list, and builds everyone else's rounds around them.</div>
+
+    <section class="guide" aria-label="How to run a pickleball round robin">
+      <h2>How to run a pickleball round robin</h2>
+      <p>A round robin mixes everyone who showed up across your courts, round after round, so nobody plays the same three people all session and the sit-outs are shared. Pick a format, set players, courts and rounds, and the generator does the rest.</p>
+      <h3>Which format?</h3>
+      <ul>
+        <li><b>Popcorn:</b> random partners every round. Quick and social, and the default for most drop-in play.</li>
+        <li><b>Rotating partners</b> (a mixer): it works harder to spread out partners and opponents, so you play with and against as many people as possible.</li>
+        <li><b>Fixed partners:</b> teams stay together and opponents rotate in a circle, so every team sees every other team before anyone repeats. Good for practicing with your tournament partner.</li>
+      </ul>
+      <h3>Odd numbers and sit-outs</h3>
+      <p>Each court takes four players. Everyone else sits out that round, and the generator rotates who sits so it evens out. Nine players on two courts means one sits out each round; eleven means three.</p>
+      <h3>Getting the schedule to everyone</h3>
+      <p>Use <b>Copy for the group chat</b> for the whole schedule, or the <b>Copy</b> button on each round to post them one at a time. Nobody has to yell court assignments across the fence.</p>
+      <h2>Questions</h2>
+      <details class="faq"><summary>Is this round robin generator free?</summary><p>Yes. No ads, no account, no app to install. It runs in your browser.</p></details>
+      <details class="faq"><summary>Does it work on a phone at the court?</summary><p>Yes, it's built for phones. Add it to your home screen and it opens like an app. Your roster and schedule survive a refresh.</p></details>
+      <details class="faq"><summary>Is this a Pickleheads alternative?</summary><p>For round robins, yes. If you mostly use Pickleheads to generate round robins, this does that part for free in your browser. Pickleheads does much more, like finding games, running sessions and groups. This only does the round robin.</p></details>
+      <details class="faq"><summary>What happens with an odd number of players?</summary><p>Whoever has sat out the least sits first, and nobody sits twice in a row if it can be avoided. With fixed partners and an odd count, the extra player is the sub.</p></details>
+      <details class="faq"><summary>How many rounds should I schedule?</summary><p>With rotating partners, a multiple of 4 players and every court full, the number of players minus one is enough for everyone to partner everyone once. Otherwise, schedule as many rounds as your court time allows.</p></details>
+      <details class="faq"><summary>Where are player names stored?</summary><p>Only in your browser, on your device. Nothing is sent to this site or anywhere else.</p></details>
+    </section>
 
     <div class="foot">Your crew, your courts. It just does the math so nobody has to.
       <span class="xwink" style="display:block;margin-top:10px;">Not affiliated with <a href="https://doyouevendinkbro.com" style="color:inherit;text-decoration:underline;text-underline-offset:2px">doyouevendinkbro.com</a>. I've spoken to him about it, but he insists we're partners. We have never been seen in the same room.</span>
@@ -229,6 +283,10 @@ function load(){try{var s=JSON.parse(localStorage.getItem(KEY));return s&&Array.
 function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
 
 var S=load()||{roster:[],n:8,courts:2,rounds:7,type:'popcorn',slots:new Array(8).fill(''),sched:null};
+if(!S.req)S.req={a:-1,b:-1,games:2,when:'spread',against:[]};
+/* the partner request, if it's complete and fits this session */
+function reqOn(){var q=S.req;return S.type!=='fixed'&&q&&q.a>=0&&q.b>=0&&q.a!==q.b&&q.a<S.n&&q.b<S.n&&q.games>0&&liveCourts()>0?q:null}
+function isReqPair(T){var q=reqOn();return !!q&&((T[0]===q.a&&T[1]===q.b)||(T[0]===q.b&&T[1]===q.a))}
 var sel=null,newSlot=-1,repeatCount=0;
 
 function maxCourts(){return Math.floor(S.n/4)}
@@ -280,16 +338,47 @@ function arrangeTeams(teams,O,tries){
   }
   return best||[];
 }
+/* Which rounds the requested pair plays together: the last N, or N spread evenly. */
+function reqRounds(q){
+  var g=Math.min(q.games,S.rounds),set={};
+  for(var k=0;k<g;k++)set[q.when==='end'?S.rounds-1-k:Math.floor((k+0.5)*S.rounds/g)]=1;
+  return set;
+}
+/* Opponents for the pair: two from the "against" list if possible (fewest past meetings first),
+   otherwise the best-fitting two from whoever is on court. */
+function pickOpp(q,pool,P,O,wp,wo){
+  var best=null,bc=Infinity,cand=shuffle(pool.slice());
+  for(var i=0;i<cand.length;i++)for(var j=i+1;j<cand.length;j++){
+    var x=cand[i],y=cand[j],c=wo*(O[q.a][x]+O[q.a][y]+O[q.b][x]+O[q.b][y])+wp*P[x][y];
+    if(c<bc){bc=c;best=[x,y]}
+  }
+  return best;
+}
 function genMix(wp,wo,tries){
   var n=S.n,per=liveCourts()*4,P=mat(n),O=mat(n),sit=new Array(n).fill(0),last=new Array(n).fill(-9),out=[];
+  var q=reqOn(),rr=q?reqRounds(q):{},BIG=50;
+  if(q){P[q.a][q.b]+=BIG;P[q.b][q.a]+=BIG}   /* keeps the pair apart outside their games */
   for(var r=0;r<S.rounds;r++){
-    /* least-sat sit first; anyone who sat last round goes to the back of the line */
+    var forced=[],opp=null;
+    if(q&&rr[r]){
+      forced=[q.a,q.b];
+      var pool=q.against.filter(function(x){return x<n&&x!==q.a&&x!==q.b});
+      if(pool.length>=2){opp=pickOpp(q,pool,P,O,wp,wo);forced=forced.concat(opp)}
+    }
+    /* least-sat sit first; anyone who sat last round goes to the back of the line; forced players don't sit */
     var order=shuffle(range(n)).sort(function(a,b){return (sit[a]-sit[b])||((last[a]===r-1)-(last[b]===r-1))});
-    var sits=order.slice(0,n-per),active=order.slice(n-per);
-    var matches=arrange(active,P,O,wp,wo,tries);
+    var sits=order.filter(function(p){return forced.indexOf(p)<0}).slice(0,n-per);
+    var active=order.filter(function(p){return sits.indexOf(p)<0});
+    var matches;
+    if(q&&rr[r]){
+      var rest=active.filter(function(p){return p!==q.a&&p!==q.b});
+      if(!opp)opp=pickOpp(q,rest,P,O,wp,wo);
+      rest=rest.filter(function(p){return opp.indexOf(p)<0});
+      matches=[[[q.a,q.b],opp.slice()]].concat(arrange(rest,P,O,wp,wo,tries));
+    }else matches=arrange(active,P,O,wp,wo,tries);
     matches.forEach(function(M){add(P,O,M[0],M[1])});
     sits.forEach(function(p){sit[p]++;last[p]=r});
-    out.push({matches:matches,sits:sits.sort(function(a,b){return a-b})});
+    out.push({matches:matches,sits:sits.sort(function(a,b){return a-b}),req:!!(q&&rr[r])});
   }
   return out;
 }
@@ -324,7 +413,19 @@ function reshuffle(r){
   var R=S.sched[r],c=tally(S.sched,r);
   var flat=[];R.matches.forEach(function(M){flat.push(M[0],M[1])});
   if(S.type==='fixed')R.matches=arrangeTeams(flat,c.O,300);
-  else{var t=TYPES[S.type],ps=[];flat.forEach(function(T){ps.push(T[0],T[1])});R.matches=arrange(ps,c.P,c.O,t.wp,t.wo,Math.max(t.tries,400))}
+  else{
+    var t=TYPES[S.type],ps=[],q=reqOn();flat.forEach(function(T){ps.push(T[0],T[1])});
+    if(q&&R.req&&ps.indexOf(q.a)>=0&&ps.indexOf(q.b)>=0){
+      var rest=ps.filter(function(p){return p!==q.a&&p!==q.b});
+      var pool=q.against.filter(function(x){return rest.indexOf(x)>=0});
+      var opp=pickOpp(q,pool.length>=2?pool:rest,c.P,c.O,t.wp,t.wo);
+      rest=rest.filter(function(p){return opp.indexOf(p)<0});
+      R.matches=[[[q.a,q.b],opp]].concat(arrange(rest,c.P,c.O,t.wp,t.wo,Math.max(t.tries,400)));
+    }else{
+      if(q){c.P[q.a][q.b]+=50;c.P[q.b][q.a]+=50}
+      R.matches=arrange(ps,c.P,c.O,t.wp,t.wo,Math.max(t.tries,400));
+    }
+  }
   sel=null;save();renderAll();
 }
 function locate(R,p){
@@ -352,6 +453,20 @@ function slotHTML(i){
   var cls='slot'+(S.type==='fixed'&&(i>>1)%2===0?' teamA':'');
   return '<div class="'+cls+'"><label class="slot-n" for="slot'+i+'">'+label+'</label><select id="slot'+i+'" data-slot="'+i+'"><option value="">Player '+(i+1)+'</option>'+opts+'<option value="__new">+ New name&#8230;</option></select></div>';
 }
+function renderReq(){
+  var box=$('#reqBox'),q=S.req;box.hidden=S.type==='fixed';if(box.hidden)return;
+  if(q.a>=S.n)q.a=-1;if(q.b>=S.n)q.b=-1;q.against=q.against.filter(function(x){return x<S.n&&x!==q.a&&x!==q.b});
+  q.games=Math.max(1,Math.min(S.rounds,q.games||1));
+  function opts(cur,other){return '<option value="-1">Pick a player</option>'+range(S.n).map(function(i){return '<option value="'+i+'"'+(i===cur?' selected':'')+(i===other?' disabled':'')+'>'+esc(nm(i))+'</option>'}).join('')}
+  $('#reqA').innerHTML=opts(q.a,q.b);$('#reqB').innerHTML=opts(q.b,q.a);
+  $('#reqGames').value=q.games;$('#reqGames').max=S.rounds;$('#reqWhen').value=q.when;
+  $('#reqAgainst').innerHTML=range(S.n).filter(function(i){return i!==q.a&&i!==q.b}).map(function(i){return '<button type="button" data-against="'+i+'" aria-pressed="'+(q.against.indexOf(i)>=0)+'">'+esc(nm(i))+'</button>'}).join('');
+  var on=reqOn();
+  $('#reqNote').textContent=!on?'Pick two players to turn this on.':
+    nm(q.a)+' & '+nm(q.b)+' partner in '+Math.min(q.games,S.rounds)+' of '+S.rounds+' rounds'+(q.when==='end'?', at the end':', spread out')+
+    (q.against.length>=2?', against two of: '+q.against.map(nm).join(', ')+'.':q.against.length===1?'. Pick at least two opponents, or none.':', against whoever fits best.');
+  if(on&&!box.open)box.open=true;
+}
 function renderSetup(){
   document.querySelectorAll('input[name=type]').forEach(function(r){r.checked=r.value===S.type});
   $('#nPlayers').value=S.n;$('#nCourts').value=S.courts;$('#nCourts').max=Math.max(1,maxCourts());$('#nRounds').value=S.rounds;
@@ -372,6 +487,7 @@ function renderSetup(){
   if(document.activeElement!==$('#rosterText'))$('#rosterText').value=S.roster.join('\n');
   if(!S.roster.length)$('#rosterBox').open=true;
   if(newSlot>=0){var el=$('#newName');if(el)el.focus()}
+  renderReq();
 }
 function chip(r,p){return '<button type="button" class="chip'+(sel&&sel.r===r&&sel.p===p?' on':'')+'" data-r="'+r+'" data-p="'+p+'">'+esc(nm(p))+'</button>'}
 function renderRounds(){
@@ -380,9 +496,9 @@ function renderRounds(){
   var seen={};repeatCount=0;var firstSit=-1;S.sched.some(function(R,i){if(R.sits.length){firstSit=i;return true}});
   el.innerHTML=S.sched.map(function(R,ri){
     function side(T,cls){
-      var k=Math.min(T[0],T[1])+'-'+Math.max(T[0],T[1]);
-      var rep=S.type!=='fixed'&&seen[k];seen[k]=1;if(rep)repeatCount++;
-      return '<div class="side '+cls+(rep?' rep':'')+'">'+chip(ri,T[0])+chip(ri,T[1])+(rep?'<span class="tag">Partnered before</span>':'')+'</div>';
+      var k=Math.min(T[0],T[1])+'-'+Math.max(T[0],T[1]),asked=isReqPair(T);
+      var rep=S.type!=='fixed'&&!asked&&seen[k];seen[k]=1;if(rep)repeatCount++;
+      return '<div class="side '+cls+(rep?' rep':'')+'">'+chip(ri,T[0])+chip(ri,T[1])+(rep?'<span class="tag">Partnered before</span>':'')+(asked?'<span class="tag ok">Requested</span>':'')+'</div>';
     }
     var courts=R.matches.map(function(M,mi){
       return '<div class="court"><div class="court-label">Court '+(mi+1)+'</div><div class="court-body">'+side(M[0],'a')+'<div class="net" aria-hidden="true"></div>'+side(M[1],'b')+'</div></div>';
@@ -458,6 +574,9 @@ function addName(i){
 document.addEventListener('change',function(e){
   var t=e.target;
   if(t.name==='type'){S.type=t.value;newSlot=-1;return generate()}
+  if(t.id==='reqA'||t.id==='reqB'){S.req[t.id==='reqA'?'a':'b']=+t.value;return generate()}
+  if(t.id==='reqWhen'){S.req.when=t.value;return generate()}
+  if(t.id==='reqGames'){var g=parseInt(t.value,10);if(!isNaN(g))S.req.games=Math.max(1,Math.min(S.rounds,g));return generate()}
   if(t.id==='nPlayers')return setVal('n',t.value);
   if(t.id==='nCourts')return setVal('courts',t.value);
   if(t.id==='nRounds')return setVal('rounds',t.value);
@@ -475,6 +594,8 @@ document.addEventListener('keydown',function(e){
 document.addEventListener('click',function(e){
   var b=e.target.closest('button');if(!b)return;
   var d=b.dataset;
+  if(d.step==='reqGames'){S.req.games=Math.max(1,Math.min(S.rounds,(S.req.games||1)+(+d.d)));return generate()}
+  if(d.against!==undefined){var x=+d.against,i=S.req.against.indexOf(x);if(i>=0)S.req.against.splice(i,1);else S.req.against.push(x);return generate()}
   if(d.step){var cur={n:S.n,courts:S.courts,rounds:S.rounds}[d.step];return setVal(d.step,cur+(+d.d))}
   if(d.add!==undefined)return addName(+d.add);
   if(d.cancel!==undefined){newSlot=-1;return renderSetup()}
