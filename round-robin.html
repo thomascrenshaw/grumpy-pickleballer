@@ -1,4 +1,4 @@
-<!-- v1.7 — Round Robin (tool): public. Partner requests. Mid-session: Start/Playing now, Out/Back, rebuild only the remaining rounds, Previous shuffle. Site links, house rules, per-round copy, #play= session links with roster dedupe and maybe-same-person checks, SEO guide + FAQ. -->
+<!-- v1.8 — Round Robin (tool): public. Home-screen app: Refresh button (shows only when opened from the home screen), icon, short name. Partner requests. Mid-session: Start/Playing now, Out/Back, rebuild only the remaining rounds, Previous shuffle. Site links, house rules, per-round copy, #play= session links with roster dedupe and maybe-same-person checks, SEO guide + FAQ. -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,6 +7,13 @@
 <meta id="readable" name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Free Pickleball Round Robin Generator: No App, No Account | Grumpy Pickleballer</title>
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <!-- home-screen app: icon, short name, opens full screen -->
+  <link rel="apple-touch-icon" href="img/round-robin-icon.png">
+  <link rel="manifest" href="round-robin.webmanifest">
+  <meta name="apple-mobile-web-app-title" content="Round Robin">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#eceadf">
   <meta name="description" content="Free pickleball round robin generator for popcorn, rotating partners or fixed partners. Fair sit-outs, few repeat partners, tap to swap, copy rounds to your group chat. No app, no account.">
   <link rel="canonical" href="https://grumpypickleballer.com/round-robin">
   <meta property="og:type" content="website">
@@ -29,6 +36,12 @@
   .topbar{position:sticky;top:0;z-index:10;background:#eceadfee;backdrop-filter:blur(6px);border-bottom:1px solid var(--hair);padding:10px 16px;margin-bottom:18px;display:flex;align-items:center;gap:8px;font-size:15px;}
   .topbar a{color:var(--muted);text-decoration:none;font-weight:600;}
   .topbar .crumb{color:var(--kitchen);font-weight:700;}
+  .topbar .refresh{margin-left:auto;font:800 15px/1.2 var(--sans);padding:8px 13px;border-radius:10px;border:1px solid var(--hair);background:#fff;color:var(--ink);cursor:pointer;white-space:nowrap;}
+  .topbar .refresh:active{border-color:var(--kitchen);}
+  .topbar .refresh[hidden]{display:none;}
+  /* home-screen app: one line, just the way home and Refresh */
+  .app .topbar{flex-wrap:nowrap;}
+  .app .topbar .sec,.app .topbar .crumb{display:none;}
   header{border-bottom:3px solid var(--ink);padding-bottom:14px;margin-bottom:18px;}
   h1{font-size:27px;margin:0 0 4px;letter-spacing:-0.5px;font-weight:800;}
   .sub{color:var(--muted);font-size:15.5px;margin:0;line-height:1.5;}
@@ -167,7 +180,7 @@
 </style>
 </head>
 <body>
-  <div class="topbar"><a href="index.html">&#8592; Grumpy Pickleballer</a><span class="crumb">/ Round Robin</span></div>
+  <div class="topbar"><a href="index.html">&#8592; Grumpy Pickleballer</a><span class="crumb">/ Round Robin</span><button type="button" class="refresh" id="refreshBtn" hidden aria-label="Refresh the page">&#8635; Refresh</button></div>
   <div class="sheet">
     <header>
       <h1>&#129362; Pickleball Round Robin Generator</h1>
@@ -278,6 +291,16 @@
   </div>
 
 <script>
+/* Refresh button: only when opened from the home screen, where there's no reload button.
+   Safe: roster, schedule, Playing now and Out are saved on this device. */
+(function(){
+  var b=document.getElementById('refreshBtn');
+  var app=window.navigator.standalone===true||(window.matchMedia&&matchMedia('(display-mode: standalone)').matches);
+  if(!b||!app)return;
+  document.documentElement.classList.add('app');
+  b.hidden=false;
+  b.addEventListener('click',function(){location.reload()});
+})();
 (function(){
 var KEY='gp_roundrobin';
 var TYPES={
