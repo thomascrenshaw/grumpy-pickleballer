@@ -1,4 +1,4 @@
-<!-- v1.5 — Round Robin (tool): public. Partner requests. Site links, house rules, per-round copy, #play= session links with roster dedupe and maybe-same-person checks, SEO guide + FAQ. -->
+<!-- v1.7 — Round Robin (tool): public. Partner requests. Mid-session: Start/Playing now, Out/Back, rebuild only the remaining rounds, Previous shuffle. Site links, house rules, per-round copy, #play= session links with roster dedupe and maybe-same-person checks, SEO guide + FAQ. -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -123,6 +123,18 @@
   a.inline{color:var(--kitchen);font-weight:700;}
   .loaded{background:#fff;border:2px solid var(--kitchen);border-radius:12px;padding:12px 14px;margin:0 0 14px;font-size:15.5px;line-height:1.5;display:flex;gap:10px;align-items:flex-start;}
   .loaded[hidden]{display:none;}
+  .slot{flex-wrap:nowrap;}
+  @media(max-width:520px){.slots{grid-template-columns:1fr;}}
+  .outbtn{flex:none;font:800 13px/1 var(--sans);padding:9px 8px;border-radius:8px;border:1px solid var(--hair);background:#fff;color:var(--muted);cursor:pointer;}
+  .slot.isout select{opacity:.45;text-decoration:line-through;}
+  .slot.isout .outbtn{background:var(--ink);color:#fff;border-color:var(--ink);}
+  .round.done{opacity:.55;}
+  .round.done .round-head h2::after{content:"";}
+  .round.now .round-head{border-bottom-color:var(--kitchen);}
+  .btn.nowon{background:var(--kitchen);border-color:var(--kitchen);color:#fff;}
+  .playedtag{font-size:13px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:1px;align-self:center;margin-right:4px;}
+  .awaychip{cursor:default;background:transparent;border-style:dotted;color:var(--muted);}
+  .summary .live{color:var(--kitchen);}
   details.req summary{cursor:pointer;font-size:13px;text-transform:uppercase;letter-spacing:1.5px;font-weight:800;color:var(--muted);}
   details.req[open] summary{margin-bottom:8px;}
   .reqpair{display:flex;align-items:center;gap:8px;}
@@ -212,7 +224,7 @@
 
     <div class="bar">
       <div class="summary" id="summary"></div>
-      <div class="row"><button class="btn go" type="button" id="regen">New shuffle</button><button class="btn" type="button" id="copy">Copy for the group chat</button></div>
+      <div class="row"><button class="btn go" type="button" id="regen">New shuffle</button><button class="btn" type="button" id="undo" hidden>Previous shuffle</button><button class="btn" type="button" id="copy">Copy for the group chat</button><button class="btn" type="button" id="startover" hidden>Start over</button></div>
     </div>
     <textarea id="copyFallback" hidden aria-label="Schedule text to copy"></textarea>
     <div class="swap-hint" id="swapHint" hidden aria-live="polite"></div>
@@ -236,7 +248,7 @@
 
     <div class="aside"><b>Using an AI assistant?</b> If yours can see your Pickleheads sessions, it can build a session link like <code>grumpypickleballer.com/round-robin#play=Tom%20C,Kristen%20L,&#8230;</code> Open it and the page fills in who's playing, matches names already on your list, adds only the new ones, and asks before treating &#8220;Thomas C&#8221; as your &#8220;Tom C.&#8221; The names ride after the <code>#</code>, which browsers never send to the site, and the page clears them from the address once they're loaded. The assistant sees the names while it builds the link; the page itself still keeps them only on your device.</div>
 
-    <div class="aside"><b>How it decides.</b> Each round, whoever has sat out the least sits first, and nobody sits twice in a row if it can be avoided. Then it tries a pile of shuffles and keeps the one with the fewest repeat partners. Each round has its own Copy button, so you can post rounds to the group chat one at a time instead of yelling them across the courts. Rotating partners also spreads out who you play against. Fixed partners uses the standard circle rotation, so every team sees every other team before anyone repeats. A partner request locks one pair together for the games you set (and only those), picks their opponents from your list, and builds everyone else's rounds around them.</div>
+    <div class="aside"><b>How it decides.</b> Each round, whoever has sat out the least sits first, and nobody sits twice in a row if it can be avoided. Then it tries a pile of shuffles and keeps the one with the fewest repeat partners. Each round has its own Copy button, so you can post rounds to the group chat one at a time instead of yelling them across the courts. Rotating partners also spreads out who you play against. Fixed partners uses the standard circle rotation, so every team sees every other team before anyone repeats. Mid-session, tap <b>Start</b> on the round you're playing: everything up to it is locked. Mark someone <b>Out</b> (late, leaving, or sitting a stretch) or tap <b>Back</b>, and only the rounds after that get rebuilt, with sit-outs counted only for the rounds each person was there. <b>Previous shuffle</b> brings back the schedule you had before the last reshuffle. A partner request locks one pair together for the games you set (and only those), picks their opponents from your list, and builds everyone else's rounds around them.</div>
 
     <section class="guide" aria-label="How to run a pickleball round robin">
       <h2>How to run a pickleball round robin</h2>
@@ -284,6 +296,10 @@ function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
 
 var S=load()||{roster:[],n:8,courts:2,rounds:7,type:'popcorn',slots:new Array(8).fill(''),sched:null};
 if(!S.req)S.req={a:-1,b:-1,games:2,when:'spread',against:[]};
+if(S.now===undefined)S.now=-1;if(!S.out)S.out=[];
+/* Mid-session: rounds up to and including "now" are locked; changes rebuild only what's after. */
+function started(){return S.now>=0&&!!S.sched&&S.now<S.sched.length}
+function lockedFrom(){return started()?S.now+1:0}
 /* the partner request, if it's complete and fits this session */
 function reqOn(){var q=S.req;return S.type!=='fixed'&&q&&q.a>=0&&q.b>=0&&q.a!==q.b&&q.a<S.n&&q.b<S.n&&q.games>0&&liveCourts()>0?q:null}
 function isReqPair(T){var q=reqOn();return !!q&&((T[0]===q.a&&T[1]===q.b)||(T[0]===q.b&&T[1]===q.a))}
@@ -295,13 +311,14 @@ function nm(i){return S.slots[i]||('Player '+(i+1))}
 
 /* ---------- scheduling ---------- */
 function tally(sched,skip){
-  var n=S.n,P=mat(n),O=mat(n),sit=new Array(n).fill(0),games=new Array(n).fill(0);
+  var n=S.n,P=mat(n),O=mat(n),sit=new Array(n).fill(0),games=new Array(n).fill(0),away=new Array(n).fill(0);
   sched.forEach(function(R,ri){
     if(ri===skip)return;
     R.matches.forEach(function(M){add(P,O,M[0],M[1]);M[0].concat(M[1]).forEach(function(p){games[p]++})});
-    R.sits.forEach(function(p){sit[p]++});
+    R.sits.forEach(function(p){if(p<n)sit[p]++});
+    (R.away||[]).forEach(function(p){if(p<n)away[p]++});
   });
-  return {P:P,O:O,sit:sit,games:games};
+  return {P:P,O:O,sit:sit,games:games,away:away};
 }
 function add(P,O,A,B){
   P[A[0]][A[1]]++;P[A[1]][A[0]]++;P[B[0]][B[1]]++;P[B[1]][B[0]]++;
@@ -339,9 +356,9 @@ function arrangeTeams(teams,O,tries){
   return best||[];
 }
 /* Which rounds the requested pair plays together: the last N, or N spread evenly. */
-function reqRounds(q){
-  var g=Math.min(q.games,S.rounds),set={};
-  for(var k=0;k<g;k++)set[q.when==='end'?S.rounds-1-k:Math.floor((k+0.5)*S.rounds/g)]=1;
+function reqRounds(q,from,need){
+  var span=S.rounds-from,g=Math.min(need,span),set={};
+  for(var k=0;k<g;k++)set[q.when==='end'?S.rounds-1-k:from+Math.floor((k+0.5)*span/g)]=1;
   return set;
 }
 /* Opponents for the pair: two from the "against" list if possible (fewest past meetings first),
@@ -354,31 +371,52 @@ function pickOpp(q,pool,P,O,wp,wo){
   }
   return best;
 }
-function genMix(wp,wo,tries){
-  var n=S.n,per=liveCourts()*4,P=mat(n),O=mat(n),sit=new Array(n).fill(0),last=new Array(n).fill(-9),out=[];
-  var q=reqOn(),rr=q?reqRounds(q):{},BIG=50;
+/* from>0 keeps rounds before it exactly as they are and builds the rest on their history,
+   so adding a round never reshuffles the ones already played.
+   Sit-outs are shared by "owed" sit-outs, not totals: each round you're here, you owe your share
+   of that round's sit-outs. So a latecomer doesn't sit first, and anyone who's out isn't charged. */
+function genMix(wp,wo,tries,from){
+  from=from||0;
+  var n=S.n,P=mat(n),O=mat(n),sit=new Array(n).fill(0),owe=new Array(n).fill(0),last=new Array(n).fill(-9),out=from?S.sched.slice(0,from):[];
+  var q=reqOn(),done=0,BIG=50;
+  out.forEach(function(R,ri){
+    var here=[];
+    R.matches.forEach(function(M){add(P,O,M[0],M[1]);here=here.concat(M[0],M[1]);if(q&&(isReqPair(M[0])||isReqPair(M[1])))done++});
+    here=here.concat(R.sits);
+    var share=here.length?R.sits.length/here.length:0;
+    here.forEach(function(p){if(p<n)owe[p]+=share});
+    R.sits.forEach(function(p){if(p<n){sit[p]++;last[p]=ri}});
+  });
+  var away=S.out.filter(function(p){return p<n}).sort(function(a,b){return a-b});
+  var avail=range(n).filter(function(p){return away.indexOf(p)<0});
+  var per=Math.min(liveCourts()*4,Math.floor(avail.length/4)*4);
+  var qq=q&&away.indexOf(q.a)<0&&away.indexOf(q.b)<0&&per>=4?q:null;
+  var need=qq?Math.max(0,qq.games-done):0,rr=need?reqRounds(qq,from,need):{};
   if(q){P[q.a][q.b]+=BIG;P[q.b][q.a]+=BIG}   /* keeps the pair apart outside their games */
-  for(var r=0;r<S.rounds;r++){
-    var forced=[],opp=null;
-    if(q&&rr[r]){
-      forced=[q.a,q.b];
-      var pool=q.against.filter(function(x){return x<n&&x!==q.a&&x!==q.b});
-      if(pool.length>=2){opp=pickOpp(q,pool,P,O,wp,wo);forced=forced.concat(opp)}
+  for(var r=from;r<S.rounds;r++){
+    var forced=[],opp=null,isReq=!!(qq&&rr[r]);
+    if(isReq){
+      forced=[qq.a,qq.b];
+      var pool=qq.against.filter(function(x){return x<n&&x!==qq.a&&x!==qq.b&&away.indexOf(x)<0});
+      if(pool.length>=2){opp=pickOpp(qq,pool,P,O,wp,wo);forced=forced.concat(opp)}
     }
-    /* least-sat sit first; anyone who sat last round goes to the back of the line; forced players don't sit */
-    var order=shuffle(range(n)).sort(function(a,b){return (sit[a]-sit[b])||((last[a]===r-1)-(last[b]===r-1))});
-    var sits=order.filter(function(p){return forced.indexOf(p)<0}).slice(0,n-per);
-    var active=order.filter(function(p){return sits.indexOf(p)<0});
+    /* most owed sits first; sitting last round counts against sitting again */
+    var key=function(p){return (owe[p]-sit[p])-(last[p]===r-1?0.75:0)};
+    var order=shuffle(avail.slice()).sort(function(a,b){return key(b)-key(a)});
+    var sits=order.filter(function(p){return forced.indexOf(p)<0}).slice(0,avail.length-per);
+    var active=avail.filter(function(p){return sits.indexOf(p)<0});
     var matches;
-    if(q&&rr[r]){
-      var rest=active.filter(function(p){return p!==q.a&&p!==q.b});
-      if(!opp)opp=pickOpp(q,rest,P,O,wp,wo);
+    if(isReq){
+      var rest=active.filter(function(p){return p!==qq.a&&p!==qq.b});
+      if(!opp)opp=pickOpp(qq,rest,P,O,wp,wo);
       rest=rest.filter(function(p){return opp.indexOf(p)<0});
-      matches=[[[q.a,q.b],opp.slice()]].concat(arrange(rest,P,O,wp,wo,tries));
+      matches=[[[qq.a,qq.b],opp.slice()]].concat(arrange(rest,P,O,wp,wo,tries));
     }else matches=arrange(active,P,O,wp,wo,tries);
     matches.forEach(function(M){add(P,O,M[0],M[1])});
+    var share=avail.length?(avail.length-per)/avail.length:0;
+    avail.forEach(function(p){owe[p]+=share});
     sits.forEach(function(p){sit[p]++;last[p]=r});
-    out.push({matches:matches,sits:sits.sort(function(a,b){return a-b}),req:!!(q&&rr[r])});
+    out.push({matches:matches,sits:sits.sort(function(a,b){return a-b}),away:away.slice(),req:isReq});
   }
   return out;
 }
@@ -402,11 +440,37 @@ function genFixed(){
   }
   return out;
 }
+/* Fixed partners, continued: teams that have played least go next, matched to fresh opponents.
+   A team with someone out can't play, so that team sits. */
+function extendFixed(from){
+  var n=S.n,T=Math.floor(n/2),teams=[],i;for(i=0;i<T;i++)teams.push([2*i,2*i+1]);
+  var c=tally(S.sched.slice(0,from),-1),played=teams.map(function(t){return c.games[t[0]]}),out=S.sched.slice(0,from);
+  var away=S.out.filter(function(p){return p<n}).sort(function(a,b){return a-b});
+  var ok=range(T).filter(function(t){return away.indexOf(teams[t][0])<0&&away.indexOf(teams[t][1])<0});
+  var maxM=Math.min(liveCourts(),Math.floor(ok.length/2));
+  for(var r=from;r<S.rounds;r++){
+    var ids=shuffle(ok.slice()).sort(function(a,b){return played[a]-played[b]}).slice(0,maxM*2);
+    var ms=arrangeTeams(ids.map(function(t){return teams[t]}),c.O,300),playing={};
+    ms.forEach(function(M){add(c.P,c.O,M[0],M[1]);M[0].concat(M[1]).forEach(function(p){playing[p]=1})});
+    ids.forEach(function(t){played[t]++});
+    out.push({matches:ms,sits:range(n).filter(function(p){return !playing[p]&&away.indexOf(p)<0}),away:away.slice()});
+  }
+  return out;
+}
+function extend(from){
+  if(S.type==='fixed')S.sched=(from===0&&!S.out.length)?genFixed():extendFixed(from);
+  else{var t=TYPES[S.type];S.sched=genMix(t.wp,t.wo,t.tries,from)}
+}
 function generate(){
   sel=null;
-  if(S.n<4)S.sched=[];
-  else if(S.type==='fixed')S.sched=genFixed();
-  else{var t=TYPES[S.type];S.sched=genMix(t.wp,t.wo,t.tries)}
+  if(S.n<4){S.sched=[];S.now=-1}
+  else{
+    var from=lockedFrom();
+    if(!from)S.now=-1;
+    if(S.rounds<from)S.rounds=from;
+    if(from)S.sched=S.sched.slice(0,from);
+    extend(from);
+  }
   save();renderAll();
 }
 function reshuffle(r){
@@ -451,7 +515,8 @@ function slotHTML(i){
   if(S.slots[i]&&names.indexOf(S.slots[i])<0)names.unshift(S.slots[i]);
   var opts=names.map(function(x){return '<option value="'+esc(x)+'"'+(x===S.slots[i]?' selected':'')+(used[x]?' disabled':'')+'>'+esc(x)+'</option>'}).join('');
   var cls='slot'+(S.type==='fixed'&&(i>>1)%2===0?' teamA':'');
-  return '<div class="'+cls+'"><label class="slot-n" for="slot'+i+'">'+label+'</label><select id="slot'+i+'" data-slot="'+i+'"><option value="">Player '+(i+1)+'</option>'+opts+'<option value="__new">+ New name&#8230;</option></select></div>';
+  var isOut=S.out.indexOf(i)>=0;if(isOut)cls+=' isout';
+  return '<div class="'+cls+'"><label class="slot-n" for="slot'+i+'">'+label+'</label><select id="slot'+i+'" data-slot="'+i+'"><option value="">Player '+(i+1)+'</option>'+opts+'<option value="__new">+ New name&#8230;</option></select><button class="outbtn" type="button" data-out="'+i+'" aria-pressed="'+isOut+'" aria-label="'+(isOut?'Bring '+esc(nm(i))+' back':'Mark '+esc(nm(i))+' out')+'">'+(isOut?'Back':'Out')+'</button></div>';
 }
 function renderReq(){
   var box=$('#reqBox'),q=S.req;box.hidden=S.type==='fixed';if(box.hidden)return;
@@ -504,13 +569,21 @@ function renderRounds(){
       return '<div class="court"><div class="court-label">Court '+(mi+1)+'</div><div class="court-body">'+side(M[0],'a')+'<div class="net" aria-hidden="true"></div>'+side(M[1],'b')+'</div></div>';
     }).join('');
     var sits=R.sits.length?'<div class="sits"><span class="sits-label">Sitting out</span>'+R.sits.map(function(p){return chip(ri,p)}).join('')+(ri===firstSit?'<a class="sitlink" href="pre-snap-read.html">Sitting out is scouting &#8594;</a>':'')+'</div>':'';
-    return '<section aria-label="Round '+(ri+1)+'"><div class="round-head"><h2>Round '+(ri+1)+'</h2><div class="row"><button class="btn small" type="button" data-copyround="'+ri+'">Copy</button><button class="btn small" type="button" data-reshuffle="'+ri+'">Reshuffle</button></div></div><div class="courts">'+courts+'</div>'+sits+'</section>';
+    var aw=(R.away&&R.away.length)?'<div class="sits away"><span class="sits-label">Out</span>'+R.away.map(function(p){return '<span class="chip awaychip">'+esc(nm(p))+'</span>'}).join('')+'</div>':'';
+    var state=ri<S.now?'done':ri===S.now?'now':'next';
+    var nowBtn=state==='now'?'<button class="btn small nowon" type="button" data-now="'+(ri-1)+'" aria-pressed="true" title="Tap to undo">Playing now</button>':
+      state==='done'?'<span class="playedtag">Played</span>':'<button class="btn small" type="button" data-now="'+ri+'">Start</button>';
+    var tools=state==='next'?'<button class="btn small" type="button" data-reshuffle="'+ri+'">Reshuffle</button>':'';
+    return '<section class="round '+state+'" aria-label="Round '+(ri+1)+'"><div class="round-head"><h2>Round '+(ri+1)+'</h2><div class="row">'+nowBtn+'<button class="btn small" type="button" data-copyround="'+ri+'">Copy</button>'+tools+'</div></div><div class="courts">'+courts+'</div>'+sits+aw+'</section>';
   }).join('');
 }
 function renderSummary(){
   var c=liveCourts();
   var rep=S.type==='fixed'?'':' &#183; <span class="'+(repeatCount?'bad':'')+'">'+repeatCount+' repeat partner'+(repeatCount===1?'':'s')+'</span>';
-  $('#summary').innerHTML=TYPES[S.type].label+' &#183; '+S.n+' players &#183; '+c+' court'+(c===1?'':'s')+' &#183; '+S.rounds+' round'+(S.rounds===1?'':'s')+rep;
+  $('#summary').innerHTML=TYPES[S.type].label+' &#183; '+S.n+' players &#183; '+c+' court'+(c===1?'':'s')+' &#183; '+S.rounds+' round'+(S.rounds===1?'':'s')+rep+(started()?' &#183; <span class="live">Round '+(S.now+1)+' playing</span>':'');
+  $('#undo').hidden=!(S.prev&&S.prev.n===S.n&&S.prev.sched&&S.prev.sched.length===S.sched.length);
+  $('#startover').hidden=!started();
+  $('#regen').textContent=started()?'Reshuffle the rest':'New shuffle';
   var h=$('#swapHint');
   if(sel){h.hidden=false;h.innerHTML='Swapping <b>'+esc(nm(sel.p))+'</b> in Round '+(sel.r+1)+'. Tap another name in that round, or tap them again to cancel.'}
   else h.hidden=true;
@@ -518,12 +591,12 @@ function renderSummary(){
 function renderStats(){
   var t=$('#stats');
   if(!S.sched||!S.sched.length){t.innerHTML='';return}
-  var c=tally(S.sched,-1);
+  var c=tally(S.sched,-1),anyAway=c.away.some(function(x){return x>0});
   var rows=range(S.n).map(function(i){
     var partners=c.P[i].filter(function(x){return x>0}).length;
-    return '<tr><td class="k">'+esc(nm(i))+'</td><td class="num">'+c.games[i]+'</td><td class="num">'+c.sit[i]+'</td><td class="num">'+(S.type==='fixed'?'&#8212;':partners)+'</td></tr>';
+    return '<tr><td class="k">'+esc(nm(i))+'</td><td class="num">'+c.games[i]+'</td><td class="num">'+c.sit[i]+'</td>'+(anyAway?'<td class="num">'+c.away[i]+'</td>':'')+'<td class="num">'+(S.type==='fixed'?'&#8212;':partners)+'</td></tr>';
   }).join('');
-  t.innerHTML='<thead><tr><th>Player</th><th class="num">Games</th><th class="num">Sat out</th><th class="num">Different partners</th></tr></thead><tbody>'+rows+'</tbody>';
+  t.innerHTML='<thead><tr><th>Player</th><th class="num">Games</th><th class="num">Sat out</th>'+(anyAway?'<th class="num">Out</th>':'')+'<th class="num">Different partners</th></tr></thead><tbody>'+rows+'</tbody>';
 }
 function renderAll(){renderSetup();renderRounds();renderSummary();renderStats()}
 
@@ -556,11 +629,23 @@ function setVal(k,v){
   v=parseInt(v,10);if(isNaN(v))return renderSetup();
   if(k==='n'){
     v=Math.max(4,Math.min(48,v));
+    if(started()&&v<S.n){
+      var used={};S.sched.slice(0,S.now+1).forEach(function(R){R.matches.forEach(function(M){M[0].concat(M[1]).forEach(function(p){used[p]=1})});R.sits.forEach(function(p){used[p]=1})});
+      for(var x=v;x<S.n;x++)if(used[x]){$('#sitNote').textContent=nm(x)+' has already played. Mark them Out instead of removing them.';$('#nPlayers').value=S.n;return}
+    }
+    S.out=S.out.filter(function(p){return p<v});
     var wasMax=S.courts>=maxCourts();
     S.n=v;resizeSlots(v);
     if(wasMax||S.courts>maxCourts())S.courts=Math.max(1,maxCourts());
   }else if(k==='courts')S.courts=Math.max(1,Math.min(Math.max(1,maxCourts()),v));
-  else if(k==='rounds')S.rounds=Math.max(1,Math.min(30,v));
+  else if(k==='rounds'){
+    var old=S.rounds;S.rounds=Math.max(Math.max(1,lockedFrom()),Math.min(30,v));
+    /* more or fewer rounds: keep every existing round exactly as it is */
+    if(S.sched&&S.sched.length===old&&S.n>=4&&S.rounds!==old){
+      if(S.rounds<old)S.sched=S.sched.slice(0,S.rounds);else extend(old);
+      newSlot=-1;sel=null;save();return renderAll();
+    }
+  }
   newSlot=-1;generate();
 }
 function refreshNames(){save();renderAll()}
@@ -600,15 +685,23 @@ document.addEventListener('click',function(e){
   if(d.add!==undefined)return addName(+d.add);
   if(d.cancel!==undefined){newSlot=-1;return renderSetup()}
   if(d.reshuffle!==undefined)return reshuffle(+d.reshuffle);
+  if(d.now!==undefined){S.now=Math.max(-1,Math.min(S.sched.length-1,+d.now));sel=null;save();return renderAll()}
+  if(d.out!==undefined){
+    var o=+d.out,oi=S.out.indexOf(o);if(oi>=0)S.out.splice(oi,1);else S.out.push(o);
+    return generate();
+  }
   if(d.copyround!==undefined)return copyText(roundLines(S.sched[+d.copyround],+d.copyround).join('\n'),b,'Copy');
   if(d.p!==undefined){
     var r=+d.r,p=+d.p;
+    if(r<S.now)return;   /* played rounds are history */
     if(sel&&sel.r===r&&sel.p===p)sel=null;
     else if(sel&&sel.r===r){swap(r,sel.p,p);sel=null;save()}
     else sel={r:r,p:p};
     renderRounds();renderSummary();renderStats();return;
   }
-  if(b.id==='regen')return generate();
+  if(b.id==='regen'){S.prev={n:S.n,sched:JSON.parse(JSON.stringify(S.sched||[]))};return generate()}
+  if(b.id==='undo'&&S.prev){var keep=S.sched;S.sched=S.prev.sched;S.prev={n:S.n,sched:keep};sel=null;save();return renderAll()}
+  if(b.id==='startover'){S.now=-1;S.prev=null;return generate()}
   if(b.id==='fill'){
     for(var i=0;i<S.slots.length;i++)if(!S.slots[i]){var next=S.roster.filter(function(x){return S.slots.indexOf(x)<0})[0];if(next)S.slots[i]=next}
     return refreshNames();
@@ -667,7 +760,7 @@ function fromLink(){
   });
   S.n=Math.max(4,playing.length);
   S.slots=playing.concat(new Array(Math.max(0,S.n-playing.length)).fill('')).slice(0,S.n);
-  S.courts=Math.max(1,maxCourts());newSlot=-1;
+  S.courts=Math.max(1,maxCourts());newSlot=-1;S.now=-1;S.out=[];S.prev=null;
   try{history.replaceState(null,'',location.pathname+location.search)}catch(e){}
   var cnt=playing.length;
   var msg='<div><p><b>Loaded '+cnt+' player'+(cnt===1?'':'s')+' from your link.</b> '+liveCourts()+' court'+(liveCourts()===1?'':'s')+'; change it below if you have fewer.</p>';
