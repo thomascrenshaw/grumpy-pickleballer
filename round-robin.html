@@ -1,4 +1,4 @@
-<!-- v1.8.1 — Round Robin (tool): public. Home-screen app: Refresh button (shows only when opened from the home screen), icon (apple-touch-icon only, no manifest), short name. Partner requests. Mid-session: Start/Playing now, Out/Back, rebuild only the remaining rounds, Previous shuffle. Site links, house rules, per-round copy, #play= session links with roster dedupe and maybe-same-person checks, SEO guide + FAQ. -->
+<!-- v1.11 — Round Robin (tool): public. Share view-only link: the whole schedule rides in #view= (snapshot, read-only, never touches the viewer's saved data), with Find me. v1.10: "Remove from lineup" in each player dropdown: drops them, moves everyone below up, one fewer player. Partner request follows hand swaps: pair them up by hand and their game moves there (the nearest auto game goes away); split them and that round stops being theirs; reshuffles keep those choices. Home-screen app: Refresh button (shows only when opened from the home screen), icon (apple-touch-icon only, no manifest), short name. Partner requests. Mid-session: Start/Playing now, Out/Back, rebuild only the remaining rounds, Previous shuffle. Site links, house rules, per-round copy, #play= session links with roster dedupe and maybe-same-person checks, SEO guide + FAQ. -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -176,6 +176,18 @@
   details.faq summary{cursor:pointer;font-weight:800;font-size:16px;padding:12px 14px;}
   details.faq p{margin:0;padding:0 14px 12px;color:var(--muted);}
   .foot{margin-top:30px;padding-top:14px;border-top:1px solid var(--hair);font-size:14px;color:var(--muted);line-height:1.6;}
+  /* view-only link (#view=) */
+  .viewing .setup,.viewing .nudge,.viewing .bar,.viewing #swapHint,.viewing #tallyBox,.viewing #loaded,.viewing .guide,
+  .viewing .aside:not(.rules):not(.viewbar),.viewing .topbar .refresh{display:none!important;}
+  .viewing .chip{cursor:default;}
+  .chip.me,.side.a .chip.me,.side.b .chip.me{background:var(--sel);border-color:var(--kitchen);box-shadow:0 0 0 2px var(--kitchen);}
+  .viewbar{color:var(--ink);font-size:16px;}
+  .viewbar label{display:block;font-size:13px;text-transform:uppercase;letter-spacing:1.5px;font-weight:800;color:var(--muted);margin:0 0 6px;}
+  .viewbar select{font:700 17px/1.2 var(--sans);padding:10px 12px;border-radius:10px;border:1px solid var(--hair);background:#fff;color:var(--ink);width:100%;max-width:320px;}
+  .viewbar ul.mine{list-style:none;padding:0;margin:12px 0 0;display:grid;gap:4px;font-size:16px;}
+  .viewbar ul.mine li.was{opacity:.5;}
+  .viewbar .own{display:inline-block;margin-top:12px;font-size:15px;}
+  .nowtag{font-size:13px;font-weight:800;color:var(--kitchen);text-transform:uppercase;letter-spacing:1px;}
 </style>
 </head>
 <body>
@@ -236,7 +248,7 @@
 
     <div class="bar">
       <div class="summary" id="summary"></div>
-      <div class="row"><button class="btn go" type="button" id="regen">New shuffle</button><button class="btn" type="button" id="undo" hidden>Previous shuffle</button><button class="btn" type="button" id="copy">Copy for the group chat</button><button class="btn" type="button" id="startover" hidden>Start over</button></div>
+      <div class="row"><button class="btn go" type="button" id="regen">New shuffle</button><button class="btn" type="button" id="undo" hidden>Previous shuffle</button><button class="btn" type="button" id="copy">Copy for the group chat</button><button class="btn" type="button" id="shareView">Share view-only link</button><button class="btn" type="button" id="startover" hidden>Start over</button></div>
     </div>
     <textarea id="copyFallback" hidden aria-label="Schedule text to copy"></textarea>
     <div class="swap-hint" id="swapHint" hidden aria-live="polite"></div>
@@ -256,11 +268,11 @@
       </ul>
     </div>
 
-    <div class="aside"><b>Your names stay on your phone.</b> The roster and schedule are saved only in this browser, on this device (most likely your phone at the court). Nothing is sent to this site or anywhere else, and there are no accounts. Clear your browser data and they're gone. Open the page on another device and it starts empty.</div>
+    <div class="aside"><b>Your names stay on your phone.</b> The roster and schedule are saved only in this browser, on this device (most likely your phone at the court). Nothing is sent to this site or anywhere else, and there are no accounts. Clear your browser data and they're gone. Open the page on another device and it starts empty. <b>Share view-only link</b> is the one exception you choose: it puts the names and rounds in the link itself (after the <code>#</code>, so still never sent to this site), and anyone you send it to can see them. Opening one never changes what's saved on their phone.</div>
 
     <div class="aside"><b>Using an AI assistant?</b> If yours can see your Pickleheads sessions, it can build a session link like <code>grumpypickleballer.com/round-robin#play=Tom%20C,Kristen%20L,&#8230;</code> Open it and the page fills in who's playing, matches names already on your list, adds only the new ones, and asks before treating &#8220;Thomas C&#8221; as your &#8220;Tom C.&#8221; The names ride after the <code>#</code>, which browsers never send to the site, and the page clears them from the address once they're loaded. The assistant sees the names while it builds the link; the page itself still keeps them only on your device.</div>
 
-    <div class="aside"><b>How it decides.</b> Each round, whoever has sat out the least sits first, and nobody sits twice in a row if it can be avoided. Then it tries a pile of shuffles and keeps the one with the fewest repeat partners. Each round has its own Copy button, so you can post rounds to the group chat one at a time instead of yelling them across the courts. Rotating partners also spreads out who you play against. Fixed partners uses the standard circle rotation, so every team sees every other team before anyone repeats. Mid-session, tap <b>Start</b> on the round you're playing: everything up to it is locked. Mark someone <b>Out</b> (late, leaving, or sitting a stretch) or tap <b>Back</b>, and only the rounds after that get rebuilt, with sit-outs counted only for the rounds each person was there. <b>Previous shuffle</b> brings back the schedule you had before the last reshuffle. A partner request locks one pair together for the games you set (and only those), picks their opponents from your list, and builds everyone else's rounds around them.</div>
+    <div class="aside"><b>How it decides.</b> Each round, whoever has sat out the least sits first, and nobody sits twice in a row if it can be avoided. Then it tries a pile of shuffles and keeps the one with the fewest repeat partners. Each round has its own Copy button, so you can post rounds to the group chat one at a time instead of yelling them across the courts. Rotating partners also spreads out who you play against. Fixed partners uses the standard circle rotation, so every team sees every other team before anyone repeats. Mid-session, tap <b>Start</b> on the round you're playing: everything up to it is locked. Mark someone <b>Out</b> (late, leaving, or sitting a stretch) or tap <b>Back</b>, and only the rounds after that get rebuilt, with sit-outs counted only for the rounds each person was there. <b>Previous shuffle</b> brings back the schedule you had before the last reshuffle. A partner request locks one pair together for the games you set (and only those), picks their opponents from your list, and builds everyone else's rounds around them. Want their game in a different round? Swap them together there by hand, and their nearest other game goes back to normal. Split them by hand and that round stops being theirs.</div>
 
     <section class="guide" aria-label="How to run a pickleball round robin">
       <h2>How to run a pickleball round robin</h2>
@@ -313,6 +325,64 @@ function shuffle(a){for(var i=a.length-1;i>0;i--){var j=Math.random()*(i+1)|0,t=
 function mat(n){var m=[];for(var i=0;i<n;i++)m.push(new Array(n).fill(0));return m}
 function range(n){var a=[];for(var i=0;i<n;i++)a.push(i);return a}
 
+/* ---------- view-only links: round-robin#view=1/p/now/time/count/names/rounds ----------
+   A snapshot of the schedule, all in the link. Players are one character each (0-9A-Za-z);
+   a round is its courts' four players in a row, then -sitting, then -out. Opening one shows
+   the rounds read-only and never reads or writes the viewer's own saved round robin. */
+var AL='0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+if(/^#view=/.test(location.hash)){viewMode();return}
+function parseView(h){
+  try{
+    var m=h.match(/^#view=(.*)$/);if(!m)return null;
+    var p=m[1].split('/');if(p[0]!=='1'||p.length<7)return null;
+    var names=p[5].split(',').map(function(x){return decodeURIComponent(x).slice(0,24)}),n=names.length;
+    var ix=function(str){return [].map.call(str||'',function(c){var i=AL.indexOf(c);if(i<0||i>=n)throw 0;return i})};
+    var rounds=p[6].split('.').map(function(r){
+      var x=r.split('-'),ps=ix(x[0]),ms=[];if(ps.length%4)throw 0;
+      for(var g=0;g<ps.length;g+=4)ms.push([[ps[g],ps[g+1]],[ps[g+2],ps[g+3]]]);
+      return {matches:ms,sits:ix(x[1]),away:ix(x[2])};
+    });
+    if(rounds.length!==+p[4])return null;   /* cut off by the messaging app */
+    return {type:{p:'Popcorn',m:'Rotating partners',f:'Fixed partners'}[p[1]]||'Round robin',now:p[2]===''?-1:+p[2],
+      sent:p[3]?new Date(parseInt(p[3],36)*60000):null,names:names,rounds:rounds};
+  }catch(e){return null}
+}
+function viewMode(){
+  document.documentElement.classList.add('viewing');
+  document.title='Round Robin (view only) | Grumpy Pickleballer';
+  window.addEventListener('hashchange',function(){location.reload()});
+  var V=parseView(location.hash),h1=document.querySelector('h1'),sub=document.querySelector('header .sub'),el=$('#rounds');
+  h1.innerHTML='&#129362; Today&#8217;s Round Robin';
+  if(!V){sub.textContent='This view-only link looks cut off. Ask for a new one.';el.innerHTML='<p class="empty"><a class="inline" href="round-robin.html">Make your own round robin &#8594;</a></p>';return}
+  var when=V.sent?V.sent.toLocaleString([],{weekday:'short',hour:'numeric',minute:'2-digit'}):'';
+  var courts=V.rounds.reduce(function(a,R){return Math.max(a,R.matches.length)},0);
+  sub.textContent='View only, sent '+(when||'by the organizer')+'. '+V.type+' \u00b7 '+V.names.length+' players \u00b7 '+courts+' court'+(courts===1?'':'s')+' \u00b7 '+V.rounds.length+' rounds. If the rounds change, ask for a new link.';
+  var me=-1;try{me=V.names.indexOf(localStorage.getItem('gp_rr_me'))}catch(e){}
+  var bar=document.createElement('div');bar.className='aside viewbar';el.parentNode.insertBefore(bar,el);
+  function draw(){
+    bar.innerHTML='<label for="findMe">Find me</label><select id="findMe"><option value="-1">Pick your name</option>'+
+      V.names.map(function(x,i){return '<option value="'+i+'"'+(i===me?' selected':'')+'>'+esc(x)+'</option>'}).join('')+'</select>'+
+      (me>=0?'<ul class="mine">'+V.rounds.map(function(R,ri){
+        var where='';
+        R.matches.forEach(function(M,mi){M.forEach(function(T){if(T.indexOf(me)>=0)where='Court '+(mi+1)+', with '+esc(V.names[T[0]===me?T[1]:T[0]])})});
+        if(!where)where=R.away.indexOf(me)>=0?'Out':'Sitting out';
+        return '<li'+(V.now>=0&&ri<V.now?' class="was"':'')+'><b>Round '+(ri+1)+'</b> &#183; '+where+'</li>';
+      }).join('')+'</ul>':'')+
+      '<a class="inline own" href="round-robin.html">Make your own round robin &#8594;</a>';
+    var chip=function(p){return '<span class="chip'+(p===me?' me':'')+'">'+esc(V.names[p])+'</span>'};
+    el.innerHTML=V.rounds.map(function(R,ri){
+      var side=function(T,c){return '<div class="side '+c+'">'+chip(T[0])+chip(T[1])+'</div>'};
+      var cs=R.matches.map(function(M,mi){return '<div class="court"><div class="court-label">Court '+(mi+1)+'</div><div class="court-body">'+side(M[0],'a')+'<div class="net" aria-hidden="true"></div>'+side(M[1],'b')+'</div></div>'}).join('');
+      var st=V.now<0?'next':ri<V.now?'done':ri===V.now?'now':'next';
+      return '<section class="round '+st+'" aria-label="Round '+(ri+1)+'"><div class="round-head"><h2>Round '+(ri+1)+'</h2>'+(st==='now'?'<span class="nowtag">Playing when sent</span>':'')+'</div><div class="courts">'+cs+'</div>'+
+        (R.sits.length?'<div class="sits"><span class="sits-label">Sitting out</span>'+R.sits.map(chip).join('')+'</div>':'')+
+        (R.away.length?'<div class="sits away"><span class="sits-label">Out</span>'+R.away.map(chip).join('')+'</div>':'')+'</section>';
+    }).join('');
+  }
+  bar.addEventListener('change',function(e){if(e.target.id!=='findMe')return;me=+e.target.value;try{localStorage.setItem('gp_rr_me',me>=0?V.names[me]:'')}catch(x){}draw()});
+  draw();
+}
+
 function load(){try{var s=JSON.parse(localStorage.getItem(KEY));return s&&Array.isArray(s.slots)?s:null}catch(e){return null}}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
 
@@ -325,7 +395,7 @@ function lockedFrom(){return started()?S.now+1:0}
 /* the partner request, if it's complete and fits this session */
 function reqOn(){var q=S.req;return S.type!=='fixed'&&q&&q.a>=0&&q.b>=0&&q.a!==q.b&&q.a<S.n&&q.b<S.n&&q.games>0&&liveCourts()>0?q:null}
 function isReqPair(T){var q=reqOn();return !!q&&((T[0]===q.a&&T[1]===q.b)||(T[0]===q.b&&T[1]===q.a))}
-var sel=null,newSlot=-1,repeatCount=0;
+var sel=null,newSlot=-1,repeatCount=0,flash='',flashT=0;
 
 function maxCourts(){return Math.floor(S.n/4)}
 function liveCourts(){return Math.max(0,Math.min(S.courts,maxCourts()))}
@@ -377,12 +447,42 @@ function arrangeTeams(teams,O,tries){
   }
   return best||[];
 }
-/* Which rounds the requested pair plays together: the last N, or N spread evenly. */
+/* Which rounds the requested pair plays together. Rounds they already have (q.at, including
+   ones you paired by hand) stay theirs; any games still needed go in the last rounds or spread evenly. */
 function reqRounds(q,from,need){
-  var span=S.rounds-from,g=Math.min(need,span),set={};
-  for(var k=0;k<g;k++)set[q.when==='end'?S.rounds-1-k:from+Math.floor((k+0.5)*span/g)]=1;
+  var set={},have=0,free=[],r;
+  (q.at||[]).slice().sort(function(a,b){return a-b}).forEach(function(r){if(r>=from&&r<S.rounds&&have<need&&!set[r]){set[r]=1;have++}});
+  for(r=from;r<S.rounds;r++)if(!set[r])free.push(r);
+  var g=Math.min(need-have,free.length);
+  for(var k=0;k<g;k++)set[q.when==='end'?free[free.length-1-k]:free[Math.floor((k+0.5)*free.length/g)]]=1;
   return set;
 }
+/* remember which rounds the pair has, so New shuffle and Reshuffle keep them there */
+function syncAt(){S.req.at=(S.sched||[]).reduce(function(a,R,i){if(R.req)a.push(i);return a},[])}
+/* After a hand swap: if it paired up the requested pair, that round becomes one of their games and
+   the nearest other unplayed game of theirs goes away (if that's more than they asked for).
+   If it split them, that round stops being theirs. */
+function afterSwap(r){
+  var q=reqOn();if(!q)return;
+  var R=S.sched[r],now=R.matches.some(function(M){return isReqPair(M[0])||isReqPair(M[1])});
+  if(now===!!R.req)return;
+  R.req=now;
+  var pair=esc(nm(q.a))+' &amp; '+esc(nm(q.b));
+  if(now){
+    var mine=[],from=Math.max(lockedFrom(),S.now<0?0:S.now);
+    S.sched.forEach(function(X,i){if(X.req)mine.push(i)});
+    if(mine.length>q.games){
+      var cand=mine.filter(function(i){return i!==r&&i>=from}).sort(function(a,b){return Math.abs(a-r)-Math.abs(b-r)||b-a});
+      if(cand.length){
+        var i=cand[0];S.sched[i].req=false;syncAt();reshuffle(i);
+        setFlash(pair+' moved to Round '+(r+1)+'. Round '+(i+1)+' was reshuffled without them.');return;
+      }
+    }
+    setFlash(pair+' partner in Round '+(r+1)+'. That counts as one of their requested games.');
+  }else setFlash(pair+' split in Round '+(r+1)+'. Pair them up in another round to move their game there.');
+  syncAt();
+}
+function setFlash(m){flash=m;clearTimeout(flashT);flashT=setTimeout(function(){flash='';renderSummary()},6000)}
 /* Opponents for the pair: two from the "against" list if possible (fewest past meetings first),
    otherwise the best-fitting two from whoever is on court. */
 function pickOpp(q,pool,P,O,wp,wo){
@@ -493,7 +593,7 @@ function generate(){
     if(from)S.sched=S.sched.slice(0,from);
     extend(from);
   }
-  save();renderAll();
+  syncAt();save();renderAll();
 }
 function reshuffle(r){
   var R=S.sched[r],c=tally(S.sched,r);
@@ -538,7 +638,7 @@ function slotHTML(i){
   var opts=names.map(function(x){return '<option value="'+esc(x)+'"'+(x===S.slots[i]?' selected':'')+(used[x]?' disabled':'')+'>'+esc(x)+'</option>'}).join('');
   var cls='slot'+(S.type==='fixed'&&(i>>1)%2===0?' teamA':'');
   var isOut=S.out.indexOf(i)>=0;if(isOut)cls+=' isout';
-  return '<div class="'+cls+'"><label class="slot-n" for="slot'+i+'">'+label+'</label><select id="slot'+i+'" data-slot="'+i+'"><option value="">Player '+(i+1)+'</option>'+opts+'<option value="__new">+ New name&#8230;</option></select><button class="outbtn" type="button" data-out="'+i+'" aria-pressed="'+isOut+'" aria-label="'+(isOut?'Bring '+esc(nm(i))+' back':'Mark '+esc(nm(i))+' out')+'">'+(isOut?'Back':'Out')+'</button></div>';
+  return '<div class="'+cls+'"><label class="slot-n" for="slot'+i+'">'+label+'</label><select id="slot'+i+'" data-slot="'+i+'"><option value="">Player '+(i+1)+'</option>'+opts+'<option value="__new">+ New name&#8230;</option>'+(S.n>4?'<option value="__remove">&#10005; Remove from lineup</option>':'')+'</select><button class="outbtn" type="button" data-out="'+i+'" aria-pressed="'+isOut+'" aria-label="'+(isOut?'Bring '+esc(nm(i))+' back':'Mark '+esc(nm(i))+' out')+'">'+(isOut?'Back':'Out')+'</button></div>';
 }
 function renderReq(){
   var box=$('#reqBox'),q=S.req;box.hidden=S.type==='fixed';if(box.hidden)return;
@@ -608,6 +708,7 @@ function renderSummary(){
   $('#regen').textContent=started()?'Reshuffle the rest':'New shuffle';
   var h=$('#swapHint');
   if(sel){h.hidden=false;h.innerHTML='Swapping <b>'+esc(nm(sel.p))+'</b> in Round '+(sel.r+1)+'. Tap another name in that round, or tap them again to cancel.'}
+  else if(flash){h.hidden=false;h.innerHTML=flash}
   else h.hidden=true;
 }
 function renderStats(){
@@ -633,6 +734,21 @@ function copyText(txt,b,label){
   var ok=function(){b.textContent='Copied';fb.hidden=true;setTimeout(function(){b.textContent=label},1400)};
   var fail=function(){fb.hidden=false;fb.value=txt;fb.focus();fb.select();b.textContent='Select and copy below'};
   try{navigator.clipboard.writeText(txt).then(ok,fail)}catch(err){fail()}
+}
+function viewLink(){
+  var c=function(p){return AL[p]};
+  var rounds=(S.sched||[]).map(function(R){
+    var m=R.matches.map(function(M){return M[0].concat(M[1]).map(c).join('')}).join(''),s=R.sits.map(c).join(''),a=(R.away||[]).map(c).join('');
+    return m+(s||a?'-'+s:'')+(a?'-'+a:'');
+  }).join('.');
+  var names=range(S.n).map(function(i){return encodeURIComponent(nm(i))}).join(',');
+  return location.origin+location.pathname+'#view='+['1',S.type.charAt(0),started()?String(S.now):'',(Date.now()/60000|0).toString(36),String((S.sched||[]).length),names,rounds].join('/');
+}
+function shareView(b){
+  if(!S.sched||!S.sched.length)return;
+  var url=viewLink();
+  if(navigator.share&&/Mobi|iPhone|iPad|Android/i.test(navigator.userAgent)){navigator.share({title:'Round robin',url:url}).catch(function(){});return}
+  copyText(url,b,'Share view-only link');
 }
 function asText(){
   var lines=['Round robin: '+TYPES[S.type].label+', '+S.n+' players'];
@@ -665,12 +781,40 @@ function setVal(k,v){
     /* more or fewer rounds: keep every existing round exactly as it is */
     if(S.sched&&S.sched.length===old&&S.n>=4&&S.rounds!==old){
       if(S.rounds<old)S.sched=S.sched.slice(0,S.rounds);else extend(old);
-      newSlot=-1;sel=null;save();return renderAll();
+      newSlot=-1;sel=null;syncAt();save();return renderAll();
     }
   }
   newSlot=-1;generate();
 }
 function refreshNames(){save();renderAll()}
+/* Remove from lineup: drop slot i, move everyone below up one, one fewer player.
+   Fixed partners: the last player (the sub, if there is one) moves into the gap instead,
+   so every other team stays together.
+   Once they've played, they stay in the history: use Out instead. */
+function removeSlot(i){
+  var who=nm(i);
+  if(S.n<=4){setFlash('You need at least 4 players.');return renderAll()}
+  if(started()){
+    var used=false;S.sched.slice(0,S.now+1).forEach(function(R){R.matches.forEach(function(M){if(M[0].concat(M[1]).indexOf(i)>=0)used=true});if(R.sits.indexOf(i)>=0)used=true});
+    if(used){var m='<b>'+esc(who)+'</b> has already played or sat a round. Tap <b>Out</b> instead, so the played rounds stay right.';setFlash(m);renderAll();$('#sitNote').innerHTML=m;return}
+  }
+  var last=S.n-1,fill=S.type==='fixed'&&i<last,filler=nm(last);
+  function mv(x){return fill?(x===last?i:x):(x>i?x-1:x)}
+  function fix(list){return list.filter(function(x){return x!==i}).map(mv)}
+  if(started())S.sched=S.sched.slice(0,S.now+1).map(function(R){
+    return {matches:R.matches.map(function(M){return [M[0].map(mv),M[1].map(mv)]}),sits:fix(R.sits),away:fix(R.away||[]),req:R.req};
+  });
+  if(fill){S.slots[i]=S.slots[last];S.slots.pop()}else S.slots.splice(i,1);
+  S.n--;S.out=fix(S.out);
+  var q=S.req;
+  if(q.a===i||q.b===i){q.a=q.a===i?-1:q.a;q.b=q.b===i?-1:q.b;q.at=[]}
+  q.a=q.a<0?-1:mv(q.a);q.b=q.b<0?-1:mv(q.b);q.against=fix(q.against);
+  if(S.courts>maxCourts())S.courts=Math.max(1,maxCourts());
+  S.prev=null;newSlot=-1;
+  var how=fill?'<b>'+esc(filler)+'</b> moved into their spot, so every other team stays together. ':i<last?'Everyone below moved up. ':'';
+  setFlash('Removed <b>'+esc(who)+'</b>. '+how+'The rounds were rebuilt for '+S.n+' players.');
+  generate();
+}
 function addName(i){
   var el=$('#newName'),v=((el&&el.value)||'').trim().slice(0,24);
   if(!v){newSlot=-1;return refreshNames()}
@@ -681,15 +825,16 @@ function addName(i){
 document.addEventListener('change',function(e){
   var t=e.target;
   if(t.name==='type'){S.type=t.value;newSlot=-1;return generate()}
-  if(t.id==='reqA'||t.id==='reqB'){S.req[t.id==='reqA'?'a':'b']=+t.value;return generate()}
-  if(t.id==='reqWhen'){S.req.when=t.value;return generate()}
-  if(t.id==='reqGames'){var g=parseInt(t.value,10);if(!isNaN(g))S.req.games=Math.max(1,Math.min(S.rounds,g));return generate()}
+  if(t.id==='reqA'||t.id==='reqB'){S.req[t.id==='reqA'?'a':'b']=+t.value;S.req.at=[];return generate()}
+  if(t.id==='reqWhen'){S.req.when=t.value;S.req.at=[];return generate()}
+  if(t.id==='reqGames'){var g=parseInt(t.value,10);if(!isNaN(g))S.req.games=Math.max(1,Math.min(S.rounds,g));S.req.at=[];return generate()}
   if(t.id==='nPlayers')return setVal('n',t.value);
   if(t.id==='nCourts')return setVal('courts',t.value);
   if(t.id==='nRounds')return setVal('rounds',t.value);
   if(t.dataset&&t.dataset.slot!==undefined){
     var i=+t.dataset.slot;
     if(t.value==='__new'){newSlot=i;return renderSetup()}
+    if(t.value==='__remove')return removeSlot(i);
     S.slots[i]=t.value;refreshNames();
   }
 });
@@ -701,7 +846,7 @@ document.addEventListener('keydown',function(e){
 document.addEventListener('click',function(e){
   var b=e.target.closest('button');if(!b)return;
   var d=b.dataset;
-  if(d.step==='reqGames'){S.req.games=Math.max(1,Math.min(S.rounds,(S.req.games||1)+(+d.d)));return generate()}
+  if(d.step==='reqGames'){S.req.games=Math.max(1,Math.min(S.rounds,(S.req.games||1)+(+d.d)));S.req.at=[];return generate()}
   if(d.against!==undefined){var x=+d.against,i=S.req.against.indexOf(x);if(i>=0)S.req.against.splice(i,1);else S.req.against.push(x);return generate()}
   if(d.step){var cur={n:S.n,courts:S.courts,rounds:S.rounds}[d.step];return setVal(d.step,cur+(+d.d))}
   if(d.add!==undefined)return addName(+d.add);
@@ -717,12 +862,12 @@ document.addEventListener('click',function(e){
     var r=+d.r,p=+d.p;
     if(r<S.now)return;   /* played rounds are history */
     if(sel&&sel.r===r&&sel.p===p)sel=null;
-    else if(sel&&sel.r===r){swap(r,sel.p,p);sel=null;save()}
+    else if(sel&&sel.r===r){swap(r,sel.p,p);sel=null;afterSwap(r);save()}
     else sel={r:r,p:p};
     renderRounds();renderSummary();renderStats();return;
   }
   if(b.id==='regen'){S.prev={n:S.n,sched:JSON.parse(JSON.stringify(S.sched||[]))};return generate()}
-  if(b.id==='undo'&&S.prev){var keep=S.sched;S.sched=S.prev.sched;S.prev={n:S.n,sched:keep};sel=null;save();return renderAll()}
+  if(b.id==='undo'&&S.prev){var keep=S.sched;S.sched=S.prev.sched;S.prev={n:S.n,sched:keep};sel=null;syncAt();save();return renderAll()}
   if(b.id==='startover'){S.now=-1;S.prev=null;return generate()}
   if(b.id==='fill'){
     for(var i=0;i<S.slots.length;i++)if(!S.slots[i]){var next=S.roster.filter(function(x){return S.slots.indexOf(x)<0})[0];if(next)S.slots[i]=next}
@@ -737,6 +882,7 @@ document.addEventListener('click',function(e){
     return refreshNames();
   }
   if(b.id==='copy')return copyText(asText(),b,'Copy for the group chat');
+  if(b.id==='shareView')return shareView(b);
 });
 
 /* ---------- session links: round-robin#play=Tom,Lee,Diane%20C ----------
@@ -807,7 +953,7 @@ document.addEventListener('click',function(e){
   PENDING[i]=null;save();renderAll();
 });
 document.addEventListener('click',function(e){var b=e.target.closest('[data-dismiss]');if(b)$('#loaded').hidden=true});
-window.addEventListener('hashchange',function(){if(fromLink())generate()});
+window.addEventListener('hashchange',function(){if(/^#view=/.test(location.hash))return location.reload();if(fromLink())generate()});
 
 if(fromLink())generate();
 else if(!S.sched||S.sched.length===0&&S.n>=4)generate();else renderAll();
