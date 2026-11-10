@@ -68,7 +68,7 @@ The whole philosophy fits on a paddle: the score is information, not identity. P
 | `why-you-play.html` | The ethos: who you are on the court and how you treat people |
 | `mental-game.html` | In-match technique: the serve routine as a kit, the silent head |
 | `game-within-the-game.html` | The head game: fumbling the ball, the second chase during the routine, "BALL ON!", even the pros play it (reps) |
-| `line-calls.html` | Playing the Game: if you think it was out, it was in; partners disagree, it's in; call it the best you can; don't play line judge from 29 or 44 feet away. Rulebook aside |
+| `line-calls.html` | Playing the Game: if you think it was out, it was in; partners disagree, it's in; call it the best you can; don't play line judge from 29 or 44 feet away. Rulebook aside, now cited: four numbered footnotes (USA Pickleball 2026 rulebook, Rules 8.A, 8.D, 8.H, 3.A) with a Sources list at the bottom. Also "An out call comes from one of three places" (it was out; it was in and they erred; it was in and they want the point) and the rule of thumb that one call isn't worth the lost pickleball time, except for an egregious repeat offender. Rec-game framing, not tournament |
 | `lose-like-a-winner.html` | Sportsmanship in Playing the Game: don't slam it just because you can, lose like a winner, same posture every game |
 | `getting-better.html` | The learning ladder, the ATP, luck cuts both ways |
 | `_template.html` | Starting point for new pages. Noindexed and redirected away |
