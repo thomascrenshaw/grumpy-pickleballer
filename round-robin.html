@@ -1,4 +1,4 @@
-<!-- v1.11 — Round Robin (tool): public. Share view-only link: the whole schedule rides in #view= (snapshot, read-only, never touches the viewer's saved data), with Find me. v1.10: "Remove from lineup" in each player dropdown: drops them, moves everyone below up, one fewer player. Partner request follows hand swaps: pair them up by hand and their game moves there (the nearest auto game goes away); split them and that round stops being theirs; reshuffles keep those choices. Home-screen app: Refresh button (shows only when opened from the home screen), icon (apple-touch-icon only, no manifest), short name. Partner requests. Mid-session: Start/Playing now, Out/Back, rebuild only the remaining rounds, Previous shuffle. Site links, house rules, per-round copy, #play= session links with roster dedupe and maybe-same-person checks, SEO guide + FAQ. -->
+<!-- v1.12 — Round Robin (tool): public. Skill balance: optional levels 1-4 per player, kept per group (Crew / Fast). Hard: two Newer never face a Strong; avoid two Strong partnering. Soft: even team totals. "Tough draw" tag on the organizer's screen only. v1.11: Share view-only link: the whole schedule rides in #view= (snapshot, read-only, never touches the viewer's saved data), with Find me. v1.10: "Remove from lineup" in each player dropdown: drops them, moves everyone below up, one fewer player. Partner request follows hand swaps: pair them up by hand and their game moves there (the nearest auto game goes away); split them and that round stops being theirs; reshuffles keep those choices. Home-screen app: Refresh button (shows only when opened from the home screen), icon (apple-touch-icon only, no manifest), short name. Partner requests. Mid-session: Start/Playing now, Out/Back, rebuild only the remaining rounds, Previous shuffle. Site links, house rules, per-round copy, #play= session links with roster dedupe and maybe-same-person checks, SEO guide + FAQ. -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -149,6 +149,15 @@
   .summary .live{color:var(--kitchen);}
   details.req summary{cursor:pointer;font-size:13px;text-transform:uppercase;letter-spacing:1.5px;font-weight:800;color:var(--muted);}
   details.req[open] summary{margin-bottom:8px;}
+  .court-label .tag{margin-left:8px;letter-spacing:0;text-transform:none;vertical-align:1px;}
+  .tag.tough{background:#fde7c8;color:#7a4a0c;}
+  .seg{display:inline-flex;border:1px solid var(--hair);border-radius:10px;overflow:hidden;margin:0 0 12px;}
+  .seg button{font:800 15px/1.2 var(--sans);padding:9px 16px;border:0;background:#fff;color:var(--ink);cursor:pointer;}
+  .seg button[aria-pressed=true]{background:var(--ink);color:#fff;}
+  .lvls{display:grid;gap:6px;}
+  .lvl{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:16px;font-weight:700;}
+  .lvl select{font:700 15px/1.2 var(--sans);padding:7px 8px;border-radius:9px;border:1px solid var(--hair);background:#fff;color:var(--ink);}
+  .lvl select.tagged{border-color:var(--kitchen);background:var(--sel);}
   .reqpair{display:flex;align-items:center;gap:8px;}
   .reqpair select,.whensel{flex:1;min-width:0;font:700 16px/1.2 var(--sans);padding:9px 8px;border:1px solid var(--hair);border-radius:8px;background:#fff;color:var(--ink);width:100%;}
   .reqpair span{font-weight:800;color:var(--muted);}
@@ -237,6 +246,14 @@
         <p class="note" id="reqNote"></p>
       </details>
 
+      <details class="req" id="skillBox">
+        <summary>Skill balance (optional)</summary>
+        <p class="note" style="margin:0 0 10px">Tag only the players at the edges; everyone else counts as Steady. Two Newer players partnered together never face a Strong player, two Strong players don't partner if it can be avoided, and the rest leans toward even games. Levels are kept per group, so someone can be Strong in one game and Steady in another. Only you see these; they never go in copied text or view-only links.</p>
+        <div class="seg" id="skillGroup" role="group" aria-label="Which group"></div>
+        <div class="lvls" id="skillList"></div>
+        <p class="note" id="skillNote"></p>
+      </details>
+
       <details class="roster" id="rosterBox">
         <summary>Your roster</summary>
         <label for="rosterText" class="note" style="display:block;margin:0 0 6px">One name per line. These fill the dropdowns. Your roster is kept only in this browser. Nothing is sent anywhere.</label>
@@ -272,7 +289,7 @@
 
     <div class="aside"><b>Using an AI assistant?</b> If yours can see your Pickleheads sessions, it can build a session link like <code>grumpypickleballer.com/round-robin#play=Tom%20C,Kristen%20L,&#8230;</code> Open it and the page fills in who's playing, matches names already on your list, adds only the new ones, and asks before treating &#8220;Thomas C&#8221; as your &#8220;Tom C.&#8221; The names ride after the <code>#</code>, which browsers never send to the site, and the page clears them from the address once they're loaded. The assistant sees the names while it builds the link; the page itself still keeps them only on your device.</div>
 
-    <div class="aside"><b>How it decides.</b> Each round, whoever has sat out the least sits first, and nobody sits twice in a row if it can be avoided. Then it tries a pile of shuffles and keeps the one with the fewest repeat partners. Each round has its own Copy button, so you can post rounds to the group chat one at a time instead of yelling them across the courts. Rotating partners also spreads out who you play against. Fixed partners uses the standard circle rotation, so every team sees every other team before anyone repeats. Mid-session, tap <b>Start</b> on the round you're playing: everything up to it is locked. Mark someone <b>Out</b> (late, leaving, or sitting a stretch) or tap <b>Back</b>, and only the rounds after that get rebuilt, with sit-outs counted only for the rounds each person was there. <b>Previous shuffle</b> brings back the schedule you had before the last reshuffle. A partner request locks one pair together for the games you set (and only those), picks their opponents from your list, and builds everyone else's rounds around them. Want their game in a different round? Swap them together there by hand, and their nearest other game goes back to normal. Split them by hand and that round stops being theirs.</div>
+    <div class="aside"><b>How it decides.</b> Each round, whoever has sat out the least sits first, and nobody sits twice in a row if it can be avoided. Then it tries a pile of shuffles and keeps the one with the fewest repeat partners. Each round has its own Copy button, so you can post rounds to the group chat one at a time instead of yelling them across the courts. Rotating partners also spreads out who you play against. Fixed partners uses the standard circle rotation, so every team sees every other team before anyone repeats. Mid-session, tap <b>Start</b> on the round you're playing: everything up to it is locked. Mark someone <b>Out</b> (late, leaving, or sitting a stretch) or tap <b>Back</b>, and only the rounds after that get rebuilt, with sit-outs counted only for the rounds each person was there. <b>Previous shuffle</b> brings back the schedule you had before the last reshuffle. A partner request locks one pair together for the games you set (and only those), picks their opponents from your list, and builds everyone else's rounds around them. Want their game in a different round? Swap them together there by hand, and their nearest other game goes back to normal. Split them by hand and that round stops being theirs. <b>Skill balance</b> is a tiebreaker on top of all that, except for its two rules, which come first: a newer pair never faces a Strong player, and two Strong players don't partner if it can be avoided. Keeping two Strong players apart can cost a repeat partner or two; that's the math, not a bug.</div>
 
     <section class="guide" aria-label="How to run a pickleball round robin">
       <h2>How to run a pickleball round robin</h2>
@@ -389,13 +406,14 @@ function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
 var S=load()||{roster:[],n:8,courts:2,rounds:7,type:'popcorn',slots:new Array(8).fill(''),sched:null};
 if(!S.req)S.req={a:-1,b:-1,games:2,when:'spread',against:[]};
 if(S.now===undefined)S.now=-1;if(!S.out)S.out=[];
+if(!S.levels)S.levels={crew:{},fast:{}};if(!S.group)S.group='crew';
 /* Mid-session: rounds up to and including "now" are locked; changes rebuild only what's after. */
 function started(){return S.now>=0&&!!S.sched&&S.now<S.sched.length}
 function lockedFrom(){return started()?S.now+1:0}
 /* the partner request, if it's complete and fits this session */
 function reqOn(){var q=S.req;return S.type!=='fixed'&&q&&q.a>=0&&q.b>=0&&q.a!==q.b&&q.a<S.n&&q.b<S.n&&q.games>0&&liveCourts()>0?q:null}
 function isReqPair(T){var q=reqOn();return !!q&&((T[0]===q.a&&T[1]===q.b)||(T[0]===q.b&&T[1]===q.a))}
-var sel=null,newSlot=-1,repeatCount=0,flash='',flashT=0;
+var sel=null,newSlot=-1,repeatCount=0,toughCount=0,flash='',flashT=0;
 
 function maxCourts(){return Math.floor(S.n/4)}
 function liveCourts(){return Math.max(0,Math.min(S.courts,maxCourts()))}
@@ -417,6 +435,25 @@ function add(P,O,A,B){
   A.forEach(function(a){B.forEach(function(b){O[a][b]++;O[b][a]++})});
 }
 var PAIRINGS=[[[0,1],[2,3]],[[0,2],[1,3]],[[0,3],[1,2]]];
+/* ---------- skill balance ----------
+   Levels 1 Newer, 2 Getting there, 3 Steady (anyone untagged), 4 Strong, kept per group by name. */
+var GROUPS={crew:'Crew',fast:'Fast'},LEVELS={1:'Newer',2:'Getting there',3:'Steady',4:'Strong'};
+function lkey(p){return (nm(p)||'').trim().toLowerCase()}
+function lvl(p){var k=lkey(p),g=S.levels[S.group]||{};return k&&g[k]?g[k]:3}
+function skillOn(){for(var i=0;i<S.n;i++)if(lvl(i)!==3)return true;return false}
+/* the two rules: two Newer facing a Strong, and two Strong partnering */
+function tough(A,B){
+  var a0=lvl(A[0]),a1=lvl(A[1]),b0=lvl(B[0]),b1=lvl(B[1]);
+  return (a0===1&&a1===1&&(b0===4||b1===4))||(b0===1&&b1===1&&(a0===4||a1===4))||(S.type!=='fixed'&&((a0===4&&a1===4)||(b0===4&&b1===4)));
+}
+function skillCost(A,B){
+  if(!SK)return 0;
+  var a0=lvl(A[0]),a1=lvl(A[1]),b0=lvl(B[0]),b1=lvl(B[1]),c=0;
+  if((a0===1&&a1===1&&(b0===4||b1===4))||(b0===1&&b1===1&&(a0===4||a1===4)))c+=5000;
+  if(a0===4&&a1===4)c+=1500;if(b0===4&&b1===4)c+=1500;
+  return c+3*Math.abs(a0+a1-b0-b1);
+}
+var SK=false;
 function arrange(active,P,O,wp,wo,tries){
   var best=null,bc=Infinity;
   for(var t=0;t<tries;t++){
@@ -425,7 +462,7 @@ function arrange(active,P,O,wp,wo,tries){
       var f=a.slice(g,g+4),bm=null,bmc=Infinity;
       PAIRINGS.forEach(function(pr){
         var A=[f[pr[0][0]],f[pr[0][1]]],B=[f[pr[1][0]],f[pr[1][1]]];
-        var c=wp*(P[A[0]][A[1]]+P[B[0]][B[1]])+wo*(O[A[0]][B[0]]+O[A[0]][B[1]]+O[A[1]][B[0]]+O[A[1]][B[1]]);
+        var c=wp*(P[A[0]][A[1]]+P[B[0]][B[1]])+wo*(O[A[0]][B[0]]+O[A[0]][B[1]]+O[A[1]][B[0]]+O[A[1]][B[1]])+skillCost(A,B);
         if(c<bmc){bmc=c;bm=[A,B]}
       });
       cost+=bmc;ms.push(bm);
@@ -440,7 +477,7 @@ function arrangeTeams(teams,O,tries){
     var a=shuffle(teams.slice()),cost=0,ms=[];
     for(var g=0;g+1<a.length;g+=2){
       var A=a[g],B=a[g+1];
-      cost+=O[A[0]][B[0]]+O[A[0]][B[1]]+O[A[1]][B[0]]+O[A[1]][B[1]];
+      cost+=O[A[0]][B[0]]+O[A[0]][B[1]]+O[A[1]][B[0]]+O[A[1]][B[1]]+skillCost(A,B);
       ms.push([A.slice(),B.slice()]);
     }
     if(cost<bc){bc=cost;best=ms;if(cost===0)break}
@@ -580,8 +617,9 @@ function extendFixed(from){
   return out;
 }
 function extend(from){
-  if(S.type==='fixed')S.sched=(from===0&&!S.out.length)?genFixed():extendFixed(from);
-  else{var t=TYPES[S.type];S.sched=genMix(t.wp,t.wo,t.tries,from)}
+  SK=skillOn();
+  if(S.type==='fixed')S.sched=(from===0&&!S.out.length&&!SK)?genFixed():extendFixed(from);
+  else{var t=TYPES[S.type];S.sched=genMix(t.wp,t.wo,SK?Math.max(t.tries,400):t.tries,from)}
 }
 function generate(){
   sel=null;
@@ -596,6 +634,7 @@ function generate(){
   syncAt();save();renderAll();
 }
 function reshuffle(r){
+  SK=skillOn();
   var R=S.sched[r],c=tally(S.sched,r);
   var flat=[];R.matches.forEach(function(M){flat.push(M[0],M[1])});
   if(S.type==='fixed')R.matches=arrangeTeams(flat,c.O,300);
@@ -654,6 +693,19 @@ function renderReq(){
     (q.against.length>=2?', against two of: '+q.against.map(nm).join(', ')+'.':q.against.length===1?'. Pick at least two opponents, or none.':', against whoever fits best.');
   if(on&&!box.open)box.open=true;
 }
+function renderSkill(){
+  var g=S.levels[S.group]||(S.levels[S.group]={});
+  $('#skillGroup').innerHTML=Object.keys(GROUPS).map(function(k){return '<button type="button" data-group="'+k+'" aria-pressed="'+(k===S.group)+'">'+GROUPS[k]+'</button>'}).join('');
+  var ps=range(S.n).filter(function(i){return lkey(i)});
+  $('#skillList').innerHTML=ps.map(function(i){
+    var v=lvl(i);
+    return '<div class="lvl"><span>'+esc(nm(i))+'</span><select data-lvl="'+i+'" aria-label="Level for '+esc(nm(i))+'"'+(v!==3?' class="tagged"':'')+'>'+
+      [1,2,3,4].map(function(l){return '<option value="'+l+'"'+(l===v?' selected':'')+'>'+LEVELS[l]+'</option>'}).join('')+'</select></div>';
+  }).join('');
+  var t=ps.filter(function(i){return lvl(i)!==3});
+  $('#skillNote').textContent=!t.length?'Nobody tagged in '+GROUPS[S.group]+' yet, so levels are off.':
+    t.length+' tagged in '+GROUPS[S.group]+': '+t.map(function(i){return nm(i)+' ('+LEVELS[lvl(i)]+')'}).join(', ')+'.'+(S.type==='fixed'?' With fixed partners, this only steers who plays whom.':'');
+}
 function renderSetup(){
   document.querySelectorAll('input[name=type]').forEach(function(r){r.checked=r.value===S.type});
   $('#nPlayers').value=S.n;$('#nCourts').value=S.courts;$('#nCourts').max=Math.max(1,maxCourts());$('#nRounds').value=S.rounds;
@@ -674,13 +726,13 @@ function renderSetup(){
   if(document.activeElement!==$('#rosterText'))$('#rosterText').value=S.roster.join('\n');
   if(!S.roster.length)$('#rosterBox').open=true;
   if(newSlot>=0){var el=$('#newName');if(el)el.focus()}
-  renderReq();
+  renderReq();renderSkill();
 }
 function chip(r,p){return '<button type="button" class="chip'+(sel&&sel.r===r&&sel.p===p?' on':'')+'" data-r="'+r+'" data-p="'+p+'">'+esc(nm(p))+'</button>'}
 function renderRounds(){
   var el=$('#rounds');
   if(!S.sched||!S.sched.length){el.innerHTML='<p class="empty">Add at least 4 players to fill a court.</p>';repeatCount=0;return}
-  var seen={};repeatCount=0;var firstSit=-1;S.sched.some(function(R,i){if(R.sits.length){firstSit=i;return true}});
+  var seen={};repeatCount=0;toughCount=0;var sk=skillOn();var firstSit=-1;S.sched.some(function(R,i){if(R.sits.length){firstSit=i;return true}});
   el.innerHTML=S.sched.map(function(R,ri){
     function side(T,cls){
       var k=Math.min(T[0],T[1])+'-'+Math.max(T[0],T[1]),asked=isReqPair(T);
@@ -688,7 +740,8 @@ function renderRounds(){
       return '<div class="side '+cls+(rep?' rep':'')+'">'+chip(ri,T[0])+chip(ri,T[1])+(rep?'<span class="tag">Partnered before</span>':'')+(asked?'<span class="tag ok">Requested</span>':'')+'</div>';
     }
     var courts=R.matches.map(function(M,mi){
-      return '<div class="court"><div class="court-label">Court '+(mi+1)+'</div><div class="court-body">'+side(M[0],'a')+'<div class="net" aria-hidden="true"></div>'+side(M[1],'b')+'</div></div>';
+      var td=sk&&tough(M[0],M[1]);if(td)toughCount++;
+      return '<div class="court"><div class="court-label">Court '+(mi+1)+(td?'<span class="tag tough">Tough draw</span>':'')+'</div><div class="court-body">'+side(M[0],'a')+'<div class="net" aria-hidden="true"></div>'+side(M[1],'b')+'</div></div>';
     }).join('');
     var sits=R.sits.length?'<div class="sits"><span class="sits-label">Sitting out</span>'+R.sits.map(function(p){return chip(ri,p)}).join('')+(ri===firstSit?'<a class="sitlink" href="pre-snap-read.html">Sitting out is scouting &#8594;</a>':'')+'</div>':'';
     var aw=(R.away&&R.away.length)?'<div class="sits away"><span class="sits-label">Out</span>'+R.away.map(function(p){return '<span class="chip awaychip">'+esc(nm(p))+'</span>'}).join('')+'</div>':'';
@@ -702,7 +755,7 @@ function renderRounds(){
 function renderSummary(){
   var c=liveCourts();
   var rep=S.type==='fixed'?'':' &#183; <span class="'+(repeatCount?'bad':'')+'">'+repeatCount+' repeat partner'+(repeatCount===1?'':'s')+'</span>';
-  $('#summary').innerHTML=TYPES[S.type].label+' &#183; '+S.n+' players &#183; '+c+' court'+(c===1?'':'s')+' &#183; '+S.rounds+' round'+(S.rounds===1?'':'s')+rep+(started()?' &#183; <span class="live">Round '+(S.now+1)+' playing</span>':'');
+  $('#summary').innerHTML=TYPES[S.type].label+' &#183; '+S.n+' players &#183; '+c+' court'+(c===1?'':'s')+' &#183; '+S.rounds+' round'+(S.rounds===1?'':'s')+rep+(toughCount?' &#183; <span class="bad">'+toughCount+' tough draw'+(toughCount===1?'':'s')+'</span>':'')+(started()?' &#183; <span class="live">Round '+(S.now+1)+' playing</span>':'');
   $('#undo').hidden=!(S.prev&&S.prev.n===S.n&&S.prev.sched&&S.prev.sched.length===S.sched.length);
   $('#startover').hidden=!started();
   $('#regen').textContent=started()?'Reshuffle the rest':'New shuffle';
@@ -825,6 +878,7 @@ function addName(i){
 document.addEventListener('change',function(e){
   var t=e.target;
   if(t.name==='type'){S.type=t.value;newSlot=-1;return generate()}
+  if(t.dataset&&t.dataset.lvl!==undefined){var k=lkey(+t.dataset.lvl),g=S.levels[S.group];if(+t.value===3)delete g[k];else g[k]=+t.value;return generate()}
   if(t.id==='reqA'||t.id==='reqB'){S.req[t.id==='reqA'?'a':'b']=+t.value;S.req.at=[];return generate()}
   if(t.id==='reqWhen'){S.req.when=t.value;S.req.at=[];return generate()}
   if(t.id==='reqGames'){var g=parseInt(t.value,10);if(!isNaN(g))S.req.games=Math.max(1,Math.min(S.rounds,g));S.req.at=[];return generate()}
@@ -846,6 +900,7 @@ document.addEventListener('keydown',function(e){
 document.addEventListener('click',function(e){
   var b=e.target.closest('button');if(!b)return;
   var d=b.dataset;
+  if(d.group){if(d.group===S.group)return;S.group=d.group;return generate()}
   if(d.step==='reqGames'){S.req.games=Math.max(1,Math.min(S.rounds,(S.req.games||1)+(+d.d)));S.req.at=[];return generate()}
   if(d.against!==undefined){var x=+d.against,i=S.req.against.indexOf(x);if(i>=0)S.req.against.splice(i,1);else S.req.against.push(x);return generate()}
   if(d.step){var cur={n:S.n,courts:S.courts,rounds:S.rounds}[d.step];return setVal(d.step,cur+(+d.d))}

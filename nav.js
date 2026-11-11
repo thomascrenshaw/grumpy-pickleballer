@@ -28,6 +28,8 @@
      That's all. The hub strip, the tile badges, the What's New page and
      "since your last visit" are all built from this list. */
   var UPDATES = [
+    ["round-robin",          "2026-11-10", "updated", "Skill balance: tag the edges, and newer players get a partner who can help."],
+    ["sayings",              "2026-11-10", "updated", "New: There is no sorry in pickleball. Just the next point."],
     ["round-robin",          "2026-11-08", "updated", "Share a view-only link with “Find me,” remove a player from the lineup, and hand swaps now respect partner requests."],
     ["line-calls",           "2026-11-04", "updated", "Rulebook citations, plus the three places an out call comes from."],
     ["round-robin",          "2026-10-31", "new",     "A round robin generator: popcorn, rotating or fixed partners, fair sit-outs, tap two names to swap."],
