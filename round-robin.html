@@ -1,4 +1,4 @@
-<!-- v1.12 — Round Robin (tool): public. Skill balance: optional levels 1-4 per player, kept per group (Crew / Fast). Hard: two Newer never face a Strong; avoid two Strong partnering. Soft: even team totals. "Tough draw" tag on the organizer's screen only. v1.11: Share view-only link: the whole schedule rides in #view= (snapshot, read-only, never touches the viewer's saved data), with Find me. v1.10: "Remove from lineup" in each player dropdown: drops them, moves everyone below up, one fewer player. Partner request follows hand swaps: pair them up by hand and their game moves there (the nearest auto game goes away); split them and that round stops being theirs; reshuffles keep those choices. Home-screen app: Refresh button (shows only when opened from the home screen), icon (apple-touch-icon only, no manifest), short name. Partner requests. Mid-session: Start/Playing now, Out/Back, rebuild only the remaining rounds, Previous shuffle. Site links, house rules, per-round copy, #play= session links with roster dedupe and maybe-same-person checks, SEO guide + FAQ. -->
+<!-- v1.13 — Round Robin (tool): public. Scores: optional per court, partial OK (timed days), "to 11" / "to 7" hint (7 when anyone sits); a scored round counts as played and is never reshuffled. Session points for / against / +/- in the stats table, no ranking. Round length from Start taps. v1.12.1: Version shown at the bottom of the page (keep it in sync with this line). v1.12: Skill balance: optional levels 1-4 per player, kept per group (Crew / Fast). Hard: two Newer never face a Strong; avoid two Strong partnering. Soft: even team totals. "Tough draw" tag on the organizer's screen only. v1.11: Share view-only link: the whole schedule rides in #view= (snapshot, read-only, never touches the viewer's saved data), with Find me. v1.10: "Remove from lineup" in each player dropdown: drops them, moves everyone below up, one fewer player. Partner request follows hand swaps: pair them up by hand and their game moves there (the nearest auto game goes away); split them and that round stops being theirs; reshuffles keep those choices. Home-screen app: Refresh button (shows only when opened from the home screen), icon (apple-touch-icon only, no manifest), short name. Partner requests. Mid-session: Start/Playing now, Out/Back, rebuild only the remaining rounds, Previous shuffle. Site links, house rules, per-round copy, #play= session links with roster dedupe and maybe-same-person checks, SEO guide + FAQ. -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -149,6 +149,15 @@
   .summary .live{color:var(--kitchen);}
   details.req summary{cursor:pointer;font-size:13px;text-transform:uppercase;letter-spacing:1.5px;font-weight:800;color:var(--muted);}
   details.req[open] summary{margin-bottom:8px;}
+  .court-label .to{float:right;letter-spacing:.5px;text-transform:none;color:var(--muted);font-weight:700;}
+  .score{display:grid;grid-template-columns:minmax(0,1fr) 22px minmax(0,1fr);align-items:center;margin-top:8px;}
+  .score input{width:64px;justify-self:center;font:800 20px/1 var(--sans);text-align:center;padding:7px 4px;border-radius:9px;border:1px solid var(--hair);background:#fff;color:var(--ink);-moz-appearance:textfield;}
+  .score input::-webkit-outer-spin-button,.score input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0;}
+  .score input.won{border-color:var(--kitchen);background:var(--sel);}
+  .score span{text-align:center;color:var(--muted);font-weight:800;}
+  .dur{font-size:13px;font-weight:700;color:var(--muted);margin-left:8px;letter-spacing:0;}
+  .scored th,.scored td{padding-left:5px;padding-right:5px;}
+  .nightnotes{font-size:15px;line-height:1.5;margin:0 0 10px;}
   .court-label .tag{margin-left:8px;letter-spacing:0;text-transform:none;vertical-align:1px;}
   .tag.tough{background:#fde7c8;color:#7a4a0c;}
   .seg{display:inline-flex;border:1px solid var(--hair);border-radius:10px;overflow:hidden;margin:0 0 12px;}
@@ -273,6 +282,7 @@
 
     <details class="tally" id="tallyBox">
       <summary>Who played how much</summary>
+      <p class="nightnotes" id="nightNotes" hidden></p>
       <div class="tablewrap"><table id="stats"></table></div>
     </details>
 
@@ -315,6 +325,7 @@
 
     <div class="foot">Your crew, your courts. It just does the math so nobody has to.
       <span class="xwink" style="display:block;margin-top:10px;">Not affiliated with <a href="https://doyouevendinkbro.com" style="color:inherit;text-decoration:underline;text-underline-offset:2px">doyouevendinkbro.com</a>. I've spoken to him about it, but he insists we're partners. We have never been seen in the same room.</span>
+      <span class="ver" style="display:block;margin-top:10px;font-size:13px;opacity:.7">Round Robin v1.13</span>
     </div>
   </div>
 
@@ -409,7 +420,12 @@ if(S.now===undefined)S.now=-1;if(!S.out)S.out=[];
 if(!S.levels)S.levels={crew:{},fast:{}};if(!S.group)S.group='crew';
 /* Mid-session: rounds up to and including "now" are locked; changes rebuild only what's after. */
 function started(){return S.now>=0&&!!S.sched&&S.now<S.sched.length}
-function lockedFrom(){return started()?S.now+1:0}
+function lockedFrom(){
+  var l=started()?S.now+1:0;
+  (S.sched||[]).forEach(function(R,i){if(scored(R))l=Math.max(l,i+1)});   /* a scored round has been played */
+  return l;
+}
+function scored(R){return !!(R.score&&R.score.some(function(x){return x&&(x[0]!=null||x[1]!=null)}))}
 /* the partner request, if it's complete and fits this session */
 function reqOn(){var q=S.req;return S.type!=='fixed'&&q&&q.a>=0&&q.b>=0&&q.a!==q.b&&q.a<S.n&&q.b<S.n&&q.games>0&&liveCourts()>0?q:null}
 function isReqPair(T){var q=reqOn();return !!q&&((T[0]===q.a&&T[1]===q.b)||(T[0]===q.b&&T[1]===q.a))}
@@ -741,15 +757,18 @@ function renderRounds(){
     }
     var courts=R.matches.map(function(M,mi){
       var td=sk&&tough(M[0],M[1]);if(td)toughCount++;
-      return '<div class="court"><div class="court-label">Court '+(mi+1)+(td?'<span class="tag tough">Tough draw</span>':'')+'</div><div class="court-body">'+side(M[0],'a')+'<div class="net" aria-hidden="true"></div>'+side(M[1],'b')+'</div></div>';
+      var sc=(R.score&&R.score[mi])||[null,null],tgt=R.sits.length?7:11,full=sc[0]!=null&&sc[1]!=null;
+      var box=function(k){return '<input type="number" inputmode="numeric" min="0" max="99" data-score="'+ri+','+mi+','+k+'" value="'+(sc[k]==null?'':sc[k])+'" placeholder="&#8211;" aria-label="Court '+(mi+1)+' score, '+(k?'right':'left')+' team"'+(full&&sc[k]>sc[1-k]?' class="won"':'')+'>'};
+      return '<div class="court"><div class="court-label">Court '+(mi+1)+(td?'<span class="tag tough">Tough draw</span>':'')+'<span class="to">to '+tgt+'</span></div><div class="court-body">'+side(M[0],'a')+'<div class="net" aria-hidden="true"></div>'+side(M[1],'b')+'</div><div class="score">'+box(0)+'<span>&#8211;</span>'+box(1)+'</div></div>';
     }).join('');
     var sits=R.sits.length?'<div class="sits"><span class="sits-label">Sitting out</span>'+R.sits.map(function(p){return chip(ri,p)}).join('')+(ri===firstSit?'<a class="sitlink" href="pre-snap-read.html">Sitting out is scouting &#8594;</a>':'')+'</div>':'';
     var aw=(R.away&&R.away.length)?'<div class="sits away"><span class="sits-label">Out</span>'+R.away.map(function(p){return '<span class="chip awaychip">'+esc(nm(p))+'</span>'}).join('')+'</div>':'';
     var state=ri<S.now?'done':ri===S.now?'now':'next';
     var nowBtn=state==='now'?'<button class="btn small nowon" type="button" data-now="'+(ri-1)+'" aria-pressed="true" title="Tap to undo">Playing now</button>':
       state==='done'?'<span class="playedtag">Played</span>':'<button class="btn small" type="button" data-now="'+ri+'">Start</button>';
-    var tools=state==='next'?'<button class="btn small" type="button" data-reshuffle="'+ri+'">Reshuffle</button>':'';
-    return '<section class="round '+state+'" aria-label="Round '+(ri+1)+'"><div class="round-head"><h2>Round '+(ri+1)+'</h2><div class="row">'+nowBtn+'<button class="btn small" type="button" data-copyround="'+ri+'">Copy</button>'+tools+'</div></div><div class="courts">'+courts+'</div>'+sits+aw+'</section>';
+    var tools=state==='next'&&ri>=lockedFrom()?'<button class="btn small" type="button" data-reshuffle="'+ri+'">Reshuffle</button>':'';
+    var mins=roundMins(ri);
+    return '<section class="round '+state+'" aria-label="Round '+(ri+1)+'"><div class="round-head"><h2>Round '+(ri+1)+(mins?'<span class="dur">'+mins+' min</span>':'')+'</h2><div class="row">'+nowBtn+'<button class="btn small" type="button" data-copyround="'+ri+'">Copy</button>'+tools+'</div></div><div class="courts">'+courts+'</div>'+sits+aw+'</section>';
   }).join('');
 }
 function renderSummary(){
@@ -757,22 +776,50 @@ function renderSummary(){
   var rep=S.type==='fixed'?'':' &#183; <span class="'+(repeatCount?'bad':'')+'">'+repeatCount+' repeat partner'+(repeatCount===1?'':'s')+'</span>';
   $('#summary').innerHTML=TYPES[S.type].label+' &#183; '+S.n+' players &#183; '+c+' court'+(c===1?'':'s')+' &#183; '+S.rounds+' round'+(S.rounds===1?'':'s')+rep+(toughCount?' &#183; <span class="bad">'+toughCount+' tough draw'+(toughCount===1?'':'s')+'</span>':'')+(started()?' &#183; <span class="live">Round '+(S.now+1)+' playing</span>':'');
   $('#undo').hidden=!(S.prev&&S.prev.n===S.n&&S.prev.sched&&S.prev.sched.length===S.sched.length);
-  $('#startover').hidden=!started();
-  $('#regen').textContent=started()?'Reshuffle the rest':'New shuffle';
+  $('#startover').hidden=!(started()||lockedFrom()>0);
+  $('#regen').textContent=lockedFrom()>0?'Reshuffle the rest':'New shuffle';
   var h=$('#swapHint');
   if(sel){h.hidden=false;h.innerHTML='Swapping <b>'+esc(nm(sel.p))+'</b> in Round '+(sel.r+1)+'. Tap another name in that round, or tap them again to cancel.'}
   else if(flash){h.hidden=false;h.innerHTML=flash}
   else h.hidden=true;
 }
+/* round length: from this round's Start tap to the next one's (only when both were tapped) */
+function roundMins(r){
+  var a=S.sched[r]&&S.sched[r].t,b=S.sched[r+1]&&S.sched[r+1].t;
+  if(!a||!b)return 0;var m=Math.round((b-a)/60000);return m>0&&m<=90?m:0;
+}
+/* points for / against per player, from scores with both numbers in */
+function pts(){return points()}
+function points(){
+  var pf=range(S.n).map(function(){return 0}),pa=pf.slice(),gp=pf.slice(),any=false,close=null,longest=null;
+  (S.sched||[]).forEach(function(R,ri){
+    R.matches.forEach(function(M,mi){
+      var sc=R.score&&R.score[mi];if(!sc||sc[0]==null||sc[1]==null)return;any=true;
+      [0,1].forEach(function(k){M[k].forEach(function(p){pf[p]+=sc[k];pa[p]+=sc[1-k];gp[p]++})});
+      var d=Math.abs(sc[0]-sc[1]),hi=Math.max(sc[0],sc[1]);
+      if(!close||d<close.d||(d===close.d&&hi>close.hi))close={d:d,hi:hi,r:ri,m:mi,sc:sc};
+    });
+    var mins=roundMins(ri);if(mins&&(!longest||mins>longest.mins))longest={r:ri,mins:mins};
+  });
+  return {pf:pf,pa:pa,gp:gp,any:any,close:close,longest:longest};
+}
 function renderStats(){
   var t=$('#stats');
   if(!S.sched||!S.sched.length){t.innerHTML='';return}
-  var c=tally(S.sched,-1),anyAway=c.away.some(function(x){return x>0});
+  var c=tally(S.sched,-1),anyAway=c.away.some(function(x){return x>0}),pt=points();
+  var sgn=function(x){return x>0?'+'+x:x<0?'&#8722;'+(-x):'0'};
   var rows=range(S.n).map(function(i){
     var partners=c.P[i].filter(function(x){return x>0}).length;
-    return '<tr><td class="k">'+esc(nm(i))+'</td><td class="num">'+c.games[i]+'</td><td class="num">'+c.sit[i]+'</td>'+(anyAway?'<td class="num">'+c.away[i]+'</td>':'')+'<td class="num">'+(S.type==='fixed'?'&#8212;':partners)+'</td></tr>';
+    return '<tr><td class="k">'+esc(nm(i))+'</td><td class="num">'+c.games[i]+'</td><td class="num">'+c.sit[i]+'</td>'+(anyAway?'<td class="num">'+c.away[i]+'</td>':'')+'<td class="num">'+(S.type==='fixed'?'&#8212;':partners)+'</td>'+
+      (pt.any?'<td class="num">'+pt.pf[i]+'</td><td class="num">'+pt.pa[i]+'</td><td class="num">'+sgn(pt.pf[i]-pt.pa[i])+'</td>':'')+'</tr>';
   }).join('');
-  t.innerHTML='<thead><tr><th>Player</th><th class="num">Games</th><th class="num">Sat out</th>'+(anyAway?'<th class="num">Out</th>':'')+'<th class="num">Different partners</th></tr></thead><tbody>'+rows+'</tbody>';
+  t.classList.toggle('scored',pt.any);
+  t.innerHTML='<thead><tr><th>Player</th><th class="num">Games</th><th class="num">'+(pt.any?'Sat':'Sat out')+'</th>'+(anyAway?'<th class="num">Out</th>':'')+'<th class="num">'+(pt.any?'Part&#173;ners':'Different partners')+'</th>'+(pt.any?'<th class="num" title="Points for">PF</th><th class="num" title="Points against">PA</th><th class="num">+/&#8722;</th>':'')+'</tr></thead><tbody>'+rows+'</tbody>';
+  var notes=[];
+  if(pt.close){var C=pt.close,M=S.sched[C.r].matches[C.m];notes.push('<b>Closest game:</b> Round '+(C.r+1)+', '+esc(nm(M[0][0]))+' &amp; '+esc(nm(M[0][1]))+' vs '+esc(nm(M[1][0]))+' &amp; '+esc(nm(M[1][1]))+', '+C.sc[0]+'&#8211;'+C.sc[1]+'.')}
+  if(pt.longest)notes.push('<b>Longest round:</b> Round '+(pt.longest.r+1)+', '+pt.longest.mins+' minutes.');
+  if(pt.any)notes.push('<span style="color:var(--muted);font-size:14px">PF and PA are points for and against, from games with both scores in. Partial scores count as entered.</span>');
+  $('#nightNotes').innerHTML=notes.join('<br>');$('#nightNotes').hidden=!notes.length;
 }
 function renderAll(){renderSetup();renderRounds();renderSummary();renderStats()}
 
@@ -847,15 +894,16 @@ function refreshNames(){save();renderAll()}
 function removeSlot(i){
   var who=nm(i);
   if(S.n<=4){setFlash('You need at least 4 players.');return renderAll()}
-  if(started()){
-    var used=false;S.sched.slice(0,S.now+1).forEach(function(R){R.matches.forEach(function(M){if(M[0].concat(M[1]).indexOf(i)>=0)used=true});if(R.sits.indexOf(i)>=0)used=true});
+  var lk=lockedFrom();
+  if(lk>0){
+    var used=false;S.sched.slice(0,lk).forEach(function(R){R.matches.forEach(function(M){if(M[0].concat(M[1]).indexOf(i)>=0)used=true});if(R.sits.indexOf(i)>=0)used=true});
     if(used){var m='<b>'+esc(who)+'</b> has already played or sat a round. Tap <b>Out</b> instead, so the played rounds stay right.';setFlash(m);renderAll();$('#sitNote').innerHTML=m;return}
   }
   var last=S.n-1,fill=S.type==='fixed'&&i<last,filler=nm(last);
   function mv(x){return fill?(x===last?i:x):(x>i?x-1:x)}
   function fix(list){return list.filter(function(x){return x!==i}).map(mv)}
-  if(started())S.sched=S.sched.slice(0,S.now+1).map(function(R){
-    return {matches:R.matches.map(function(M){return [M[0].map(mv),M[1].map(mv)]}),sits:fix(R.sits),away:fix(R.away||[]),req:R.req};
+  if(lk>0)S.sched=S.sched.slice(0,lk).map(function(R){
+    return {matches:R.matches.map(function(M){return [M[0].map(mv),M[1].map(mv)]}),sits:fix(R.sits),away:fix(R.away||[]),req:R.req,score:R.score,t:R.t};
   });
   if(fill){S.slots[i]=S.slots[last];S.slots.pop()}else S.slots.splice(i,1);
   S.n--;S.out=fix(S.out);
@@ -877,6 +925,17 @@ function addName(i){
 
 document.addEventListener('change',function(e){
   var t=e.target;
+  if(t.dataset&&t.dataset.score){
+    var a=t.dataset.score.split(',').map(Number),R=S.sched[a[0]];if(!R)return;
+    var v=t.value===''?null:Math.max(0,Math.min(99,parseInt(t.value,10)||0));if(v!==null)t.value=v;
+    R.score=R.score||[];var sc=R.score[a[1]]||[null,null];sc[a[2]]=v;
+    R.score[a[1]]=(sc[0]==null&&sc[1]==null)?null:sc;
+    save();
+    var ins=document.querySelectorAll('[data-score^="'+a[0]+','+a[1]+',"]'),full=sc[0]!=null&&sc[1]!=null;
+    [].forEach.call(ins,function(x){var k=+x.dataset.score.split(',')[2];x.classList.toggle('won',full&&sc[k]>sc[1-k])});
+    for(var q=0;q<lockedFrom();q++){var rb=document.querySelector('[data-reshuffle="'+q+'"]');if(rb)rb.remove()}
+    renderSummary();renderStats();return;
+  }
   if(t.name==='type'){S.type=t.value;newSlot=-1;return generate()}
   if(t.dataset&&t.dataset.lvl!==undefined){var k=lkey(+t.dataset.lvl),g=S.levels[S.group];if(+t.value===3)delete g[k];else g[k]=+t.value;return generate()}
   if(t.id==='reqA'||t.id==='reqB'){S.req[t.id==='reqA'?'a':'b']=+t.value;S.req.at=[];return generate()}
@@ -907,7 +966,12 @@ document.addEventListener('click',function(e){
   if(d.add!==undefined)return addName(+d.add);
   if(d.cancel!==undefined){newSlot=-1;return renderSetup()}
   if(d.reshuffle!==undefined)return reshuffle(+d.reshuffle);
-  if(d.now!==undefined){S.now=Math.max(-1,Math.min(S.sched.length-1,+d.now));sel=null;save();return renderAll()}
+  if(d.now!==undefined){
+    var was=S.now;S.now=Math.max(-1,Math.min(S.sched.length-1,+d.now));
+    if(S.now>was&&S.sched[S.now]&&!S.sched[S.now].t)S.sched[S.now].t=Date.now();
+    for(var u=S.now+1;u<=was;u++)if(S.sched[u])delete S.sched[u].t;   /* undo: forget the start time */
+    sel=null;save();return renderAll();
+  }
   if(d.out!==undefined){
     var o=+d.out,oi=S.out.indexOf(o);if(oi>=0)S.out.splice(oi,1);else S.out.push(o);
     return generate();
@@ -923,7 +987,11 @@ document.addEventListener('click',function(e){
   }
   if(b.id==='regen'){S.prev={n:S.n,sched:JSON.parse(JSON.stringify(S.sched||[]))};return generate()}
   if(b.id==='undo'&&S.prev){var keep=S.sched;S.sched=S.prev.sched;S.prev={n:S.n,sched:keep};sel=null;syncAt();save();return renderAll()}
-  if(b.id==='startover'){S.now=-1;S.prev=null;return generate()}
+  if(b.id==='startover'){
+    if(pts().any&&b.dataset.sure!=='1'){b.dataset.sure='1';b.textContent='Tap again: clears scores too';setTimeout(function(){b.dataset.sure='';b.textContent='Start over'},3500);return}
+    b.dataset.sure='';b.textContent='Start over';
+    (S.sched||[]).forEach(function(R){delete R.score;delete R.t});S.now=-1;S.prev=null;return generate();
+  }
   if(b.id==='fill'){
     for(var i=0;i<S.slots.length;i++)if(!S.slots[i]){var next=S.roster.filter(function(x){return S.slots.indexOf(x)<0})[0];if(next)S.slots[i]=next}
     return refreshNames();
