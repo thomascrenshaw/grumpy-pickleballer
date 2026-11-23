@@ -1,4 +1,4 @@
-<!-- v1.13 — Round Robin (tool): public. Scores: optional per court, partial OK (timed days), "to 11" / "to 7" hint (7 when anyone sits); a scored round counts as played and is never reshuffled. Session points for / against / +/- in the stats table, no ranking. Round length from Start taps. v1.12.1: Version shown at the bottom of the page (keep it in sync with this line). v1.12: Skill balance: optional levels 1-4 per player, kept per group (Crew / Fast). Hard: two Newer never face a Strong; avoid two Strong partnering. Soft: even team totals. "Tough draw" tag on the organizer's screen only. v1.11: Share view-only link: the whole schedule rides in #view= (snapshot, read-only, never touches the viewer's saved data), with Find me. v1.10: "Remove from lineup" in each player dropdown: drops them, moves everyone below up, one fewer player. Partner request follows hand swaps: pair them up by hand and their game moves there (the nearest auto game goes away); split them and that round stops being theirs; reshuffles keep those choices. Home-screen app: Refresh button (shows only when opened from the home screen), icon (apple-touch-icon only, no manifest), short name. Partner requests. Mid-session: Start/Playing now, Out/Back, rebuild only the remaining rounds, Previous shuffle. Site links, house rules, per-round copy, #play= session links with roster dedupe and maybe-same-person checks, SEO guide + FAQ. -->
+<!-- v1.13.1 — Round Robin (tool): public. Fix: the Crew/Fast switch style (now .gseg) had overridden the format picker (.seg). v1.13: Scores: optional per court, partial OK (timed days), "to 11" / "to 7" hint (7 when anyone sits); a scored round counts as played and is never reshuffled. Session points for / against / +/- in the stats table, no ranking. Round length from Start taps. v1.12.1: Version shown at the bottom of the page (keep it in sync with this line). v1.12: Skill balance: optional levels 1-4 per player, kept per group (Crew / Fast). Hard: two Newer never face a Strong; avoid two Strong partnering. Soft: even team totals. "Tough draw" tag on the organizer's screen only. v1.11: Share view-only link: the whole schedule rides in #view= (snapshot, read-only, never touches the viewer's saved data), with Find me. v1.10: "Remove from lineup" in each player dropdown: drops them, moves everyone below up, one fewer player. Partner request follows hand swaps: pair them up by hand and their game moves there (the nearest auto game goes away); split them and that round stops being theirs; reshuffles keep those choices. Home-screen app: Refresh button (shows only when opened from the home screen), icon (apple-touch-icon only, no manifest), short name. Partner requests. Mid-session: Start/Playing now, Out/Back, rebuild only the remaining rounds, Previous shuffle. Site links, house rules, per-round copy, #play= session links with roster dedupe and maybe-same-person checks, SEO guide + FAQ. -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -160,9 +160,9 @@
   .nightnotes{font-size:15px;line-height:1.5;margin:0 0 10px;}
   .court-label .tag{margin-left:8px;letter-spacing:0;text-transform:none;vertical-align:1px;}
   .tag.tough{background:#fde7c8;color:#7a4a0c;}
-  .seg{display:inline-flex;border:1px solid var(--hair);border-radius:10px;overflow:hidden;margin:0 0 12px;}
-  .seg button{font:800 15px/1.2 var(--sans);padding:9px 16px;border:0;background:#fff;color:var(--ink);cursor:pointer;}
-  .seg button[aria-pressed=true]{background:var(--ink);color:#fff;}
+  .gseg{display:inline-flex;border:1px solid var(--hair);border-radius:10px;overflow:hidden;margin:0 0 12px;}
+  .gseg button{font:800 15px/1.2 var(--sans);padding:9px 16px;border:0;background:#fff;color:var(--ink);cursor:pointer;}
+  .gseg button[aria-pressed=true]{background:var(--ink);color:#fff;}
   .lvls{display:grid;gap:6px;}
   .lvl{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:16px;font-weight:700;}
   .lvl select{font:700 15px/1.2 var(--sans);padding:7px 8px;border-radius:9px;border:1px solid var(--hair);background:#fff;color:var(--ink);}
@@ -258,7 +258,7 @@
       <details class="req" id="skillBox">
         <summary>Skill balance (optional)</summary>
         <p class="note" style="margin:0 0 10px">Tag only the players at the edges; everyone else counts as Steady. Two Newer players partnered together never face a Strong player, two Strong players don't partner if it can be avoided, and the rest leans toward even games. Levels are kept per group, so someone can be Strong in one game and Steady in another. Only you see these; they never go in copied text or view-only links.</p>
-        <div class="seg" id="skillGroup" role="group" aria-label="Which group"></div>
+        <div class="gseg" id="skillGroup" role="group" aria-label="Which group"></div>
         <div class="lvls" id="skillList"></div>
         <p class="note" id="skillNote"></p>
       </details>
@@ -325,7 +325,7 @@
 
     <div class="foot">Your crew, your courts. It just does the math so nobody has to.
       <span class="xwink" style="display:block;margin-top:10px;">Not affiliated with <a href="https://doyouevendinkbro.com" style="color:inherit;text-decoration:underline;text-underline-offset:2px">doyouevendinkbro.com</a>. I've spoken to him about it, but he insists we're partners. We have never been seen in the same room.</span>
-      <span class="ver" style="display:block;margin-top:10px;font-size:13px;opacity:.7">Round Robin v1.13</span>
+      <span class="ver" style="display:block;margin-top:10px;font-size:13px;opacity:.7">Round Robin v1.13.1</span>
     </div>
   </div>
 

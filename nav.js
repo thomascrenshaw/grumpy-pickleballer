@@ -8,7 +8,7 @@
     { id: "before-you-play", name: "Before you play", pages: [
       ["warmup", "Dynamic Warm-Up"], ["knee-foot-routine", "Knee & Foot Routine"] ] },
     { id: "tools", name: "Tools", pages: [
-      ["round-robin", "Round Robin"] ] },
+      ["round-robin", "Round Robin"], ["team-match", "Team Match"] ] },
     { id: "positioning", name: "Positioning", pages: [
       ["positioning-basics", "Positioning Basics"], ["strategy-the-rope", "The Rope"], ["strategy-the-reset", "The Reset"] ] },
     { id: "playing-the-game", name: "Playing the game", pages: [
@@ -28,6 +28,7 @@
      That's all. The hub strip, the tile badges, the What's New page and
      "since your last visit" are all built from this list. */
   var UPDATES = [
+    ["team-match",           "2026-11-12", "new",     "Team Match: two teams of four, every pairing plays the other team, and a tie comes down to singles."],
     ["round-robin",          "2026-11-11", "updated", "Keep score: points for, against and +/− for the night, plus the closest game and the longest round."],
     ["round-robin",          "2026-11-10", "updated", "Skill balance: tag the edges, and newer players get a partner who can help."],
     ["sayings",              "2026-11-10", "updated", "New: There is no sorry in pickleball. Just the next point."],
@@ -63,7 +64,8 @@
     "strategy-stacking": ["positioning-basics", "communication"],
     "sayings": ["why-you-play", "mental-game", "getting-better"],
     "whats-new": ["sayings", "getting-better", "warmup"],
-    "round-robin": ["communication", "line-calls", "lose-like-a-winner"]
+    "round-robin": ["communication", "line-calls", "lose-like-a-winner"],
+    "team-match": ["communication", "line-calls", "lose-like-a-winner"]
   };
   var EXTRA = { "sayings": "Things I Say on the Court", "whats-new": "What's New" };
 
